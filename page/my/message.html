@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>系统信息</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			body{
+				background-color: #e5e5e5;
+			}
+			.mui-badge-primary{
+				background-color: #c3dfe3;
+				color: #000000;
+			}
+			.mui-navigate-right:after{
+				font-size: 30px;
+				color: #afd7ed;
+			}
+			.app-top{
+				width: 100%;
+				display: inline-block;
+				vertical-align: top;
+				position: relative;
+			}
+			.mui-table-view{
+				background-color: inherit;
+			}
+			.mui-table-view-cell{
+				padding: 0px 10px;
+				padding-top: 5px;
+				padding-bottom: 10px;
+				margin-bottom: 10px;
+			}
+			.mui-table-view-cell{
+				background-color: #FFFFFF;
+			}
+			.mui-table-view-cell:after,
+			.mui-table-view:before{
+				content: none;
+			}
+			.app-box .app-box-flex{
+				color: #777777;
+				padding-right: 20px;
+			}
+			.app-box span{
+				display: block;
+				color: #222222;
+				font-size: 14px;
+				width: 70px;
+				text-align: center;
+			}
+			.app-new:after{
+				content: '';
+				position: absolute;
+				margin: auto;
+				width: 15px;
+				height: 15px;
+				display: inline-block;
+				background-color: #feb05d;
+				right: 0;
+				border-radius: 100%;
+				top: 0;
+				bottom: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">系统消息</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view" id="J_list">
+				<!--<li class="mui-table-view-cell" data-messageid="1">
+					<div class="mui-slider-right mui-disabled">
+						<a class="mui-btn mui-btn-red" data-flag="del" data-messageid="1">删除</a>
+					</div>
+					<div class="mui-slider-handle">
+						<div class="app-top app-new">
+							<span class="mui-badge mui-badge-primary mui-pull-left">
+								问答推荐
+							</span>
+							
+						</div>
+						<div class="app-box">
+							<p class="app-box-flex mui-ellipsis">app系统内点对点推荐；后台推荐具有专题性，可图文；带有跳转功能；</p>
+							<span>2015-9-24</span>
+						</div>
+					</div>
+				</li>-->
+			</ul>
+		</div>
+	</body>
+</html>
+<script src="../../js/mui.min.js" ></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/UserInfo.js" ></script>
+<script>
+	var btnArray = ['确认', '取消'];
+	mui.init();
+	mui.plusReady(function(){
+		var sessionId = app.sessionId();
+		var J_list	= document.getElementById('J_list');
+		
+		//数据处理
+		var server	= SITE + "myMessage/ajaxList";
+//		console.log(sessionId);
+//		console.log(server+'?sessionId='+sessionId);
+		mui.get(server, {sessionId:sessionId}, function(response) {
+			if(empty(response) == false){
+				J_list.innerHTML = response;
+			}
+		}, 'html');
+		//操作
+		mui("#J_list").on('tap', 'li', function(){
+			var elem 	= this;
+			var messageid 	= this.dataset.messageid;
+			
+			var suburl 	= "../my/message-details.html";
+			openwindow(suburl, {messageid:messageid});
+		});
+		mui("#J_list").on('tap', 'a', function(){
+			var elem 	= this;
+			var flag 	= this.dataset.flag;
+			var messageid 	= this.dataset.messageid;
+
+			if(flag == 'view'){
+				var suburl 	= "../my/message-details.html";
+				openwindow(suburl, {messageid:messageid});
+			}else{
+				mui.confirm('确认删除该条记录？', '', btnArray, function(e) {
+					if (e.index == 0) {
+		                // 删除数据库记录
+		                var delUrl 	= SITE + 'myMessage/ajaxDelMessage';
+//		                console.log(delUrl + '?id='+messageid+'&sessionId='+sessionId);
+		                mui.post(delUrl, {id:messageid, sessionId:sessionId}, function(response){
+//		                    console.log(JSON.stringify(response));
+		                    if(response.code == 1) {
+		                        // 重新获取消息列表数据
+		                        mui.post(SITE + 'myMessage/ajaxList', {sessionId:sessionId}, function(resp){
+		                            if(resp!='') {
+		                            	J_list.innerHTML = resp;
+		                            }else{
+		                            	J_list.innerHTML = '';
+		                            }
+		                        });
+		                        plus.nativeUI.toast(response.msg, {duration: "short"});
+		                    }else {
+		                        plus.nativeUI.toast(response.msg, {duration: "short"});
+		                    }
+		                }, 'json');
+					}
+				});
+				
+			}
+		});
+	});
+</script>

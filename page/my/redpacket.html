@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>我的红包</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			.mui-content{
+				padding: 10px !important;
+				padding-top: 54px !important;
+			}
+			.app-header{
+				background-color: #ffffff;
+				border-radius: 5px;
+				font-size: 14px;
+				color: #222222;
+			}
+			.mui-table-view .mui-active{
+				background-color: inherit;
+			}
+			.app-slider.app-title{
+				padding: 0px 10px;
+			}
+			.app-number{
+				width: 50px;
+				text-align: center;
+				color: #000000;
+			}
+			.app-time{
+				width: 130px;
+				color: #777777;
+				text-align: right;
+			}
+			.app-slider{
+				font-size: 14px;
+			}
+			.app-slider.app-title{
+				background-color: #4cc4d4;
+				border-top-left-radius: 5px;
+				border-top-right-radius: 5px;
+			}
+			.app-slider.app-title>div{
+				color: #FFFFFF;
+				font-size: 16px;
+			}
+			.app-slider .app-box-flex{
+				color: #000444;
+			}
+			.app-content .mui-table-view-cell{
+				padding: 10px;
+			}
+			.app-content{
+				background-color: #FFFFFF;
+				border-radius: 5px;
+				margin-top: 10px;
+			}
+			.mui-btn-red{
+				background-color: #ff425d;
+			}
+			.app-header .app-title{
+				font-size: 15px;
+				padding-top: 10px;
+			}
+			.app-number-bottom{
+				text-align: center;
+				padding: 10px 0;
+			}
+			.mui-numbox{
+				width: 250px;
+				height: 30px;
+				border: 0;
+				padding: 0 100px;
+				background-color: #FFFFFF;
+			}
+			.mui-numbox [class*=mui-numbox-btn]{
+				width: 80px;
+				font-size: 14px;
+				background-color: #4cc4d4;
+				color: #FFFFFF;
+				border: 0;
+			}
+			.mui-numbox .mui-numbox-input{
+				background-color: #e2e2e2;
+				border: 1px solid red;
+				font-size: 15px;
+			}
+			.mui-numbox [class*=mui-numbox-btn][disabled] {
+				background-color: #9cd2e0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的红包</h1>
+		</header>
+		<div class="mui-content">
+			<div class="app-header">
+				<div class="app-title">我的红包</div>
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<div class="mui-pull-left">总金额</div>
+						<div class="mui-pull-right" id="J_totalmoney">￥0.00</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-pull-left">已使用金额</div>
+						<div class="mui-pull-right" id="J_outmoney">￥0.00</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-pull-left">可用金额</div>
+						<div class="mui-pull-right" id="J_balance">￥0.00</div>
+					</li>
+				</ul>
+			</div>
+			<div class="app-content">
+				<div class="app-slider app-box app-title">
+					<div class="app-box-flex">红包来源</div>
+					<div class="app-number">数量</div>
+					<div class="app-time">时间</div>
+				</div>
+				<ul class="mui-table-view" id="J_list">
+					<li class="mui-table-view-cell">
+						<div class="mui-slider-right mui-disabled">
+							<a class="mui-btn mui-btn-red">删除</a>
+						</div>
+						<div class="mui-slider-handle">
+							<div class="app-slider app-box">
+								<div class="app-box-flex">每日签到</div>
+								<div class="app-number">15</div>
+								<div class="app-time">2015-09-25  24 : 22</div>
+							</div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-slider-right mui-disabled">
+							<a class="mui-btn mui-btn-red">删除</a>
+						</div>
+						<div class="mui-slider-handle">
+							<div class="app-slider app-box">
+								<div class="app-box-flex">每日签到</div>
+								<div class="app-number">15</div>
+								<div class="app-time">2015-09-25  24 : 22</div>
+							</div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-slider-right mui-disabled">
+							<a class="mui-btn mui-btn-red">删除</a>
+						</div>
+						<div class="mui-slider-handle">
+							<div class="app-slider app-box">
+								<div class="app-box-flex">每日签到</div>
+								<div class="app-number">15</div>
+								<div class="app-time">2015-09-25  24 : 22</div>
+							</div>
+						</div>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="mui-slider-right mui-disabled">
+							<a class="mui-btn mui-btn-red">删除</a>
+						</div>
+						<div class="mui-slider-handle">
+							<div class="app-slider app-box">
+								<div class="app-box-flex">每日签到</div>
+								<div class="app-number">15</div>
+								<div class="app-time">2015-09-25  24 : 22</div>
+							</div>
+						</div>
+					</li>
+				</ul>
+				<div class="app-number-bottom" id='J_servicenum'>
+					
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../js/common.js" ></script>
+<script type="text/javascript" src="../../js/UserInfo.js" ></script>
+<script type="text/javascript" charset="utf-8">
+mui.init();
+var page = 0;
+var totalNum = 0;
+var sessionId;
+var J_servicenum 	= document.getElementById('J_servicenum');
+var first = true;
+mui.plusReady(function(){
+	var pwid = plus.webview.currentWebview().pwid;
+	var pw = plus.webview.getWebviewById(pwid);
+	sessionId = app.sessionId();
+	
+	//我的红包
+	var ajaxUrl	= SITE + "my/ajaxMyMoney?sessionId="+sessionId;
+	mui.getJSON(ajaxUrl, {sessionId:sessionId}, function(response){
+		if(response.code == 1){
+			var outmoney	= response.totalredpacket - response.redpacket;
+			outmoney = outmoney.toFixed(2); // 格式化金额
+			document.getElementById("J_totalmoney").innerText = '￥'+response.totalredpacket;
+			document.getElementById("J_outmoney").innerText = '￥'+outmoney;
+			document.getElementById("J_balance").innerText = '￥'+response.redpacket;
+			totalNum = response.totalNum;
+		}
+	});
+	getRedPacketList(sessionId, page);
+	//翻页
+	mui(".app-number-bottom").on("change", "input", function(){
+		page	= document.getElementById('J_pageNumber').value-1;
+		console.log(page);
+		var obj = this;
+		getRedPacketList(sessionId, page,obj);
+	});
+	// 删除红包记录
+	mui('#J_list').on('tap', '.J_delete', function(){
+		alert(1);
+		var packetID = this.dataset.packetid;
+		console.log(packetID);
+		// DeleteRedPacket
+		var server = SITE + 'my/DeleteRedPacket';
+//		console.log('url:' + server); 
+		mui.ajax(server,{
+			data:{
+				packetID:packetID,
+				sessionId:sessionId
+			},
+			dataType:'json',//服务器返回json格式数据
+			type:'post',//HTTP请求类型
+			timeout:10000,//超时时间设置为10秒；
+			success:function(response){
+			    if(response.code == 1) { // 获取成功 id="J_cardno_num"
+			        alert(response.msg);
+			        // 刷新列表
+			        getRedPacketList(sessionId, page);
+			    }else {
+			        alert(response.msg);
+			    }
+		    }
+		});
+	});
+});
+/**
+ * 获取红包记录列表
+ * @param {Object} sessionId
+ */
+function getRedPacketList(sessionId, page,obj) {
+	plus.nativeUI.showWaiting('正在加载...');
+    var server = SITE + 'my/redpacket';
+	mui.getJSON(server, {sessionId:sessionId, page:page}, function(response) {
+		if(response.code == 1){
+			document.getElementById('J_list').innerHTML = response.html;
+			if(first){
+				first = false;
+				var strVar = "";
+			    strVar += "<div class=\"mui-numbox\" data-numbox-min='1' data-numbox-max= '"+response.totalPage+"' >";
+			    strVar += "<button class=\"mui-btn mui-numbox-btn-minus\" type=\"button\">上一页<\/button>";
+			    strVar += "<input id='J_pageNumber'  class=\"mui-numbox-input\" type=\"number\" id=\"box\" disabled=\"disabled\" value='1' />";
+			    strVar += "<button class=\"mui-btn mui-numbox-btn-plus\" type=\"button\">下一页<\/button>";
+			    strVar += "<\/div>";
+			    J_servicenum.innerHTML = strVar;
+			    mui('.mui-numbox').numbox();
+			};
+			
+		};
+	});
+    plus.nativeUI.closeWaiting();
+}
+
+
+</script>

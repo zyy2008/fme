@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>个人信息</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			html,
+			body {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+			}
+			header{
+				position: absolute;
+			}
+			.mui-bar-nav~.mui-content{
+				padding-top: 0;
+			}
+			.mui-content{
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 44px;
+				bottom: 0px;
+				overflow-y: auto;
+				z-index: 0;
+				background-color: #eeeeee;
+			}
+			.mui-page .mui-table-view:first-child {
+				margin-top: 15px;
+			}
+			.mui-page .mui-table-view:last-child {
+				margin-bottom: 30px;
+			}
+			.mui-table-view {
+				margin-top: 20px;
+				font-size: 15px;
+				background-color: #FFFFFF;
+			}
+			
+			.mui-table-view span.mui-pull-right {
+				color: #333333;
+				padding-right: 20px;
+			}
+			.mui-table-view-divider {
+				background-color: #efeff4;
+				font-size: 14px;
+			}
+			.mui-table-view-divider:before,
+			.mui-table-view-divider:after {
+				height: 0;
+			}
+			.head-img {
+				width: 60px;
+				height: 60px;
+				border-radius: 100%;
+			}
+			.mui-table-view-cell.mui-active{
+				background-color: inherit;
+			}
+			.mui-collapse-content{
+				margin-right: -65px !important;
+				padding: 0 !important;
+				border-top: 1px solid #c8c7cc;
+			}
+			.mui-collapse-content .mui-table-view{
+				margin-top: 0 !important;  
+				margin-bottom: 0 !important;
+			}
+			.mui-collapse-content .mui-table-view-cell{
+				padding-right: 30px;
+			}
+			.app-mood span:not(.app-box-flex){
+				position: absolute;
+				top: 50%;
+				-webkit-transform: translateY(-50%);
+				transform: translateY(-50%);
+			}
+			.app-mood .app-box-flex{
+				overflow : hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+				color: #333333;
+				padding-left: 50px;
+				white-space: initial !important;
+				min-height: 21px;
+				padding-right: 20px;
+			}
+			.app-app{
+				line-height: 30px;
+			}
+			.app-app>li{
+				padding: 7px 15px;
+			}
+			.app-app .mui-icon{
+				width: 30px;
+				height: 30px;
+			}
+			.app-label span,
+			.app-label a{
+				display: block;
+			}
+			.app-label .app-box-flex{
+				color: #000000;
+				padding: 0px 5px;
+				min-height: 24px;
+				padding-left: 80px;
+				padding-right: 30px;
+			}
+			.mui-badge-primary{
+				margin: 0px 2px;
+				border: 1px solid #FFFFFF;
+			}
+			.mui-table-view:last-child{
+				margin-bottom: 30px;
+			}
+			.mui-content>p{
+				color: #000000;
+				font-size: 15px;
+				padding: 0px 20px;
+				margin-bottom: 0;
+				line-height: 40px;
+			}
+			.app-list-head{
+				padding: 5px 15px;
+			}
+			.app-list-head a{
+				margin: -5px -15px !important;
+			}
+			.app-list-head .head-info{
+				height: 60px;
+				display: inline-block;
+				vertical-align: top;
+				padding-top: 25px;
+			}
+			.mui-icon-info{
+				color: #2d81c2;
+			}
+			.app-view-add .app-label-name{
+				width: 80px;
+				color: #666;
+				position: absolute;
+				top: 50%;
+				-webkit-transform: translateY(-50%);
+				transform: translateY(-50%);
+			}
+			.app-view-add .mui-icon{
+				line-height: 56px;
+				font-size: 30px;
+			}
+			.app-view-add .mui-btn{
+				background-color: #4cc4d4;
+				border: 0;
+				color: #FFFFFF;
+				font-size: 20px;
+				padding: 0px 6px;
+				position: absolute;
+				top: 50%;
+				-webkit-transform: translateY(-50%);
+				transform: translateY(-50%);
+				right: 15px;
+			}
+			.mui-table-view-cell>a:not(.mui-btn){
+				color: #666;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">个人信息</h1>
+		</header>
+		<div class="mui-content">
+			<!--<p>完善个人信息，可得100元红包奖励！<span class="mui-icon mui-icon-info"></span></p>-->
+			<ul class="mui-table-view" style="margin-top: 0;">
+				<li class="mui-table-view-cell app-list-head">
+					<a id="J_avatar" class="mui-navigate-right">
+						<div class="head-info">头像</div>
+						<span class="mui-pull-right head" id="avatar">
+							<img class="head-img mui-action-preview" id="head-img1" src="../../img/head.png"/>
+						</span>
+					</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="J_nickname" class="mui-navigate-right">昵称<span class="mui-pull-right" id="nickname"></span></a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="J_gender" class="mui-navigate-right">性别<span class="mui-pull-right" id="gender"></span></a>
+				</li>
+				
+				<li class="mui-table-view-cell">
+					<a id="J_birthday" class="mui-navigate-right">生日<span class="mui-pull-right" id="birthday"></span></a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a id="J_localcity" class="mui-navigate-right">所在地<span class="mui-pull-right" id="localcity"></span></a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right">
+						<div class="app-box app-mood" id="J_feeling">
+							<span>心情</span>
+							<span class="app-box-flex" id="feeling">
+								
+							</span>
+						</div>
+					</a>
+				</li>
+			</ul>
+			<!--<ul class="mui-table-view mui-table-view-chevron app-set">
+				<li class="mui-table-view-cell mui-collapse">
+					<a class="mui-navigate-right" href="#">账号绑定</a>
+					<div class="mui-collapse-content">
+						<ul class="mui-table-view app-app">
+							<li class="mui-table-view-cell">
+								<div class="mui-icon app-icon-weixin"></div>
+								<span>微信</span>
+								<span class="mui-pull-right" id="J_bind_weixin">未绑定</span>
+							</li>
+							<li class="mui-table-view-cell">
+								<div class="mui-icon app-icon-qq"></div>
+								<span>QQ</span>
+								<span class="mui-pull-right" id="J_bind_qq">未绑定</span>
+							</li>
+							<li class="mui-table-view-cell">
+								<div class="mui-icon app-icon-weibo"></div>
+								<span>微博</span>
+								<span class="mui-pull-right" id="J_bind_weibo">未绑定</span>
+							</li>
+						</ul>
+					</div>
+				</li>
+			</ul>-->
+			<ul class="mui-table-view app-view-add">
+				<li class="mui-table-view-cell">
+					<div class="app-box app-label">
+						<span class="app-label-name">我的标签</span>
+						<span class="app-box-flex" id="myLabel">
+						</span>
+						<button class="mui-btn" id="addlabel">+</button>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="app-box app-label">
+						<span class="app-label-name">想去的地方</span>
+						<span class="app-box-flex" id="J_wanttoBox">
+						
+						</span>
+						<button class="mui-btn" id="J_wantto">+</button>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="app-box app-label">
+						<span class="app-label-name">熟悉的地方</span>
+						<span class="app-box-flex" id="J_knowBox">
+						
+						</span>
+						<button class="mui-btn" id="J_know">+</button>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../js/mui.view.js "></script>
+<script type="text/javascript" src="../../js/common.js "></script>
+<script type="text/javascript" src="../../js/UserInfo.js"></script>
+<script>
+var picpath = null;
+var sessionId = null;
+var tid;
+mui.init({
+	beforeback: function(){
+		var pwid = plus.webview.currentWebview().from;
+		var pw = plus.webview.getWebviewById(pwid);
+		//触发列表界面的自定义事件（refresh）,从而进行数据刷新
+		mui.fire(pw,'backFunc',{flag:'ref'});
+		//返回true，继续页面关闭逻辑
+		return true;
+	}
+});
+mui.plusReady(function(){
+	sessionId = app.sessionId();
+	tid = plus.webview.currentWebview().id	//当前页面webviewid
+	window.addEventListener('getInfo', function(event) {
+		var value 	= event.detail.value;
+		var name 	= event.detail.name;
+		var locationID = event.detail.id;
+		
+		document.getElementById('localcity').innerText = value;
+		var server 	= SITE + 'mySetting/saveLocalcity';
+		var param 	= {locationID:locationID, sessionId:sessionId};
+		mui.post(server, param, function(response) {
+			if(response.code == 1){
+				alert(response.msg);
+				//document.getElementById('gender').innerHTML=text;
+			}
+		},'json');
+	}); 
+	// 获取页面值
+	var server = SITE + 'mySetting/personalSetting';
+	mui.ajax(server,{
+		data:{
+			sessionId:sessionId
+		},
+		dataType:'json',//服务器返回json格式数据
+		type:'post',//HTTP请求类型
+		timeout:10000,//超时时间设置为10秒；
+		success:function(response){
+			if(response.code == 1) {
+				// 用户头像
+				if(! empty(response.data.UserInfo.face)) {
+					document.getElementById('avatar').innerHTML = "<img class='head-img mui-action-preview' src='" + UPLOADDIR + '/' + response.data.UserInfo.face + "'>";
+				}else {
+					// 默认头像
+				}
+				// 昵称
+				if(! empty(response.data.UserInfo.nickname)) {
+					document.getElementById('nickname').innerText = response.data.UserInfo.nickname;
+				}else {
+					document.getElementById('nickname').innerText = '请输入昵称';
+				}
+				// 性别
+				if(! empty(response.data.UserInfo.gender)) {
+					if(response.data.UserInfo.gender == 1) {
+						document.getElementById('gender').innerText = '男';
+					}else if(response.data.UserInfo.gender == 2) {
+						document.getElementById('gender').innerText = '女';
+					}else {
+						document.getElementById('gender').innerText = '未知';
+					}
+				}
+				// 生日
+				if(empty(response.data.UserInfo.birthday) == false) {
+					document.getElementById('birthday').innerText = response.data.UserInfo.birthday;
+				}
+				// 所在地
+				if(! empty(response.data.UserInfo.localcitytext)) {
+					document.getElementById('localcity').innerText = response.data.UserInfo.localcitytext;
+				}
+				// 今日心情
+				if(! empty(response.data.UserInfo.feeling)) {
+					document.getElementById('feeling').innerText = response.data.UserInfo.feeling;
+				}
+				// 账号绑定信息
+				if(response.data.bindInfo.length > 0) {
+					for(var item in response.data.bindInfo) {
+						if(response.data.bindInfo[item].provider == 'sinaweibo') {
+							document.getElementById('J_bind_weibo').innerText = '已绑定';
+						}else if(response.data.bindInfo[item].provider == 'weixin') {
+							document.getElementById('J_bind_weixin').innerText = '已绑定';
+						}else if(response.data.bindInfo[item].provider == 'qq') {
+							document.getElementById('J_bind_qq').innerText = '已绑定';
+						}
+					}
+				}
+				//console.log('tags:' + response.data.UserInfo.tags);
+				// 我的标签
+				if(! empty(response.data.UserInfo.tags)) {
+					document.getElementById('myLabel').innerHTML = response.data.UserInfo.tags;
+				}
+				//想去的地方
+				if(! empty(response.data.UserInfo.wantto)) {
+					document.getElementById('J_wanttoBox').innerHTML = response.data.UserInfo.wantto;
+				}
+				//熟悉的地方
+				if(! empty(response.data.UserInfo.know)) {
+					document.getElementById('J_knowBox').innerHTML = response.data.UserInfo.know;
+				}
+			}
+		},
+		error:function(xhr,type,errorThrown){
+			//异常处理；
+			console.log(type);
+		}
+	});
+	// 头像 J_avatar
+	document.getElementById('J_avatar').addEventListener('tap', function(event){
+		fileUpload(sessionId);
+	});
+	// 昵称
+	document.getElementById('J_nickname').addEventListener('tap', function(event){
+		openwindow('../set/alone-nickname.html', {pwid:tid});
+	});
+	// 性别
+	document.getElementById('J_gender').addEventListener('tap', function(event){
+		var btnArray = [{title:"男"},{title:"女"}];
+		plus.nativeUI.actionSheet( {
+			title:"选择性别",
+			cancel:"取消",
+			buttons:btnArray
+		}, function(e){
+			var index = e.index;
+			gender = e.index;
+			var text = "";
+			switch (index){
+				case 1: text += "男"; break;
+				case 2: text += "女"; break;
+				case 3: text += "未知"; break;
+			}
+			if(text!=""&&text!=null){
+				//更新性别
+				document.getElementById('gender').innerText = text;
+				var server 	= SITE + 'mySetting/saveGender';
+				var param 	= {gender:index, sessionId:sessionId};
+				mui.post(server, param, function(response) {
+					if(response.code == 1){
+						alert(response.msg);
+					}
+				},'json');
+			}
+		} );
+	});
+//	// 出生日期
+	document.getElementById('J_birthday').addEventListener('tap', function(event){
+		var maxDate = new Date();
+		maxDate.setFullYear(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate());
+		plus.nativeUI.pickDate(function(e) {
+			var d = e.date;
+			var D =  d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+			birthday = D;
+			document.getElementById('birthday').innerHTML = D ;
+			var server 	= SITE + 'mySetting/saveBirthday';
+			mui.post(server, {birthday:D, sessionId:sessionId}, function(response) {
+				if(response.code == 1){
+					alert(response.msg);
+				}
+			},'json');
+		},function(e) {
+			console.log("您没有选择日期");
+		}, {
+			title: "请选择日期",
+			maxDate:maxDate
+		});
+	});
+	// 所在地
+	document.getElementById('J_localcity').addEventListener('tap', function(event){
+		openwindow('../public/area1.html', {pwid:tid});
+	});
+	// 今日心情
+	document.getElementById('J_feeling').addEventListener('tap', function(event){
+		openwindow('../set/alone-feeling.html', {pwid:tid});
+	});
+	// 添加标签
+	document.getElementById('addlabel').addEventListener('tap', function(event){
+//		openwindow('../set/cate-mytags.html', {pwid:tid});
+		openwindow('../set/add-label.html', {pwid:tid});
+	});
+	// 想去的地方
+	document.getElementById('J_wantto').addEventListener('tap', function(event){
+		openwindow('../public/place-wantto.html', {pwid:tid});
+	});
+	// 熟悉的地方
+	document.getElementById('J_know').addEventListener('tap', function(event){
+		openwindow('../public/place-know.html', {pwid:tid});
+	});
+	//监听回调
+	window.addEventListener('backFunc', function(event) {
+		var value 	= event.detail.value;
+		var flag 	= event.detail.flag;
+		switch(flag) {
+			case 'nickname':
+				document.getElementById('nickname').innerText = value;
+				break;
+			case 'feeling':
+				document.getElementById('feeling').innerText = value;
+				break;
+			case 'tags':
+				document.getElementById('myLabel').innerHTML = value;
+				break;
+			case 'wantto':
+				document.getElementById('J_wanttoBox').innerHTML = value;
+				break;
+			case 'know':
+				document.getElementById('J_knowBox').innerHTML = value;
+				break;
+			case 'locale':
+				var txt = event.detail.txt;
+				document.getElementById('localcity').innerText = txt;
+				break;
+		}
+	}); 
+});
+// 头像处理
+var server= SITE + 'mySetting/saveAvatar';
+function fileUpload(sessionId){
+	var bts=[{title:"拍照"},{title:"从相册中选择"}];
+	plus.nativeUI.actionSheet({cancel:"取消",buttons:bts}, function(e){
+		if(e.index==1){
+			// 拍照添加文件
+			plus.camera.getCamera().captureImage(function(p){
+				plus.io.resolveLocalFileSystemURL(p, function(entry) {
+					mui.openWindow({
+						url: '../public/cropper.html',
+						id: '../public/cropper.html',
+						extras: {
+							path: "file:///" + entry.fullPath,
+							change: "cem",
+							pid:tid,
+							w:'200',
+							h:'200',
+							how:'1 / 1'
+						}
+					});
+				}, function(e) {
+					mui.toast(e.message);
+				});
+			});	
+		}else if(e.index==2){
+			// 从相册添加文件
+			plus.gallery.pick(function(p){
+				mui.openWindow({
+					url: '../public/cropper.html',
+					id: '../public/cropper.html',
+					extras: {path: p, change: "open", pid:tid,w:'200',h:'200',how:'1 / 1' }
+				});
+			});
+		}
+	}
+)};
+
+window.addEventListener('upd',function(e){
+	var path = e.detail.turl;
+	upload(path,sessionId);
+});
+
+// 上传文件	
+function upload(path, sessionId){
+	var wt 		= plus.nativeUI.showWaiting();
+	var ajaxUrl = server + '?sessionId=' + sessionId;
+	var param 	= {method:"POST",blocksize:204800,priority:100};
+	var task 	= plus.uploader.createUpload(ajaxUrl, param, function(t,status){ //上传完成
+	if(status==200){
+		var picdir = JSON.parse(t.responseText);
+		console.log(picdir.uid);
+		picpath = picdir.paththumbname;
+		document.getElementById('avatar').innerHTML = "<img class='head-img mui-action-preview' src='" + UPLOADDIR + '/' + picpath + "'>";
+		// plus.nativeUI.alert("上传成功："+t.state);
+		//param['themePicdir'] = picdir.paththumbname;
+	}else{
+		plus.nativeUI.alert("上传失败："+status);
+	}
+	wt.close();
+});
+var n=path.substr(path.lastIndexOf('/')+1);
+	task.addFile(path,{name:n});
+	task.start();
+}
+</script>

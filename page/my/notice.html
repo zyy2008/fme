@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>通知</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			.mui-table-view{
+				background-color: #FFFFFF;
+				margin-top: 10px !important;
+				font-size: 14px;
+			}
+			.mui-navigate-right img{
+				width: 18px;
+				vertical-align: bottom;
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				-webkit-transform: translateY(-50%);
+				left: 15px;
+			}
+			.app-new:before{
+				content: '';
+				position: absolute;
+				width: 10px;
+				height: 10px;
+				display: inline-block;
+				vertical-align: top;
+				border-radius: 100%;
+				background-color: #ff425d;
+				right: 40px;
+				top: 50%;
+				-webkit-transform: translateY(-50%);
+				transform: translateY(-50%);
+			}
+			.mui-table-view-cell{
+				padding-left: 40px;
+			}
+			.mui-table-view-cell>a:not(.mui-btn){
+				margin-left: -40px;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">通知</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="../my/message.html" class="mui-navigate-right" id="J_message"><img src="../../img/icon/notice1.png" />系统消息
+					</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="../my/fans.html" class="mui-navigate-right" id="J_fans"><img src="../../img/icon/notice2.png" />我的粉丝</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="../my/focus.html" class="mui-navigate-right" id="J_focus"><img src="../../img/icon/notice3.png" />我的关注</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a href="../my/chat-list.html" class="mui-navigate-right" id="J_sixin"><img src="../../img/icon/notice4.png" />我的私信</a>
+				</li>
+				<li class="mui-table-view-cell">
+					<a href="../my/post-comment.html" class="mui-navigate-right" id="J_comments"><img src="../../img/icon/notice5.png" />收到的评论</a>
+				</li>
+			</ul>
+			<ul class="mui-table-view">
+				<!--<li class="mui-table-view-cell">
+					<a href="../my/post-ask.html" class="mui-navigate-right" id="J_ask"><img src="../../img/icon/notice6.png" style="width: 12px; margin-right: 20px;" />问答</a>
+				</li>-->
+				<li class="mui-table-view-cell">
+					<a href="../my/post-support.html" class="mui-navigate-right" id="J_support"><img src="../../img/icon/notice7.png" />收到的赞</a>
+				</li>
+			</ul>
+		</div>
+	</body>
+</html>
+<script src="../../js/mui.min.js" ></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/UserInfo.js"></script>
+<script>
+var sessionId,
+	self,
+	thisid;
+mui.init();
+mui.plusReady(function(){
+	self 	= plus.webview.currentWebview();
+	thisid 	= self.id;
+	sessionId = app.sessionId();
+	var J_message	= document.getElementById('J_message');
+	var J_fans		= document.getElementById('J_fans');
+	var J_focus		= document.getElementById('J_focus');
+	var J_sixin		= document.getElementById('J_sixin');
+	var J_comments	= document.getElementById('J_comments');
+//	var J_ask		= document.getElementById('J_ask');
+	var J_support	= document.getElementById('J_support');
+	
+	initPage();
+	
+	//跳转处理
+	mui(".mui-content").on('tap', 'a', function(){
+		sessionId = app.sessionId();
+		if(empty(sessionId) == true){
+			alert("不能访问，请先登录");
+			return false;
+		}
+		var suburl 	= this.href;
+		var flag 	= this.id;
+		var J_new = this.classList.contains('app-new');
+		if(J_new){
+			//去掉最新新用户通知
+			sessionId = app.sessionId();
+			var ajaxUrl	= SITE + "my/ajaxSetNotice";
+			mui.getJSON(ajaxUrl, {sessionId:sessionId,flag:flag}, function(response) {
+				if(response.code == 1){
+				}
+			});
+			this.classList.remove('app-new');
+			openwindow(suburl, {from:thisid});
+		}else{
+			openwindow(suburl, {from:thisid});
+		}
+	});
+	//回调函数
+	window.addEventListener('backFunc',function(e){
+		sessionId = app.sessionId();
+		if(e.detail.flag == 'ref'){
+			initPage();
+		}
+	});
+	//返回
+	mui('header').on('tap', '.mui-action-back', function(){
+		var pw 	= plus.webview.getWebviewById('page/my/not-login.html');
+		mui.fire(pw, "backFunc", {flag:'ref'});
+	});
+});
+function initPage()
+{
+	sessionId = app.sessionId();
+	//数据处理
+	var server	= SITE + "my/notice?sessionId="+sessionId;
+	mui.getJSON(server, {sessionId:sessionId}, function(response) {
+		if(response.code == 1){
+			var last 	= JSON.stringify(response.data);
+			if(response.data.systemnew == 1) J_message.classList.add('app-new');
+			if(response.data.fansnum == 1) J_fans.classList.add('app-new');
+//			if(response.data.focusnew == 1) J_focus.classList.add('app-new');
+			if(response.data.privatenew == 1) J_sixin.classList.add('app-new');
+			if(response.data.commentnew == 1) J_comments.classList.add('app-new');
+			if(response.data.supportnew == 1) J_support.classList.add('app-new');
+		}
+	});
+}
+</script>

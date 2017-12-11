@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>绑定银行卡</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			body,
+			.mui-content{
+				background-color: #eeeeee;
+			}
+			.app-title:nth-child(1){
+				margin-top: 10px;
+			}
+			.app-title{
+				padding: 0px 15px;
+			}
+			.app-title .mui-btn{
+				margin-top: 2.5px;
+			}
+			.mui-btn{
+				background-color: #63bdd0;
+				color: #FFFFFF;
+				padding: 5px;
+				border: 0;
+				width: 70px;
+			}
+			.mui-table-view{
+				font-size: 14px;
+			}
+			.mui-table-view-cell:after{
+				left: 0;
+			}
+			.app-blue{
+				width: 85px;
+				display: inline-block;
+			}
+			input{
+				width: 180px !important;
+				font-family: "微软雅黑","microsoft yahei";
+				font-size: 15px;
+				margin-bottom: 0 !important;
+				padding: 5px 6px !important;
+				height: 30px !important;
+				border-radius: 0 !important;
+			}
+			.mui-btn-block{
+				font-size: 16px;
+				padding: 8px 20px;
+				border: 0;
+				margin-bottom: 0;
+				margin: 20px 0;
+				display: inline-block;
+				font-size: 14px;
+				width: 120px;
+			}
+			i.mui-pull-right{
+				font-style: inherit;
+				margin-right: 30px;
+			}
+			.mui-active.app-unactive{
+				background-color: #FFFFFF;
+			}
+			.app-content{
+				background-color: #FFFFFF;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">绑定银行卡</h1>
+		</header>
+		<div class="mui-content">
+			<div class="app-title">
+				绑定银行卡用于提现您的收益
+			</div>
+			<div class="app-content">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell app-unactive">
+						<span class="app-blue">姓名</span>
+						<input type="text" id="cardholder"/>
+					</li>
+					<li class="mui-table-view-cell app-unactive">
+						<span class="app-blue">银行卡号</span>
+						<input type="tel" id="cardno"/>
+					</li>
+					<li class="mui-table-view-cell">
+						<a  id="J_bank" class="mui-navigate-right">
+							<span class="app-blue">银行</span>
+							<i class="mui-pull-right update" id="J_bank_txt">
+								
+							</i>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a  id="J_banktype" class="mui-navigate-right">
+							<span class="app-blue">银行卡类型</span>
+							<i class="mui-pull-right update" id="J_banktype_txt"></i>
+						</a>
+					</li>
+					<li class="mui-table-view-cell app-unactive">
+						<span class="app-blue">手机号</span>
+						<input type="tel" maxlength="11" id="mobileno"/>
+					</li>
+				</ul>
+				<div class="mui-text-center">
+					<button class="mui-btn mui-btn-block" id="save">完成</button>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../../js/mui.min.js" ></script>
+		<script type="text/javascript" src="../../js/mui.view.js "></script>
+		<script type="text/javascript" src="../../js/common.js "></script>
+		<script type="text/javascript" src="../../js/UserInfo.js"></script>
+		<script type="text/javascript" src="../../js/update.js"></script>
+		<script>
+			mui.init();
+			mui.plusReady(function(){
+				var pwid = plus.webview.currentWebview().pwid;
+				var pw = plus.webview.getWebviewById(pwid);
+				var sessionId = app.sessionId();
+				var bankName = null; // 银行名称
+				var cardType = null; // 银行卡类型
+				// 获取当前页面信息
+			
+				var server = SITE + 'mySetting/getBankCardInfo';
+				mui.ajax(server,{
+					data:{
+						sessionId:sessionId
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					success:function(response){
+						//console.log(response.code);
+						if(response.code == 1) {
+							//console.log(response.data.cardholder);
+							document.getElementById('cardholder').value = response.data.cardholder;
+							document.getElementById('cardno').value = response.data.cardno;
+							document.getElementById('J_bank_txt').innerText = response.data.bankname_txt;
+							bankName = response.data.bankname;
+							document.getElementById('J_banktype_txt').innerText = response.data.cardtype_txt;
+							cardType = response.data.cardtype;
+							document.getElementById('mobileno').value = response.data.mobileno;
+							
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(xhr.response + ' type:' +type);
+					}
+				});
+				//监听回调
+				window.addEventListener('backFunc', function(event) {
+					var value 	= event.detail.value;
+					var flag 	= event.detail.flag;
+					var name 	= event.detail.name;
+					console.log(flag + value + name);
+					switch(flag) {
+						case 'bankcard':
+							document.getElementById('J_bank_txt').innerText = name;
+							bankName = value;
+							break;
+						case 'banktype':
+							document.getElementById('J_banktype_txt').innerText = name;
+							cardType = value;
+							break;
+					}
+				}); 
+				// 银行
+				document.getElementById('J_bank').addEventListener('tap', function(event){
+					var twid = plus.webview.currentWebview().id;
+					openwindow('../set/bankcard.html', {pwid:twid});
+				});
+				// 银行卡类行
+				document.getElementById('J_banktype').addEventListener('tap', function(event){
+					var twid = plus.webview.currentWebview().id;
+					openwindow('../set/bankcard-type.html',{pwid:twid});
+				});
+				// 保存
+				document.getElementById('save').addEventListener('tap', function(event){
+					console.log('# save');
+					var cardholder = document.getElementById('cardholder').value; // 持卡人
+					var cardno = document.getElementById('cardno').value; // 卡号
+					var mobileno = document.getElementById('mobileno').value; // 手机号码
+					
+					if(cardholder.length < 1) {
+						alert('姓名不能为空');
+						return false;
+					}
+					if(cardno.length < 1) {
+						alert('卡号不能为空');
+						return false;
+					}
+					if(bankName.length < 1) {
+						alert('请选择银行');
+						return false;
+					}
+					if( empty(cardType) ) {
+						alert('请选择银行卡类型');
+						return false;
+					}
+					if(mobileno.length < 1) {
+						alert('手机号码不能为空');
+						return false;
+					}
+					
+					var server = SITE + 'mySetting/saveBankCard';
+					mui.ajax(server,{
+						data:{
+							cardholder:cardholder,
+							cardno:cardno,
+							bankname:bankName,
+							cardtype:cardType,
+							mobileno:mobileno,
+							sessionId:sessionId
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						success:function(response){
+							//console.log(response.code);
+							if(response.code == 1) {
+								alert(response.msg);
+								
+								mui.back();
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							console.log(xhr.response + ' type: ' + type);
+						}
+					});
+				});
+			});
+		</script>
+	</body>
+</html>

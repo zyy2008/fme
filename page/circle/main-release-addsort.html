@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>发布添加兴趣分类</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			body{
+				background-color: #f7f7f7;
+			}
+			.mui-table-view-cell:after{
+				left: 0;
+			}
+			.mui-input-group{
+				font-size: 15px;
+			}
+			.mui-checkbox input[type=checkbox]:before{
+				content: none;
+			}
+			.mui-checkbox input[type=checkbox]:checked:before{
+				content: '\e472';
+				font-size: 30px;
+				font-weight: 600;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<button class="mui-btn  mui-pull-right" id="save">选择</button>
+			<h1 class="mui-title">兴趣分类</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group" id="cates">
+			</form>
+		</div>
+		<script type="text/javascript" src="../../js/mui.min.js" ></script>
+		<script type="text/javascript" src="../../js/common.js "></script>
+		<script type="text/javascript" src="../../js/UserInfo.js"></script>
+		<script>
+			mui.init();
+			mui.plusReady(function(){
+				var sessionId = app.sessionId();
+				var pwid = plus.webview.currentWebview().pwid;
+				var pw = plus.webview.getWebviewById(pwid);
+				
+				// 获取兴趣分类
+				var server = SITE + 'common/getCates';
+				//console.log(server);return false;
+				mui.ajax(server,{
+					data:{
+						sessionId:sessionId
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					success:function(response){
+						console.log(response.code); 
+						if(response.code == 1) {
+							/**
+							<div class="mui-input-row mui-checkbox">
+								<label>运动</label>
+								<input name="radio1" type="checkbox" checked>
+							</div>
+							**/
+							var html = '';
+							for(var item in response.data) {
+								var name = response.data[item].name;
+								var id = response.data[item].id;
+								html += '<div class="mui-input-row mui-checkbox"><label>'+name+'</label><input name="radio1" type="checkbox" value="'+id+'" data-cname="'+name+'"></div>';
+								//console.log('id:' + id + ', name:' + name);
+							}
+							document.getElementById('cates').innerHTML = html;
+						}else {
+							alert(response.msg);
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(xhr.response + type + errorThrown);
+					}
+				});
+				document.getElementById('save').addEventListener('tap', function(){
+					var cids 	= '';
+					var cnames 	= new Array();
+					var obj = document.getElementsByName("radio1");
+					
+					cids = getCheckboxVal(obj);
+					for(var i=0;i<obj.length;i++){
+					    if(obj[i].checked==true){
+					    	var cnameHtml = '<div class="mui-badge mui-badge-primary">'+ obj[i].dataset.cname+'</div> '
+							cnames = cnames + cnameHtml;
+					    }
+					}
+					if(cids.length > 2) {
+						alert('最多选2个兴趣分类');
+						return false;
+					}
+					//console.log(cid);return false;
+					var param	= {flag:'select_classification', value:cids, name:cnames};
+					mui.fire(pw,'backFunc', param);
+					mui.back();
+				});
+			});
+		</script>
+	</body>
+</html>

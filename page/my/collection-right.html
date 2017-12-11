@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>话题</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<link rel="stylesheet" href="../../css/activity.css" />
+		<style>
+		.mui-table-view-cell{
+			padding: 0;
+		}
+		.app-list p{
+			color: #333333;
+			font-size: 15px;
+		}
+		.app-list>.app-box-flex{
+			padding-top: 4px;
+			padding-left: 5px;
+		}
+		.app-info>div{
+			font-size: 14px;
+		}
+		.app-info .app-name{
+			width: 100px;
+		}
+		.app-info .app-name,
+		.app-info .app-place{
+			color: #777777;
+		}
+		.app-info .app-price{
+			color: #ff425d;
+		}
+		.mui-table-view-cell>.mui-slider-handle{
+			padding: 5px 10px;
+		}
+		</style>
+	</head>
+	<body>
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<ul  class="mui-table-view" id="J_content">
+	
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
+
+<script type="text/javascript" src="../../js/mui.min.js" ></script>
+<script type="text/javascript" src="../../js/common.js "></script>
+<script type="text/javascript" src="../../js/mui.zoom.js" ></script>
+<script type="text/javascript" src="../../js/mui.previewimage.js" ></script>
+<script type="text/javascript" src="../../js/UserInfo.js"></script>
+<script>
+	var sessionId;
+	mui.init({
+		swipeBack: false,
+		pullRefresh: {
+			container: '#pullrefresh',
+			down: {
+				callback: pulldownRefresh
+			},
+			up: {
+				contentrefresh: '正在加载...',
+				callback: pullupRefresh
+			}
+		}
+	});
+	function pulldownRefresh() {
+		getList();
+		 mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+	};
+	function pullupRefresh() {
+		 this.endPullupToRefresh(true);
+	};
+	mui.plusReady(function(){
+		sessionId = app.sessionId();
+		// 获取收藏服务列表
+		getList();
+		//跳转到详细页面
+		mui('#J_content').on('tap', '.mui-slider-handle', function(){
+			var themeid 	= this.dataset.themeid;	//主题id
+			var groupid 	= this.dataset.groupid;	//圈子id
+			var groupname 	= this.dataset.groupname;	//圈子名称
+			var surl	= '../circle/theme.html';
+			var param 	= {themeid:themeid, groupid:groupid, groupname:groupname};
+			openwindow(surl, param);
+		});
+		// 删除服务
+		mui('.mui-content').on('tap', '.J_cancle', function(){
+			var favorid = this.dataset.favorid;
+			console.log(favorid);
+			var server = SITE + 'myFavor/cancleFavor';
+			console.log('url:' + server); 
+			mui.ajax(server,{
+				data:{
+					favorid:favorid,
+					sessionId:sessionId
+				},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				success:function(response){
+				    if(response.code == 1) { // 获取成功 id="J_cardno_num"
+				        alert(response.msg);
+				        // 刷新列表
+				        getList();
+				    }else {
+				        alert(response.msg);
+				    }
+			    }
+			});
+		});
+	});
+	/**
+	 * 获取收藏服务列表
+	 */
+	function getList(){
+		plus.nativeUI.showWaiting();
+		var server = SITE + 'myFavor/index';
+		//console.log('url:' + server);
+		mui.get(server, {type:'theme',sessionId:sessionId}, function(response) {
+			//console.log(response);
+			if(empty(response) == false){
+				document.getElementById('J_content').innerHTML = response;
+			}else {
+				alert('没有更多服务');
+			}
+			plus.nativeUI.closeWaiting();
+		}, 'html');
+	}
+</script>

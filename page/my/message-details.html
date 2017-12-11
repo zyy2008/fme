@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>消息详情</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			body{
+				background-color: #e5e5e5;
+			}
+			.app-info{
+				padding: 10px 20px;
+			}
+			.app-top{
+				width: 100%;
+				display: inline-block;
+				vertical-align: top;
+			}
+			.app-top .mui-pull-left{
+				position: relative;
+			}
+			.app-top .mui-pull-right{
+				font-size: 14px;
+				color: #555555;
+			}
+			.app-info p{
+				padding-top: 10px;
+				color: #000000;
+				line-height: 15px;
+				margin-bottom: 0;
+			}
+			.app-info p span{
+				padding-right: 5px;
+			}
+			.app-img img{
+				width: 100%;
+				display: block;
+				overflow: hidden;
+				vertical-align: top;
+			}
+			.app-content{
+				margin-top: 10px;
+				background-color: #FFFFFF;
+				border-radius: 10px;
+			}
+			.app-content:last-child{
+				padding-bottom: 10px;
+			}
+			.app-content h5{
+				font-size: 16px;
+				text-align: center;
+				line-height: 35px;
+				margin: 0;
+				color: #000000;
+			}
+			.mui-btn{
+				border: 0;
+				background-color: #64bed2;
+				color: #FFFFFF;
+				padding: 8px 0;
+				width: 80%;
+				font-size: 16px;
+				margin: auto auto;
+			}
+			.mui-badge-primary{
+				background-color: #64bed2;
+				padding: 5px;
+				font-size: 16px;
+				color: #000000;
+			}
+			.mui-content{
+				padding: 10px;
+			}
+			.app-list-circle{
+				position: relative;
+				display: inline-block;
+				width: 100%;
+			}
+			.app-list-circle img{
+				width: 100%;
+				height: auto;
+				vertical-align: top;
+				border-radius: 5px;
+			}
+			.app-list-info{
+				position: absolute;
+				margin: auto;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				height: 80px;
+				display: inline-block;
+				background-color: rgba(0,0,0,.5);
+				
+			}
+			.app-list-info h5{
+				position: absolute;
+				width: 100%;
+				height: 30px;
+				line-height: 30px;
+				font-size: 18px;
+				opacity: 1;
+				text-align: center;
+				color: #FFFFFF;
+			}
+			.app-list-info button{
+				position: absolute;
+				margin: auto;
+				width: 90px;
+				height: 30px;
+				left: 0;
+				right: 0;
+				bottom: 5px;
+				background-color: rgba(0,0,0,0);
+				border:1px solid #4cc4d4;
+				border-radius: 20px;
+				padding: 0;
+				color: #4cc4d4;
+			}
+			.app-time{
+				font-size: 15px;
+				display: inline-block;
+				height: 26px;
+				padding-top: 8px;
+				padding-left: 10px;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">系统消息</h1>
+		</header>
+		<div class="mui-content" id="J_content">
+			<!--<div class="app-content">
+			      <div class="app-list-circle">
+		            <img src="http://test.jikechufa.com/uploads/20151031/5634bd343eedc.jpg">
+		            <div class="app-list-info">
+		                <h5 data-groupid="1">第一个圈子</h5>
+		                <button data-groupid="1">逛一逛</button>
+		            </div>
+		        </div>
+			</div>
+			<div class="app-content">
+			    <div class="app-info">
+			        <div class="app-top">
+			            <span class="mui-badge mui-badge-primary mui-pull-left">
+			                	问答推荐
+			            </span>
+			            <span class="app-time">15分钟前</span>
+			        </div>
+			        <p><span>fffff：</span>app系统内点对点推荐；后台推荐具有专题性，可图文；带有跳转功能；</p>
+			        <p><span>不可回复：</span>app系统内点对点推荐；后台推荐具有专题性，可图文；带有跳转功能；</p>
+			        <p><span>不可回复：</span>app系统内点对点推荐；后台推荐具有专题性，可图文；带有跳转功能；</p>
+			        <p><span>不可回复：</span>app系统内点对点推荐；后台推荐具有专题性，可图文；带有跳转功能；</p>
+			        <p><span>不可回复：</span>app系统内点对点推荐；后台推荐具有专题性，可图文；带有跳转功能；</p>
+			    </div>
+			</div>-->
+		</div>
+	</body>
+</html>
+<script src="../../js/mui.min.js" ></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/UserInfo.js" ></script>
+<script>
+	mui.init();
+	mui.plusReady(function(){
+		var self 	= plus.webview.currentWebview();
+		var sessionId 	= app.sessionId();
+		var messageid 	= self.messageid;
+		var J_content	= document.getElementById('J_content');
+
+		//数据处理
+		var server	= SITE + "myMessage/ajaxDetail?id="+messageid+'&sessionId='+sessionId;
+		mui.get(server, {id:messageid, sessionId:sessionId}, function(response) {
+			if(empty(response) == false){
+				J_content.innerHTML = response;
+			}
+		}, 'html');
+
+		//操作
+		mui("#J_content").on('tap', 'button', function(){
+			var menu 	= this.dataset.menu;
+			var targetid= this.dataset.targetid;
+			switch(menu){
+				case '1': 		//进入圈子
+					var suburl = "../circle/main.html"; 
+					openwindow(suburl, {groupid:targetid, groupname:'系统消息'});
+					break;
+				case '2': 		//进入服务
+					var suburl = "../master/club-service.html";
+					openwindow(suburl, {serviceid:targetid, servicename:'系统消息'});
+					break;
+			}
+			
+		});
+	});
+</script>

@@ -1,0 +1,248 @@
+/*动态*/
+.app-activity .mui-table-view{
+	background-color: #FFFFFF;
+	border-radius: 5px;
+}
+.app-activity .app-jda:after,
+.app-activity .app-da:after{
+	width: 15px;
+	height: 15px;
+}
+.app-activity .mui-table-view-cell{
+	padding: 11px 10px;
+	border-bottom: 1px solid #e8e8e8;
+}
+.app-activity .mui-table-view-cell:last-child{
+	border-bottom: 0;
+}
+.app-activity .mui-table-view-cell>a:not(.mui-btn){
+	margin: -11px -10px;
+}
+.app-activity h5{
+	font-size: 15px;
+	color: #333333;
+	margin: 0;
+	padding-top: 5px;
+	line-height: 26px;
+}
+.app-activity p{
+	overflow : hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	white-space: initial;
+	color: #555555;
+	line-height: 18px;
+	font-size: 13px;
+}
+
+.app-activity .app-head{
+	width: 45px;
+	height: 45px;
+	z-index: 1;
+}
+.app-activity .mui-badge-primary{
+	background-color: inherit;
+	border: 1px solid #64bed2;
+	color: #64bed2;
+	vertical-align: top;
+	padding: 2px;
+	font-size: 12px;
+}
+.app-activity .app-badge{
+	padding: 5px 0;
+	position: relative;
+}
+.app-titleinfo .name{
+	font-size: 16px;
+	vertical-align: top;
+	padding-left: 10px;
+	color: #222222;
+	position: relative;
+	top: 2px;
+}
+.app-titleinfo .app-when{
+	padding: 0px 10px;
+	font-size: 14px;
+	padding-left: 10px;
+	color: #777777;
+}
+.app-titleinfo+p{
+	overflow : hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	white-space:initial;
+	color: #000000;
+	padding-bottom: 5px;
+}
+.app-photo{
+	white-space: initial;
+	display: inline-block;
+	vertical-align: top;
+	width: 100%;
+}
+.app-photo img{
+	width: 33.33333333%;
+	float: left;
+	border: 1px solid #FFFFFF;
+}
+.mui-table-view-cell:after{
+	content: none;
+}
+/*动态---end*/
+/*图片预览必须CSS*/
+.mui-preview-image.mui-fullscreen {
+	position: fixed;
+	z-index: 20;
+	background-color: #000;
+}
+.mui-preview-header,
+.mui-preview-footer {
+	position: absolute;
+	width: 100%;
+	left: 0;
+	z-index: 10;
+}
+.mui-preview-header {
+	height: 44px;
+	top: 0;
+}
+.mui-preview-footer {
+	height: 50px;
+	bottom: 0px;
+}
+.mui-preview-header .mui-preview-indicator {
+	display: block;
+	line-height: 25px;
+	color: #fff;
+	text-align: center;
+	margin: 15px auto 4;
+	width: 70px;
+	background-color: rgba(0, 0, 0, 0.4);
+	border-radius: 12px;
+	font-size: 16px;
+}
+.mui-preview-image {
+	display: none;
+	-webkit-animation-duration: 0.5s;
+	animation-duration: 0.5s;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+}
+.mui-preview-image.mui-preview-in {
+	-webkit-animation-name: fadeIn;
+	animation-name: fadeIn;
+}
+.mui-preview-image.mui-preview-out {
+	background: none;
+	-webkit-animation-name: fadeOut;
+	animation-name: fadeOut;
+}
+.mui-preview-image.mui-preview-out .mui-preview-header,
+.mui-preview-image.mui-preview-out .mui-preview-footer {
+	display: none;
+}
+.mui-zoom-scroller {
+	position: absolute;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: flex;
+	-webkit-box-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+	-webkit-box-pack: center;
+	-webkit-justify-content: center;
+	justify-content: center;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	-webkit-backface-visibility: hidden;
+}
+.mui-zoom {
+	-webkit-transform-style: preserve-3d;
+	transform-style: preserve-3d;
+}
+.mui-slider .mui-slider-group .mui-slider-item img {
+	width: 100%;
+	height: auto;
+	max-width: 100%;
+	max-height: 100%;
+}
+.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+	width: 100%;
+}
+.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+	display: inline-table;
+}
+.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+	display: table-cell;
+	vertical-align: middle;
+}
+.mui-preview-loading {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	display: none;
+}
+.mui-preview-loading.mui-active {
+	display: block;
+}
+.mui-preview-loading .mui-spinner-white {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	margin-left: -25px;
+	margin-top: -25px;
+	height: 50px;
+	width: 50px;
+}
+.mui-preview-image img.mui-transitioning {
+	-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+	transition: transform 0.5s ease, opacity 0.5s ease;
+}
+@-webkit-keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+@-webkit-keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+	100% {
+		opacity: 0;
+	}
+}
+p img {
+	max-width: 100%;
+	height: auto;
+}
+/*图片预览必须CSS ----end*/

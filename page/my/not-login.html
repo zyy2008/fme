@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>未登录</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			body{
+				position: absolute;
+				width: 100%;
+				height: 100%;
+			}
+			header{
+				position: absolute ;
+			}
+			.mui-content{
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 44px;
+				bottom: 0px;
+				overflow-y: auto;
+				z-index: 0;
+				padding: 0 !important;
+				padding-bottom: 10px !important;
+			}
+			.app-icon-xinxi{
+				position: relative;
+				width: 56px;
+				height: 44px;
+				padding:15px 18px !important;
+			}
+			.app-icon-shezhi{
+				width: 44px;
+				height: 44px;
+				padding: 12px !important;
+			}
+			.app-new:after{
+				content: '';
+				position: absolute;
+				width: 6px;
+				height: 6px;
+				display: inline-block;
+				vertical-align: top;
+				border-radius: 100%;
+				background-color: #ff425d;
+				right: 12px;
+				top: 10px;
+			}
+			.app-header{
+				position: relative;
+				height: 150px;
+				background-color: #4cc4d4;
+			}
+			.app-header .mui-btn{
+				width: 70px;
+				height: 70px;
+				background-color: inherit;
+				border: 3px solid #b7e7ee;
+				border-radius: 100%;
+				color: #FFFFFF;
+				font-size: 16px;
+				padding: 0;
+				margin: auto;
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+			}
+			.app-header h5{
+				position: absolute;
+				font-size: 16px;
+				color: #FFFFFF;
+				bottom: 10px;
+				display: inline-block;
+				text-align: center;
+				width: 100%;
+				margin: 0;
+				display: none;
+			}
+			.app-head{
+				width: 70px;
+				height: 70px;
+				position: absolute;
+				margin: auto;
+				left: 0;
+				right: 0;
+				top: 0;
+				bottom: 0;
+				display: none;
+			}
+			.app-header i{
+				font-style: initial;
+				display: block;
+			}
+			.mui-table-view:first-child{
+				margin-top: 0;
+			}
+			.mui-table-view{
+				background-color: #FFFFFF;
+				margin-top: 10px;
+			}
+			.app-icon{
+				width: 35px;
+				height: 35px;
+				background-color: #bbbbbb;
+				border-radius: 5px;
+			}
+			.mui-table-view-cell{
+				padding: 8px 15px;
+			}
+			.mui-table-view-cell>a:not(.mui-btn){
+				margin: -8px -15px;
+			}
+			.mui-media-body{
+				line-height: 35px;
+				font-size: 15px;
+				padding-left: 10px;
+			}
+			.app-icon-ziliao{
+				padding: 8px;
+			}
+			.app-login .app-icon-ziliao{
+				background-color: #3dcadd;
+			}
+			.app-icon-dingdan{
+				padding: 9px 10px;
+			}
+			.app-login .app-icon-dingdan{
+				background-color: #ffbb38;
+			}
+			.app-icon-hongbao{
+				padding: 9px 10px;
+			}
+			.app-login .app-icon-hongbao{
+				background-color: #fe445f;
+			}
+			.app-icon-renzheng{
+				padding: 8px;
+			}
+			/*.app-login .app-icon-renzheng{
+				background-color: #b474e7;
+			}*/
+			.app-icon-xiangce{
+				padding: 9px;
+			}
+			.app-login .app-icon-xiangce{
+				background-color: #5d9cec;
+			}
+			.app-icon-huati1{
+				padding: 9px;
+			}
+			.app-login .app-icon-huati1{
+				background-color: #fe6344;
+			}
+			.app-icon-dianhua{
+				padding: 9px;
+			}
+			.app-login .app-icon-dianhua{
+				background-color: #60c47f;
+			}
+			.app-icon-tixian{
+				padding: 8px 8.5px;
+			}
+			.app-login .app-icon-tixian{
+				background-color: #ff6c00;
+			}
+			.app-icon-daren{
+				padding: 8px;
+			}
+			/*.app-login .app-icon-daren{
+				background-color: #dc214c;
+			}*/
+			.app-icon-richeng{
+				padding: 8px;
+			}
+			.app-login .app-icon-richeng{
+				background-color: #2cc2f9;
+			}
+			.app-icon-shoucang{
+				padding: 8px;
+			}
+			.app-login .app-icon-shoucang{
+				background-color: #a98aed;
+			}
+			.app-line{
+				text-align: center;
+				padding: 10px 0;
+				display: none;
+				position: relative;
+			}
+			.app-line .mui-btn{
+				background-color: #33b4c5;
+				color: #ffffff;
+				border: 0;
+				padding: 10px 20px;
+			}
+			.app-header .app-qd{
+				position: absolute;
+				margin: auto;
+				bottom: 15px;
+				padding: 0;
+				width: 60px;
+				height: 30px;
+				right: 5%;
+				background-color: #ff425d;
+				border: 0;
+				color: #FFFFFF;
+				display: none;
+			}
+			.app-header .app-qd:disabled{
+				background-color: #999999 !important;
+				color: #FFFFFF !important;
+				opacity: 1;
+			}
+			.app-login .app-header{
+				background:  url(../../img/login-bg.png) no-repeat;
+				background-size: 100% 100%;
+			}
+			.app-login .app-header .app-head,
+			.app-login .app-header h5,
+			.app-login.app-login-jda .app-list-jda,
+			.app-login.app-login-da .app-list-da,
+			.app-login.app-login-jda .app-line,
+			.app-login .app-list-pu,
+			.app-login .app-header .app-qd{
+				display: block;
+			}
+			.app-login.app-login-da .app-list-jda,
+			.app-login.app-login-da .app-list-pu,
+			.app-login .app-list-jda,
+			.app-login .app-list-da,
+			.app-login.app-login-jda .app-list-pu,
+			.app-list-jda,
+			.app-list-pu,
+			.app-list-da,
+			.app-login #J_login{
+				display: none;
+			}
+			.app-jda:after,
+			.app-da:after{
+				width: 18px;
+				height: 18px;
+				right: 2px;
+				bottom: 1px;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon app-icon-xinxi mui-pull-left" id="J_notice"></a>
+			<a class="mui-icon app-icon-shezhi mui-pull-right" id="J_setting"></a>
+			<h1 class="mui-title">我的</h1>
+		</header>
+		<div class="mui-content" id="J_content">
+			<div class="app-header">
+				<button class="mui-btn" id="J_login">
+					<i>快速</i>
+					<i>登录</i>
+				</button>
+				<div class="app-head app-sex-nan" id="J_header">
+					<img src=""  id="J_headerImg" />
+				</div>
+				<h5 id="J_nickName"></h5>
+				<button class="app-qd J_sign" id="J_sign">签到</button>
+			</div>
+			<div class="app-line">
+				<button class="mui-btn" id="J_postService">发布的线路</button>
+			</div>
+			<div class="app-content">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell" data-surl="../set/alone.html">
+						<a class="mui-navigate-right">
+							<div class="app-icon app-icon-ziliao mui-pull-left"></div>
+							<div class="mui-media-body">
+								我的资料
+							</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell" data-surl="../my/order.html">
+						<a class="mui-navigate-right">
+							<div class="app-icon app-icon-dingdan mui-pull-left"></div>
+							<div class="mui-media-body">
+								我的订单
+							</div>
+						</a>
+					</li>
+				</ul>
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell" data-surl="../my/redpacket.html">
+						<a class="mui-navigate-right">
+							<div class="app-icon app-icon-hongbao mui-pull-left"></div>
+							<div class="mui-media-body">
+								我的红包
+							</div>
+						</a>
+					</li>
+				</ul>
+				<ul class="mui-table-view app-list-jda">
+					<li class="mui-table-view-cell" data-surl="../public/calendar-set.html">
+						<a class="mui-navigate-right">
+							<div class="app-icon app-icon-richeng mui-pull-left"></div>
+							<div class="mui-media-body">
+								我的日程
+							</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell" data-surl="../set/cash.html" id="J_withDrow">
+						<a class="mui-navigate-right">
+							<div class="app-icon app-icon-tixian mui-pull-left"></div>
+							<div class="mui-media-body">
+								账户提现
+							</div>
+						</a>
+					</li>
+				</ul>
+				
+				<ul class="mui-table-view app-list-da">
+					<li class="mui-table-view-cell" data-surl="../set/apply-certified.html" id="J_isAuth">
+						<a class="mui-navigate-right">
+							<div class="app-icon app-icon-renzheng mui-pull-left"></div>
+							<div class="mui-media-body">
+								申请认证
+							</div>
+						</a>
+					</li>
+				</ul>
+				
+				<ul class="mui-table-view app-list-pu">
+					<li class="mui-table-view-cell" data-surl="../set/apply-master.html" id="J_isVip">
+						<a class="mui-navigate-right">
+							<div class="app-icon app-icon-daren mui-pull-left"></div>
+							<div class="mui-media-body">
+								申请达人
+							</div>
+						</a>
+					</li>
+				</ul>
+				
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell" data-surl="../my/album.html">
+						<a class="mui-navigate-right">
+							<div class="app-icon app-icon-xiangce mui-pull-left"></div>
+							<div class="mui-media-body">
+								我的照片
+							</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell" data-surl="../my/topic.html">
+						<a class="mui-navigate-right">
+							<div class="app-icon app-icon-huati1 mui-pull-left"></div>
+							<div class="mui-media-body">
+								我的话题
+							</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell" data-surl="../my/collection.html">
+						<a class="mui-navigate-right">
+							<div class="app-icon app-icon-shoucang mui-pull-left"></div>
+							<div class="mui-media-body">
+								我的收藏
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js" ></script>
+<script type="text/javascript" src="../../js/common.js" ></script>
+<script type="text/javascript" src="../../js/UserInfo.js" ></script>
+<script>
+var sessionId,
+	self,
+	thisid;
+var isvip = 0;
+var isauth = 0;
+
+mui.init();
+mui.plusReady(function(){
+	self 	= plus.webview.currentWebview();
+	thisid 	= self.id;
+	sessionId = app.sessionId();
+	var J_content 	= document.getElementById("J_content");
+	
+	//是否已经登录
+	if(empty(sessionId) == false){
+		addClass(J_content, "app-login");
+		//检查是否有新的信息
+		getNewInfo();
+	}
+
+	//登录入口
+	document.getElementById('J_login').addEventListener('tap',function(){
+		var sessionId = app.sessionId();
+		openwindow('../login/login.html',{from:thisid});
+	},false);
+	
+	//通知
+	document.getElementById('J_notice').addEventListener('tap', function(event) {
+		//判断是否登录
+		if(empty(sessionId) == true){
+			openwindow('../login/login.html');
+			return true;
+		}
+		
+		openwindow("../my/notice.html",{pwid:thisid});
+	});
+	// 签到 J_sign
+	document.getElementById('J_sign').addEventListener('tap', function(event) {
+		var server = SITE + 'my/ajaxSign';
+		mui.ajax(server,{
+			data:{
+				sessionId:sessionId
+			},
+			dataType:'json',//服务器返回json格式数据
+			type:'post',//HTTP请求类型
+			timeout:10000,//超时时间设置为10秒；
+			success:function(response){
+				if(response.code == 1) {
+					alert(response.msg);
+					document.querySelector('.J_sign').setAttribute('disabled', 'disabled');
+				}else {
+					alert(response.msg);
+				}
+			},
+			error:function(xhr,type,errorThrown){
+				//异常处理；
+				console.log(xhr.response + type + errorThrown);
+			}
+		});
+	});
+	
+	// 设置
+	document.getElementById('J_setting').addEventListener('tap', function(event) {
+		openwindow("../set/setting.html", {pwid:thisid});
+	});
+	//发布服务
+	mui("#J_content").on("tap", "#J_postService", function(){
+		//判断是否登录
+		openwindow("../my/service-change.html", {});
+	});
+	//跳转关系
+	mui("#J_content").on("tap", "li", function(){
+		//判断是否登录
+		if(empty(sessionId) == true){
+			openwindow('../login/login.html');
+			return true;
+		}
+		var surl	= this.dataset.surl;
+		openwindow(surl, {from:thisid});
+	});
+	//回调函数
+	window.addEventListener('backFunc',function(e){
+		sessionId = app.sessionId();
+		//登录
+		if(e.detail.flag == 'login'){
+			getNewInfo();
+			addClass(J_content, "app-login");
+		}
+		//退出登录
+		if(e.detail.flag == 'logout'){
+			removeClass(document.getElementById("J_notice"), "app-new");
+			J_content.classList.remove('app-login');
+			J_content.classList.remove('app-login-da');
+			J_content.classList.remove('app-login-jda');
+		}
+		if(e.detail.flag == 'ref'){
+			plus.nativeUI.showWaiting();
+			getNewInfo();
+		}
+	});
+	
+	//更新资料
+	
+});
+function getNewInfo()
+{
+	//更新小信封
+	autoChkNewNotice();
+	//获取用户资料
+	var ajaxUrl	= SITE + "my/ajaxGetNewInfo?sessionId="+sessionId;
+	mui.getJSON(ajaxUrl, {sessionId: sessionId}, function(response){
+		if(response.code == 1){
+			//是否有新消息提示
+//			if(response.data.chkNotice == 1){
+//				document.getElementById("J_notice").classList.add('app-new');
+//			}else{
+//				removeClass(document.getElementById("J_notice"), "app-new");
+//			}
+			// 是否已签到
+			if(response.data.isSign == 1) {
+				document.querySelector('.J_sign').setAttribute('disabled', 'disabled'); 
+			}else {
+				document.querySelector('.J_sign').removeAttribute('disabled');
+			}
+			if(response.data.isvip == 1){	//是否是达人
+				if(response.data.isPasport == 1 || response.data.isIDCard == 1)
+				{
+					J_content.classList.remove('app-login-da');
+					J_content.classList.add('app-login');
+					J_content.classList.add('app-login-jda');
+					document.getElementById("J_header").classList.add('app-jda');
+					isvip	= 1;
+					isauth	= 1;
+				}else{
+					//普通达人
+					J_content.classList.remove('app-login-jda');
+					J_content.classList.add('app-login');
+					J_content.classList.add('app-login-da');
+					document.getElementById("J_header").classList.add('app-da');
+					isvip	= 1;
+					isauth 	= 0;
+				}
+			}else{
+				//普通会员
+				J_content.classList.add('app-login');
+				document.getElementById("J_header").classList.remove('app-jda');
+				document.getElementById("J_header").classList.remove('app-da');
+				isvip = 0;
+			}
+			//性别
+			var class_sex 	= response.data.gender == 1? "app-sex-nan": "app-sex-nv";
+			var fclass_sex =  response.data.gender == 0? "app-sex-nan": "app-sex-nv";
+			document.getElementById("J_header").classList.remove(fclass_sex);
+			document.getElementById("J_header").classList.add(class_sex);
+			
+			//头像是否存在
+			if(empty(response.data.face) == false){
+				var url = UPLOADDIR +'/'+ response.data.face;
+				document.getElementById("J_headerImg").src = UPLOADDIR +'/'+ response.data.face;
+			}else{
+				document.getElementById("J_headerImg").src = '../../img/no_head.png';
+			}
+			//用户名称
+			document.getElementById("J_nickName").innerText = response.data.nickname;
+		}
+		plus.nativeUI.closeWaiting();
+	});
+}
+//检查是否有新消息
+function autoChkNewNotice()
+{
+	if(empty(sessionId) == true){
+		return false;
+	}
+	var ajaxUrl = SITE + "myMessage/ajaxChkNewNotice";
+	var param 	= {sessionId:sessionId};
+	//自动刷新
+	setTimeout("autoChkNewNotice()", 50000); //设置1000毫秒以后执行一次本函数
+	mui.getJSON(ajaxUrl, param, function(response){
+		//是否有新消息提示
+		if(response.code == 1){
+			document.getElementById("J_notice").classList.add('app-new');
+		}else{
+			removeClass(document.getElementById("J_notice"), "app-new");
+		}
+	});
+}
+</script>

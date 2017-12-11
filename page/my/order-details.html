@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>订单详情</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/mui.imageviewer.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+		  .mui-content{
+		  	padding: 10px !important;
+		  	padding-top: 54px !important;
+		  }
+			.app-head{
+				display: inline-block;
+			}
+			.mui-table-view-cell:after,
+			.mui-table-view:before,
+			.mui-table-view:after{
+				content: none;
+			}
+			.mui-table-view{
+				font-size: 14px;
+			}
+			.mui-table-view-cell{
+				padding: 5px 0;
+			}
+			.mui-table-view-cell .mui-pull-right{
+				color: #777777;
+			}
+			.app-content{
+				padding: 10px;
+				background-color: #effcfd;
+			}
+			.app-content span{
+				font-size: 15px;
+				color: #555555;
+			}
+			.app-content .app-box{
+				padding: 5px 0;
+			}
+			.app-content p{
+				font-size: 15px;
+				color: #000000;
+				margin-bottom: 0;
+			}
+			.app-bottom{
+				padding: 10px 0;
+			}
+			.app-warper{
+				padding: 0px 10px;
+			}
+			.app-fwu{
+				font-size: 15px;
+			}
+			.app-are{
+				padding: 3px 5px;
+				background-color: #cccccc;
+				color: #000000;
+				border-radius: 5px;
+			}
+			.app-no{
+				padding: 3px 5px;
+				background-color: #64bed2;
+				color: #FFFFFF;
+				border-radius: 5px;
+			}
+			footer{
+				padding: 20px 10px;
+			}
+			footer .mui-btn{
+				width: 100%;
+				background-color: #4cc4d4;
+				color: #FFFFFF;
+				border: 0;
+				padding: 10px 0;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">订单详情</h1>
+		</header>
+		<div class="mui-content" id="J_content">
+			<!--<div class="app-warper">
+				<div class="app-header">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<div class="mui-pull-left">订单号</div>
+							<div class="mui-pull-right">200013123012031</div>
+						</li>
+						<li class="mui-table-view-cell">
+							<div class="mui-pull-left">价格</div>
+							<div class="mui-pull-right">¥150</div>
+						</li>
+						<li class="mui-table-view-cell">
+							<div class="mui-pull-left">时间</div>
+							<div class="mui-pull-right"><div class="app-are">已支付</div></div>
+						</li>
+					</ul>
+				</div>
+				<div class="app-content">
+					<div class="app-box">
+						<span>特色线路：</span>
+						<p class="app-box-flex">告别东大门，来韩国妹子买衣服的市场逛吧满足对美衣的各种需求</p>
+					</div>
+					<div class="app-box">
+						<span>特色地点：</span>
+						<p class="app-box-flex">告别东大门，来韩国妹子买衣服的市场逛吧满足对美衣的各种需求</p>
+					</div>
+						<div class="app-box">
+						<span>见面地点：</span>
+						<p class="app-box-flex">地铁首尔站</p>
+					</div>
+				</div>
+				<div class="app-bottom mui-table">
+					<div class="mui-table-cell mui-text-right">
+						<div class="app-head app-sex-nan app-da">
+							<img src=" ../../img/1.png" />
+						</div>
+						
+					</div>
+					<div class="mui-table-cell mui-text-center" style="vertical-align: middle;">
+						<span class="app-fwu">服务于</span>
+					</div>
+					<div class="mui-table-cell mui-text-left">
+						<div class="app-head app-sex-nan app-da">
+							<img src=" ../../img/1.png" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<footer class="mui-text-center">
+				<button class="mui-btn J_confirm_service">确认服务</button>
+			</footer>-->
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js" ></script>
+<script type="text/javascript" src="../../js/common.js "></script>
+<script type="text/javascript" src="../../js/UserInfo.js"></script>
+<script type="text/javascript" src="../../js/update.js"></script>
+<script>
+	var thisid, from, sessionId, orderid;
+	mui.init();
+	mui.plusReady(function(){
+		self 	= plus.webview.currentWebview();
+		var twid = plus.webview.currentWebview().id
+        var tw = plus.webview.getWebviewById(twid);
+		orderid 	= self.orderid;
+		sessionId = app.sessionId();
+		console.log(sessionId);
+		// 获取任务内容
+		getList();
+		
+		// 服务确认
+		mui('.mui-content').on('tap', '.J_confirm_service', function(){
+			openwindow('../my/service-confirm.html',{orderid:orderid});
+		});
+		// 订单支付
+		mui('.mui-content').on('tap', '.J_pay_order', function(){
+			var server = SITE + 'order/checkOrder';
+			console.log(sessionId);
+			mui.ajax(server,{
+				data:{
+					orderid:orderid,
+					sessionId:sessionId
+				},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				success:function(response){
+				    if(response.code == 1) {
+				    	alert(response.msg);
+				    	// 支付成功跳转到"我的订单"页面
+				    	getList();
+				    	//openwindow("../my/order.html", {sessionId:sessionId});
+				    }else if(response.code == 2) {
+				    	// 没有使用红包或者红包不足以支付订单
+				    	
+				    	openwindow("../master/buy-pay.html", {orderid:orderid});
+				    }else {
+				    	alert(response.msg);
+				    }
+			    }
+			});
+		});
+	});
+	function getList(){
+		var server = SITE + 'myOrder/orderDetail';
+		var param 	= {orderid:orderid,sessionId:sessionId};
+		mui.post(server, param, function(response) {
+			//console.log(response);
+			if(response != ''){
+				document.getElementById('J_content').innerHTML=response;
+			}
+		},'html');
+	}
+</script>

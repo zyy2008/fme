@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>相册</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/activity.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			body,
+			.mui-content{
+				background-color: #FFFFFF;
+			}
+			.app-photo img{
+				border: 2px solid #FFFFFF;
+			}
+			.app-img{
+				width: 25%;
+				display: inline-block;
+				padding-top: 2px;
+				padding-bottom: 2px;
+				float: left;
+				border-radius: 5px;
+				position: relative;
+				text-align: center;
+			}
+			.mui-active .app-img-delete{
+				content: '';
+				position: absolute;
+				width: 20px;
+				height: 20px;
+				background:  url(../../img/icon/shanchu.png) no-repeat;
+				background-size: 100% 100%;
+				display: inline-block;
+				top: 5px;
+				right: 10px;
+			}
+			.app-img:last-child:after{
+				content: none;
+			}
+			.app-img img{ 
+				width: 100%;
+				overflow: hidden;
+				border-radius: 5px;
+				vertical-align: top;
+			}
+			.app-photo img{
+				float: none;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<button class="mui-btn mui-pull-right" id='edit'>
+			    编辑
+			 </button>
+			<h1 class="mui-title">相册</h1>
+		</header>
+		<div class="mui-content">
+			<div class="app-photo" id="J_album">
+				<!--<div class="app-img" id="upload">
+					<img src="../../img/add.png" id='J_uploadPic' />
+				</div>-->
+			</div>
+			
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js" ></script>
+<script src="../../js/mui.zoom.js"></script>
+<script src="../../js/mui.previewimage.js"></script>
+<script type="text/javascript" src="../../js/common.js" ></script>
+<script type="text/javascript" src="../../js/UserInfo.js" ></script>
+<script>
+var sessionId,
+	self,
+	thisid;
+//var isEdit = 0;
+mui.init();
+mui.previewImage();
+mui.plusReady(function(){
+	self 	= plus.webview.currentWebview();
+	thisid 	= self.id;
+	sessionId	= app.sessionId();
+	
+	var edit = document.getElementById('edit');
+	var list_img = document.querySelector('.app-photo');
+	edit.addEventListener('tap',function(){
+		if(list_img.classList.contains('mui-active')){
+			this.innerHTML = '编辑';
+			list_img.classList.remove('mui-active');
+			//isEdit = 0;
+			
+		}else{
+			this.innerHTML = '取消';
+			list_img.classList.add('mui-active');
+			//isEdit = 1;
+		};
+	}); 
+	getAlbums(sessionId);
+	// 上传图片
+	mui('#J_album').on('tap', '#upload img', function() {
+		fileUpload(sessionId);
+	});
+
+
+	mui('.mui-content').on('tap', '.mui-active .app-img:not(.update) .app-img-delete', function(){
+		
+		var picID = this.dataset.picid;
+		if(empty(picID)) {
+			return false;
+		}
+		// 删除图片
+		var server = SITE + 'my/deleteAlbumPic';
+		mui.ajax(server,{
+			data:{
+				picID: picID,
+				sessionId:sessionId
+			},
+			dataType:'json',//服务器返回json格式数据
+			type:'post',//HTTP请求类型
+			timeout:10000,//超时时间设置为10秒；
+			success:function(response){
+				if(response.code == 1) {
+					alert(response.msg);
+					// 删除节点
+					document.getElementById('pic_'+picID).parentNode.removeChild(document.getElementById('pic_'+picID));
+				}else {
+					alert(response.msg);
+				}
+			},
+			error:function(xhr,type,errorThrown){
+				//异常处理；
+				console.log(xhr.response + type + errorThrown);
+			}
+		});
+	});
+});
+
+function fileUpload(sessionId){
+	var bts=[{title:"拍照"},{title:"从相册中选择"}];
+	plus.nativeUI.actionSheet({cancel:"取消",buttons:bts},
+		 function(e){
+				if(e.index==1){
+					// 拍照添加文件
+					plus.camera.getCamera().captureImage(function(p){
+						upload(p, sessionId);
+					});	
+				}else if(e.index==2){
+					// 从相册添加文件
+					plus.gallery.pick(function(p){
+						upload(p, sessionId);
+    				});
+				}
+		 }
+	)
+}
+// 上传文件	
+function upload(path, sessionId){
+	var wt=plus.nativeUI.showWaiting();
+	var server= SITE + 'mySetting/upload';
+	var task=plus.uploader.createUpload(server + '?sessionId=' + sessionId,
+		{method:"POST",blocksize:204800,priority:100},
+		function(t,status){ //上传完成
+			if(status==200){
+				getAlbums();
+				//var picdir = JSON.parse(t.responseText);
+				//picpath = picdir.paththumbname;
+				//document.getElementById('pics').innerHTML = "<img src='" + UPLOADDIR + '/' + picpath + "'>" + document.getElementById('pics').innerHTML;
+				//document.getElementById('pics').innerHTML = picHtml;
+				// plus.nativeUI.alert("上传成功："+t.state);
+				//param['themePicdir'] = picdir.paththumbname;
+				wt.close();
+			}else{
+				plus.nativeUI.alert("上传失败："+status);
+				wt.close();
+			};
+		}
+	);
+	var n=path.substr(path.lastIndexOf('/')+1);
+	task.addFile(path,{name:n});
+	task.start();
+}/**
+ * 获取用户相册照片
+ */
+function getAlbums() {
+	var server = SITE + 'my/albumInfo';
+	mui.get(server, {sessionId:sessionId}, function(response) {
+		if(response != ''){
+			//console.log(response);
+			//document.getElementById('J_album').insertAdjacentHTML('afterBegin', response);
+			// document.getElementById('indicator').insertAdjacentHTML('beforeBegin', response);
+			document.getElementById('J_album').innerHTML = response;
+		}
+	}, 'html');
+}
+</script>

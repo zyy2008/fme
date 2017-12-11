@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>订单确认</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			.mui-content {
+			    padding-top: 54px !important;
+			    padding-left: 10px;
+			    padding-right: 10px;
+			    padding-bottom: 54px !important;
+			}
+			p {
+			    color:#000;
+			    margin-bottom:0;
+			    padding:0 20px
+			}
+			.app-policy {
+			    padding:10px 0
+			}
+			.mui-table-view-cell:after {
+			    left:0
+			}
+			.mui-table-view {
+			    font-size:14px
+			}
+			.mui-navigate-right:after {
+			    font-size:30px;
+			    right:5px;
+			    color:#5ca7ba
+			}
+			.mui-table-view-cell>a:not(.mui-btn) {
+			    margin-right:-30px;
+			}
+			.mui-pull-right {
+			    color:#000
+			}
+			.mui-table-view-cell {
+			    padding-right:30px
+			}
+			.mui-btn-block {
+			    background-color:#65bfd2;
+			    color:#FFF;
+			    border-radius:0;
+			    -webkit-border-radius:0;
+			    margin-bottom:0;
+			    padding:10px 0;
+			    font-size:16px;
+			    border:0;
+			    -webkit-box-shadow: 0 0 0 rgba(0,0,0,0);
+			box-shadow: 0 0 0 rgba(0,0,0,0);
+			}
+			.app-headinfo p {
+			    padding:0
+			}
+			.app-info {
+			    padding:20px 0;
+			}
+			.app-country {
+			    color:#000
+			}
+			.mui-bar-nav~.mui-content {
+			    padding-bottom:44px
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">订单确认</h1>
+		</header>
+		<div class="mui-content" id="J_content">
+			<!--订单详情-->
+			<!--<div class = "app-warper">
+			    <div class = "app-title">订单号：<span id = "J_orderno">xxxxxxxx</span></div>
+			    <div class = "app-content">
+			        <ul class = "mui-table-view">
+			            <li class = "mui-table-view-cell">
+			                <a>
+			                    <div class = "app-headinfo">
+			                        <p id = "J_title">泰国达人，带你跟最妖的妖人合影</p>
+			                        <span>目的地：<span class = "app-country" id = "J_place">泰国</span></span>
+			                    </div>
+			                </a>
+			            </li>
+			            <li class = "mui-table-view-cell">
+			                <a class = ""> 游玩时间 <span class = "mui-pull-right" id = "J_strdays">2015-9-10至2015-9-11</span> </a>
+			            </li>
+			            <li class = "mui-table-view-cell">
+			                <a> 服务总价 <span class = "mui-pull-right">￥<span id = "J_totalmoney">100.00</span></span> </a>
+			            </li>
+			            <li class = "mui-table-view-cell">
+			                <a> 使用红包 <span class = "mui-pull-right"><span id = "J_giftmoney">未使用</span></span> </a>
+			            </li>
+			            <li class = "mui-table-view-cell">
+			                <a> 实付价格 <span class = "mui-pull-right">￥<span id = "J_useprice">100.00</span></span> </a>
+			            </li>
+			            <li class = "mui-table-view-cell">
+			                <a> 支付状态 <span class = "mui-pull-right" id = "J_payStatus">未支付</span> </a>
+			            </li>
+			        </ul>
+			    </div>
+			    <div class = "app-title">订单备注</div>
+			    <div class = "app-content app-info">
+			        <p id = "J_memo">备注内容...</p>
+			    </div>
+			    <div class = "app-title">服务政策</div>
+			    <div class = "app-content app-info">
+			        <p>可提前<span id = "J_edittime">x</span>天更改服务时间，更改幅度不超过<span id = "J_edittimedays">x</span>天。</p>
+			
+			        <p>可提前<span id = "J_editcustomer">x</span>天更改游客数量，更改幅度不超过<span id = "J_editcustomernum">x</span>人。</p>
+			    </div>
+			    <button class = "mui-bar mui-bar-footer mui-btn mui-btn-block J_buy">立刻支付</button>
+			</div>-->
+			<!--订单详情-->
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../js/common.js"></script>
+<script type="text/javascript" src="../../js/UserInfo.js" ></script>
+<script type="text/javascript" charset="utf-8">
+var param	= {};
+var sessionId, self, thisid, serviceid, strdays;
+mui.init();
+mui.plusReady(function(){
+	//初始数据
+	sessionId 	= app.sessionId();
+	self 		= plus.webview.currentWebview();
+	thisid 		= self.id;
+	serviceid	= self.serviceid;
+	orderid		= self.orderid;
+	
+//	//加载服务信息内容
+//	plus.nativeUI.showWaiting();
+//	var J_orderno 		= document.getElementById('J_orderno');		//订单号
+//	var J_title 		= document.getElementById('J_title');		//服务标题
+//	var J_place 		= document.getElementById('J_place');		//目的地
+//	var J_strdays 		= document.getElementById('J_strdays');		//游玩时间
+//	var J_totalmoney 	= document.getElementById('J_totalmoney');	//服务总价
+//	var J_giftmoney 	= document.getElementById('J_giftmoney');	//使用红包
+//	var J_useprice 		= document.getElementById('J_useprice');	//实付价格
+//	var J_payStatus 	= document.getElementById('J_payStatus');	//支付状态
+//	var J_edittime 		= document.getElementById('J_edittime');	//更改服务天数需要提前天数
+//	var J_edittimedays	= document.getElementById('J_edittimedays');//更改服务天数
+//	var J_editcustomer 	= document.getElementById('J_editcustomer');//更改游客数量需要提前天数
+//	var J_editcustomernum	= document.getElementById('J_editcustomernum');//更改游客数量
+//	var J_memo 			= document.getElementById('J_memo');		//订单备注
+//	//页面信息
+////	J_orderno.innerText 	= edittime;
+//	J_title.innerText 		= param['name'];
+//	J_place.innerText 		= param['place'];
+//	J_strdays.innerText 	= param['strdays'];
+//	J_totalmoney.innerText 	= param['totalmoney'];
+//	J_giftmoney.innerText 	= empty(param['giftmoney'])==false?param['giftmoney']:'未使用';
+//	J_useprice.innerText 	= param['useprice'];	//实付价格
+//	J_payStatus.innerText 	= '未支付';		//支付状态
+//	J_edittime.innerText 	= param['edittime'];
+//	J_edittimedays.innerText 	= param['edittimedays'];
+//	J_editcustomer.innerText 	= param['editcustomer'];
+//	J_editcustomernum.innerText = param['editcustomernum'];
+//	J_memo.innerText = param['memo'];
+
+	//订单号
+	var server	= SITE + "order/index";
+	console.log(server + '?orderID=' + orderid+'&sessionId='+sessionId);
+	mui.get(server, {orderID:orderid,sessionId:sessionId}, function(response) {
+		//console.log(response);
+		if(response != ''){
+			//console.log(response);
+			document.getElementById('J_content').innerHTML = response;
+		}
+		//plus.nativeUI.closeWaiting();
+	}, 'html');
+//	mui.getJSON(ajaxUrl, {orderID:orderid,sessionId:sessionId}, function(response){
+//		if(response.code == 1){
+//			alert(response.msg);
+//		}else{
+//			alert(response.msg);
+//			mui.back();
+//		}
+//		plus.nativeUI.closeWaiting();
+//	});
+	//立刻支付
+	mui(".mui-content").on("tap", ".J_buy", function(){
+		var server = SITE + 'order/checkOrder';
+		console.log(sessionId);
+		mui.ajax(server,{
+			data:{
+				orderid:orderid,
+				sessionId:sessionId
+			},
+			dataType:'json',//服务器返回json格式数据
+			type:'post',//HTTP请求类型
+			timeout:10000,//超时时间设置为10秒；
+			success:function(response){
+			    if(response.code == 1) {
+			    	alert(response.msg);
+			    	// 支付成功跳转到"我的订单"页面
+			    	openwindow("../my/order.html", {sessionId:sessionId});
+			    }else if(response.code == 2) {
+			    	// 没有使用红包或者红包不足以支付订单
+			    	openwindow("../master/buy-pay.html", {orderid:orderid,serviceid:serviceid});
+			    }else {
+			    	alert(response.msg);
+			    }
+		    }
+		});
+		
+	});
+});
+</script>
+ 

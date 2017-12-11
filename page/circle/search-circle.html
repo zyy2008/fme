@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>关键词搜索-圈子</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			body{
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				background-color: #e5e5e5;
+			}
+			header{
+				position: absolute ;
+			}
+			.mui-bar-nav~.mui-content{
+				padding-top: 0;
+			}
+			.mui-content{
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 44px;
+				bottom: 0px;
+			}
+			.app-header{
+				position:fixed;
+				width: 100%;
+			}
+			.app-list{
+				position: absolute;
+				top: 81px;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				overflow-y: auto;
+				z-index: 0;
+			}
+			.app-header .mui-btn{
+				position: relative;
+				border: 0;
+				border-radius: 0;
+				-webkit-border-radius: 0;
+				width: 50%;
+				height: 32px;
+			}
+			.mui-btn .mui-badge{
+				background-color: #5ca7ba; 
+			}
+			.app-header .mui-btn:before{
+				font-family: Muiicons;
+				font-size: 30px;
+				line-height: 1;
+				position: absolute;
+				top: 50%;
+				display: inline-block;
+				-webkit-transform: translateY(-50%);
+				transform: translateY(-50%);
+				text-decoration: none;
+				color: #bbb;
+				-webkit-font-smoothing: antialiased;
+				right: 0;
+				content: '\e583';
+				color: #858585;
+			}
+			.mui-segmented-control.mui-pull-right .mui-control-item{
+				border-left-color: #ff425d;
+				color: #ff425d;
+				background-color: #FFFFFF;
+				line-height: 20px;
+				font-size: 14px;
+			}
+			.mui-table-view-cell:after{
+				left: 0;
+			}
+			.mui-badge-primary{
+				font-size: 14px;
+				background-color: #5ca7ba;
+			}
+			.app-list-circle{
+				position: relative;
+				display: inline-block;
+				width: 100%;
+			}
+			.app-list-circle img{
+				width: 100%;
+				height: auto;
+				vertical-align: top;
+				border-radius: 5px;
+			}
+			.app-list-info{
+				position: absolute;
+				margin: auto;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				height: 80px;
+				display: inline-block;
+				background-color: rgba(0,0,0,.5);
+				
+			}
+			.app-list-info h5{
+				position: absolute;
+				width: 100%;
+				height: 30px;
+				line-height: 30px;
+				font-weight: bold;
+				font-size: 20px;
+				opacity: 1;
+				text-align: center;
+				text-shadow: 0 0 10px #000000;
+				color: #FFFFFF;
+			}
+			.app-list-info button{
+				position: absolute;
+				margin: auto;
+				width: 70px;
+				height: 30px;
+				left: 0;
+				right: 0;
+				bottom: 5px;
+				background-color: #ff425d;
+				border:2px solid #FFFFFF;
+				border-radius: 20px;
+				padding: 0;
+				color: #FFFFFF;
+				opacity: .7;
+			}
+			.app-header .mui-table{
+				border-bottom: 1px solid #aaaaaa;
+				background-color: #FFFFFF;
+			}
+			.app-header .mui-table-cell{
+				position: relative;
+				text-align: center;
+				line-height: 40px;
+				font-size: 15px;
+				border-radius: 0;
+				color: #767676;
+				padding: 0;
+			}
+			.app-header .mui-table-cell:first-child:after{
+				content: "";
+				position: absolute;
+				width: 1px;
+				height: auto;
+				right: 0;
+				top: 1px;
+				bottom: 1px;
+				left: initial;
+				background-color: #969696;
+				display: block;
+			}
+			.mui-table-view-cell>.mui-badge{
+				position: inherit;
+				top: inherit; 
+				 right: inherit; 
+				 -webkit-transform: none; 
+				 transform: none; 
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<form class="mui-title">
+				<div class="mui-input-row mui-search">
+					<input id="J_search" type="search" class=" mui-input-clear" placeholder="请输入关键词">
+				</div>
+			</form>
+		</header>
+		<div class="mui-content">
+			<div class="app-header">
+				<div class="mui-table">
+					<div class="mui-table-cell mui-table-view-cell" id="J_searchPlace">
+						目的地
+					</div>
+					<div class="mui-table-cell mui-table-view-cell" id="J_searchCate">
+						兴趣
+					</div>
+				</div>
+				<div class="app-terms">
+            		<div class="mui-radio mui-pull-right J_sort">
+            			<input type="radio" name="sort" value="new" checked="checked" />
+            			<input type="radio" name="sort" value="hot" />	
+            		</div>
+				</div>
+			</div>
+			
+			<div class="app-list">
+				<ul class="mui-table-view" id="J_groupList">
+					<li class="mui-table-view-cell">
+						<a>
+							<div class="app-list-circle">
+								<img  src="../../img/lunbo.png" />
+								<div class="app-list-info">
+									<h5>曼哈顿的美妙夜色</h5>
+									<button>加入</button>
+								</div>
+							</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a>
+							<div class="app-list-circle">
+								<img  src="../../img/lunbo.png" />
+								<div class="app-list-info">
+									<h5>曼哈顿的美妙夜色</h5>
+									<button>加入</button>
+								</div>
+							</div>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js" ></script>
+<script type="text/javascript" src="../../js/common.js" ></script>
+<script type="text/javascript" src="../../js/UserInfo.js" ></script>
+<script>
+mui.init();
+var param 	= {};
+mui.plusReady(function() {
+	var sessionId = app.sessionId();
+	var self 		= plus.webview.currentWebview();
+	var pid 		= self.pid;
+	var placeid 	= self.placeid;
+	var placename 	= self.placename;
+	var cids 		= self.cids;
+	var cnames 		= self.cnames;
+	var isclosefrom = self.isclosefrom;
+	//搜索条件
+	param['placeid']= (empty(placeid) == false)? placeid: '';;
+	param['cids']	= (empty(cids) == false)? cids.toString(): '';
+	param['sort']	= 'new';
+	
+	if(isclosefrom == 1){
+		var preView = plus.webview.getWebviewById(pid);
+
+		if(preView != undefined){
+			preView.hide();
+			preView.close();
+			isclosefrom = 0;
+		}
+	}
+	//搜索用
+	var J_search 		= document.getElementById('J_search');
+	var J_searchPlace	= document.getElementById('J_searchPlace');
+	var J_searchCate 	= document.getElementById('J_searchCate');
+
+	if(empty(placename) == false){
+		J_searchPlace.innerText = placename;
+	}
+	if(empty(cnames) == false){
+		J_searchCate.innerHTML = cnames;
+	}
+	
+	//目的地搜索跳转
+    J_searchPlace.addEventListener('tap', function(){
+    	var suburl 	= "../public/place-circle.html";
+    	mui.openWindow({url:suburl, id:suburl, extras:{from: self.id}});
+	});
+	//兴趣分类搜索跳转
+    J_searchCate.addEventListener('tap', function(){
+    	var suburl 	= "../public/cate-circle.html";
+    	mui.openWindow({url:suburl, id:suburl, extras:{from: self.id}});
+	});
+	//排序
+	mui('.J_sort').on('tap', 'input', function(){
+		var sort 	= this.value;
+		if(this.value == param['sort']) return true;
+		param['sort']	= sort;
+		getList(param);
+	});
+	//关键词搜索
+	J_search.addEventListener('input', function(){
+		var keywords = this.value;
+		param['keywords'] = keywords;
+		getList(param)
+	});
+	//取得列表
+	getList(param);
+	
+	//回调函数
+	document.addEventListener('backFunc',function(e){
+		//目的地搜索
+		if(e.detail.flag == 'place'){
+			if(e.detail.placename != undefined) {
+				J_searchPlace.innerText = e.detail.placename;
+				//搜索条件
+				param['placeid']= e.detail.placeid;
+			}
+		}
+		//兴趣分类搜索
+		if(e.detail.flag == 'cate'){
+			param['cids'] 	= e.detail.cids.toString();	//转换成字符串
+			document.getElementById('J_searchCate').innerHTML = e.detail.cnames;
+		}
+		getList(param);
+	});
+	// 打开圈子
+	mui('#J_groupList').on('tap','h5', function(){
+		var twid = plus.webview.currentWebview().id;
+		var groupid 	= this.dataset.groupid;
+		var groupName 	= this.innerText;
+		openwindow('../circle/main.html', {pwid:twid, groupid:groupid, groupName:groupName});
+	});
+
+	//加入圈子
+	mui('#J_groupList').on('tap','button', function(){
+		var groupid	= this.dataset.groupid;
+		if(empty(groupid)) {
+			alert('缺少圈子ID');
+			return false;
+		}
+		var server = SITE + 'circle/addCircle';
+		mui.ajax(server,{
+			data:{
+				circleID:groupid,
+				sessionId:sessionId
+			},
+			dataType:'json',//服务器返回json格式数据
+			type:'post',//HTTP请求类型
+			timeout:10000,//超时时间设置为10秒；
+			success:function(response){
+				if(response.code == 1) {
+					alert('成功加入圈子');
+//					document.getElementById('addCircle').style.display = 'none';
+				}else {
+					alert(response.msg);
+				}
+			},
+			error:function(xhr,type,errorThrown){
+				//异常处理；
+				console.log(type);
+			}
+		});
+	});
+});
+
+function getList(param)
+{
+    var server = SITE + 'circle/searchCircle';
+	mui.get(server, param, function(data) {
+		if(data!=''){
+			document.getElementById('J_groupList').innerHTML = data;
+		}
+	}, 'html');
+}
+</script>

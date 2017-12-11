@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>选择城市</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			@font-face {
+			    font-family: Appicons;
+			    font-weight: normal;
+			    font-style: normal;
+			    src: url('../../fonts/app.ttf') format('truetype');
+			}
+			body{
+				background-color: #f7f7f7;
+				position: absolute;
+				width: 100%;
+				height: 100%;
+			}
+			header{
+				position: absolute;
+			}
+			.mui-bar-nav~.mui-content{
+				padding-top: 0;
+			}
+			.mui-content{
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 44px;
+				bottom: 0px;
+				overflow-y: auto;
+				z-index: 0;
+			}
+			header .mui-btn {
+				background-color: #5ca7ba;
+				color: #FFFFFF !important;
+				border: 0;
+				padding: 5px 20px !important;
+			}
+			.mui-table-view{
+				background-color: #FFFFFF;
+				margin-top: 0 !important;
+				font-size: 14px;
+			}
+			.mui-table-view-cell:after{
+				left: 0 ;
+			}
+			.mui-input-group{
+				font-size: 15px;
+			}
+			.mui-radio input[type=radio]:before{
+				content: none;
+			}
+			.mui-radio input[type=radio]:checked:before{
+				content: '\e472';
+				font-size: 30px;
+				font-weight: 600;
+			}
+			.app-title .app-icon-add{
+				position: absolute;
+				margin: auto;
+				right: 20px;
+				color: #5ca7ba;
+				top: 5.5px;
+			}
+			.mui-input-group:last-child{
+				margin-bottom: 30px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<button class="mui-btn  mui-pull-right" id="save">保存</button>
+			<h1 class="mui-title">选择城市</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group" id="J_list">
+				<!--<div class="mui-input-row mui-radio">
+					<label>中国工商银行</label>
+					<input name="radio1" type="radio" class="J_radio" data-name="中国工商银行" value="icbc">
+				</div>-->
+			</form>
+			<!--<ul class="mui-table-view" id="J_list">
+				<li class="mui-table-view-cell mui-indexed-list-item mui-radio" data-placeid="5">北美</li>
+			</ul>-->
+		</div>
+		<script type="text/javascript" src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/common.js "></script>
+		<script type="text/javascript" src="../../js/UserInfo.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			var pw, return_pw, sessionId;
+			mui.init();
+			mui.plusReady(function() {
+				// 上级页面
+                var pwid = plus.webview.currentWebview().pwid;
+                pw = plus.webview.getWebviewById(pwid);
+
+				// 顶级页面
+                var return_pwid = plus.webview.currentWebview().return_pwid;
+                return_pw = plus.webview.getWebviewById(return_pwid);
+
+				// 传递参数 areaid(区域id), name(国家,省市名称)
+                var areaid = plus.webview.currentWebview().areaid;
+                var upper_name = plus.webview.currentWebview().name;
+
+				sessionId = app.sessionId(); // 用户sessionId
+
+				// 定义返回变量
+				var name = '';
+				var val = 0;
+
+				// 获取国家省市列表
+				var server = SITE + 'common/getArea';
+				mui.get(server, {integer:1,grade:3, areaID:areaid}, function(response) {
+					if(response.code == 1){
+						var html = '';
+						for(var item in response.data) {
+							html += '<div class="mui-input-row mui-radio">';
+							html += '<label>'+response.data[item].name+'</label>';
+							html += '<input name="city" type="radio" class="J_radio" data-name="'+response.data[item].name+'" value="'+response.data[item].id+'">';
+							html += '</div>';
+						}
+						document.getElementById('J_list').innerHTML = html;
+					}
+				},'json');
+				mui('.mui-input-group').on('tap', '.mui-radio', function(){
+					val = this.querySelector('.J_radio').value;
+					name = this.querySelector('.J_radio').dataset.name;
+					//console.log('name:' + name + ', val:' + val);
+				});
+				document.getElementById('save').addEventListener('tap', function(){
+					var obj = document.getElementsByName('city');
+					
+					console.log('val:' + val +', name:' + name);
+					save(val, upper_name + ',' + name);
+				});
+			});
+			function save(val,name){
+				var server 	= SITE + 'mySetting/saveLocalcity';
+				mui.ajax(server,{
+					data:{
+						locationID:val,
+						sessionId:sessionId
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					success:function(response){
+						if(response.code == 1) {
+							pw.hide();
+							pw.close();
+							mui.fire(return_pw,'backFunc', {flag:'locale', value:val, txt:name});
+							mui.back();
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+			}
+		</script>
+	</body>
+
+</html>

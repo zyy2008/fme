@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>我的订单</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			
+			.mui-table-view-cell{
+				padding: 0;
+			}
+			.mui-table-view-cell>.mui-slider-handle{
+				padding: 10px 0;
+			}
+			.app-order{
+				font-size: 15px;
+				color: #777777;
+				text-align: center;
+			}
+			.app-price{
+				width: 60px;
+				font-size: 15px;
+				color: #000000;
+				text-align: center;
+			}
+			.app-time{
+				width: 125px;
+				font-size: 14px;
+				color: #888888;
+				text-align: center;
+			}
+			ul .app-time{
+				font-size: 13px;
+			}
+			.app-header{
+				background-color: #ff425d;
+				padding: 7px 0;
+				margin-top: 10px;
+			}
+			.app-header .app-order,
+			.app-header .app-price,
+			.app-header .app-time{
+				color: #FFFFFF;
+			}
+			.mui-btn-red{
+				background-color: #d72e46;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的订单</h1>
+		</header>
+		<div class="mui-content">
+			<div class="app-header">
+				<div class="app-box">
+					<div class="app-order app-box-flex">订单号</div>
+					<div class="app-price">价格</div>
+					<div class="app-time">时间</div>
+				</div>
+			</div>
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<div class="mui-slider-right mui-disabled">
+						<a class="mui-btn mui-btn-red">删除</a>
+					</div>
+					<div class="mui-slider-handle app-box">
+						<div class="app-order app-box-flex mui-ellipsis">200013123012031</div>
+						<div class="app-price">¥150</div>
+						<div class="app-time">2015-09-25 24:22</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="mui-slider-right mui-disabled">
+						<a class="mui-btn mui-btn-red">删除</a>
+					</div>
+					<div class="mui-slider-handle app-box">
+						<div class="app-order app-box-flex mui-ellipsis">200013123012031</div>
+						<div class="app-price">¥150</div>
+						<div class="app-time">2015-09-25 24:22</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="mui-slider-right mui-disabled">
+						<a class="mui-btn mui-btn-red">删除</a>
+					</div>
+					<div class="mui-slider-handle app-box">
+						<div class="app-order app-box-flex mui-ellipsis">200013123012031</div>
+						<div class="app-price">¥150</div>
+						<div class="app-time">2015-09-25 24:22</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="mui-slider-right mui-disabled">
+						<a class="mui-btn mui-btn-red">删除</a>
+					</div>
+					<div class="mui-slider-handle app-box">
+						<div class="app-order app-box-flex mui-ellipsis">200013123012031</div>
+						<div class="app-price">¥150</div>
+						<div class="app-time">2015-09-25 24:22</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="mui-slider-right mui-disabled">
+						<a class="mui-btn mui-btn-red">删除</a>
+					</div>
+					<div class="mui-slider-handle app-box">
+						<div class="app-order app-box-flex mui-ellipsis">200013123012031</div>
+						<div class="app-price">¥150</div>
+						<div class="app-time">2015-09-25 24:22</div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<script type="text/javascript" src="../../js/mui.min.js" ></script>
+		<script>
+			mui.init();
+		</script>
+	</body>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>收到的评论</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			body{
+				background-color: #e5e5e5;
+			}
+			.mui-badge-primary{
+				background-color: #64bed2;
+			}
+			.mui-navigate-right:after{
+				font-size: 30px;
+				color: #afd7ed;
+			}
+			.app-top{
+				width: 100%;
+				display: inline-block;
+				vertical-align: top;
+			}
+			.app-top .mui-pull-left{
+				position: relative;
+			}
+			.app-top .mui-pull-left span{
+				position: absolute;
+				width: 10px;
+				height: 10px;
+				background-color: #64bed2;
+				border-radius: 100%;
+				-webkit-border-radius: 100%;
+				left: -20px;
+			}
+			.app-top .mui-pull-right{
+				font-size: 14px;
+				color: #8e8e8e;
+			}
+			.app-top+p{
+				padding-top: 10px;
+				padding-right: 20px;
+				color: #000000;
+				line-height: 15px;
+				overflow : hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+				height: 42px;
+			}
+			.app-top+p span{
+				padding-right: 5px;
+			}
+			.mui-table-view{
+				background-color: inherit;
+			}
+			.mui-table-view-cell{
+				padding: 5px 10px;
+				margin-bottom: 10px;
+			}
+			.mui-btn-grey{
+				background-color: #5ca7ba;
+			}
+			.mui-table-view-cell{
+				background-color: #FFFFFF;
+			}
+			.mui-table-view-cell:after,
+			.mui-table-view:before{
+				content: none;
+			}
+			.mui-btn-grey{
+				background-color: #64bed2;
+			}
+			.mui-slider-handle h5{
+				margin: 0;
+				color: #000000;
+				font-size: 15px;
+				line-height: 20px;
+			}
+			.mui-slider-handle p{
+				color: #777777;
+				font-size: 15px;
+				overflow : hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 1;
+				-webkit-box-orient: vertical;
+				line-height: 20px;
+			}
+			.mui-slider-handle .app-time{
+				color: #777777;
+				font-size: 15px;
+				line-height: 20px;
+			}
+			.mui-media-body{
+				padding-left: 10px;
+				padding-right: 20px;
+			}
+			.app-head{
+				top: 5px;
+			}
+			.app-new:after{
+				content: "";
+				position: absolute;
+				width: 10px;
+				height: 10px;
+				display: inline-block;
+				border-radius: 100%;
+				margin: auto;
+				right: 10px;
+				background-color: #ff425d;
+				top: 0;
+				bottom: 0;
+				left: initial;
+				transform:initial;
+				-webkit-transform: initial;
+			}
+			.mui-btn-yellow{
+				background-color: #65bfd2;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">收到的评论</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view" id="J_content">
+				<!--<li class="mui-table-view-cell">
+					<div class="mui-slider-right mui-disabled">
+						<a class="mui-btn mui-btn-yellow J_view" data-uid="10041">查看</a>
+					</div>
+					<div class="mui-slider-handle">
+						<div class="app-head app-sex-nan app-da mui-pull-left">
+							<img src="../../img/head.png" />
+						</div>
+						<div class="mui-media-body">
+							<h5>香山上的红叶</h5>
+							<p>哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈啊</p>
+							<div class="app-time">
+								20小时前
+							</div>
+						</div>
+					</div>
+				</li>-->
+			</ul>
+		</div>
+	</body>
+</html>
+<script src="../../js/mui.min.js" ></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/UserInfo.js"></script>
+<script>
+var btnArray = ['确认', '取消'];
+mui.init();
+mui.plusReady(function(){
+	var sessionId = app.sessionId();
+	var J_content = document.getElementById('J_content');
+	
+	//数据处理
+	plus.nativeUI.showWaiting();
+	var server	= SITE + "myTheme/ajaxMyPost";
+//	console.log(sessionId);
+	mui.getJSON(server, {sessionId:sessionId}, function(response) {
+		if(response.code == 1){
+			J_content.innerHTML = response.data;
+		}
+		plus.nativeUI.closeWaiting();
+	});
+	//查看私信内容
+	mui("#J_content").on('tap', '.J_view', function(){
+		if(empty(sessionId) == true){
+			alert('请先登录');
+			return true;
+		}
+		var themeid = this.dataset.themeid;
+		var suburl 	= "../circle/theme.html";
+		openwindow(suburl, {themeid:themeid});
+	});
+
+});
+</script>

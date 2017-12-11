@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>注册</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet" />
+		<style>
+		
+.mui-input-group .mui-input-row {
+    display:-webkit-box;
+    -webkit-box-orient:horizontal;
+    font-size:16px
+}
+.mui-input-row label {
+    width:115px;
+    display:block;
+    float:none
+}
+.mui-input-row label~input {
+    width:inherit;
+    float:none;
+    display:block;
+    -webkit-box-flex:1;
+    font-size:16px
+}
+.mui-input-clear {
+    padding-right:35px!important
+}
+.mui-input-row label~input+input {
+    width:100px;
+    -webkit-box-flex:inherit;
+    display:inline-block;
+    color:#FFF;
+    background-color:#2d81c2;
+    text-align:center;
+    padding:0;
+    border-radius:3px;
+    -webkit-border-radius:3px;
+    margin:5px;
+    height:30px;
+    font-size:14px
+}
+.mui-table-view:first-child{
+	margin-top: 20px !important;
+}
+.mui-content>.mui-table-view:first-child {
+    margin-top:0
+}
+.mui-table-view-chevron {
+    font-size:16px
+}
+.mui-table-view-chevron .mui-pull-right {
+    font-style:inherit
+}
+.app-btn {
+    background-color:#64bed2;
+    border:0;
+    color:#FFF;
+    font-size:16px
+}
+.mui-btn-block{
+    padding:7px 0
+}
+.mui-content-padded p {
+    color:#5ca7ba;
+    text-align:center;
+    font-size:15px
+}
+.mui-content-padded .mui-checkbox {
+    display:inline-block;
+    vertical-align:top
+}
+.mui-checkbox.mui-left .app-deal {
+    width:100%;
+    font-size:14px;
+    padding:9px 0;
+    padding-left:60px
+}
+.mui-checkbox.mui-left .app-deal a {
+    color:#5ca7ba
+}
+.app-footer img {
+    width:100%;
+    vertical-align:top
+}
+.app-red p {
+    line-height:26px;
+    color:#777777;
+}
+.app-red img {
+    width:20px;
+    vertical-align:top;
+    margin-left:20px
+}
+.app-yuandian{
+	width: 10px;
+	height: 10px;
+	border-radius: 100%;
+	display: inline-block;
+	background-color: #feb05d;
+}
+.app-warper{
+	padding-bottom: 20px;
+}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">注册</h1>
+		</header>
+		<div class="mui-content">
+			<div class="app-warper">
+				<ul class="mui-table-view mui-table-view-chevron">
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" id="country" >国家和地区<i class="mui-pull-right" id="country_name">中国</i></a>
+					</li>
+				</ul>
+				<form class="mui-input-group">
+					<div class="mui-input-row">
+						<label id="country_num">+86</label>
+						<input id='phone' type="tel" class="mui-input-clear mui-input" placeholder="请输入手机号码" maxlength="11">
+					</div>
+					<div class="mui-input-row">
+						<label>验证码</label>
+						<input id='verification' type="tel" maxlength="6" placeholder="请输入验证码">
+						<input id="access_verification" type="button" value="获取验证码"  />
+					</div>
+					<div class="mui-input-row">
+						<label>密码</label>
+						<input id='password' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+					</div>
+					<div class="mui-input-row">
+						<label>确认密码</label>
+						<input id='password_confirm' type="password" class="mui-input-clear mui-input" placeholder="请确认密码">
+					</div>
+				</form>
+				<div class="mui-content-padded mui-text-center">
+					<div class="mui-input-row mui-checkbox mui-left">
+						<input  type="checkbox" id="checkbox" checked="checked" >
+						<div class="app-deal">阅读并接受<a id="deal">《跟我玩用户注册协议》</a></div>
+					</div>
+				</div>
+				<div class="mui-content-padded">
+					<button id='reg' class="mui-btn mui-btn-block app-btn">立即注册</button>
+				</div>
+				<div class="mui-content-padded app-red">
+					<p><span class="app-yuandian"></span>注册完成即送 100元</p>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../../js/mui.min.js" ></script>
+		<script type="text/javascript" src="../../js/UserInfo.js" ></script>
+		<script type="text/javascript" src="../../js/common.js" ></script>
+		<script>
+			var pid,pw;
+			(function($, doc) {
+				$.init();
+				
+				$.plusReady(function(){
+					pid = plus.webview.currentWebview().pwid;
+					pw = plus.webview.getWebviewById(pid);
+					
+				});
+				
+				var countryBox = doc.getElementById('country');
+				var countryNumBox = doc.getElementById('country_num');
+				var regButton = doc.getElementById('reg');
+				var passwordBox = doc.getElementById('password');
+				var passwordConfirmBox = doc.getElementById('password_confirm');
+				var verificationBox = doc.getElementById('verification');
+				var phoneBox = doc.getElementById('phone');
+				var checkBox = doc.getElementById('checkbox');
+				var access_verificationBox = doc.getElementById('access_verification');
+				var countryNameBox = doc.getElementById('country_name');
+				var dealBtn = doc.getElementById('deal');
+				var areaid=1;
+				//获取验证码
+				access_verificationBox.addEventListener('tap',function(e){
+					var inputBtn = this;
+					var verification = {
+						cellphone:phoneBox.value,
+						flag: 'reg'
+					};
+					app.getcode(inputBtn,verification, function(err) {
+						if (err) {
+							plus.nativeUI.toast(err);
+							return;
+						};
+					});
+				});
+				//注册
+				regButton.addEventListener('tap', function(e) {
+					var regInfo = {
+						username: phoneBox.value,
+						captchas:verificationBox.value,
+						password:passwordBox.value,
+						passwordConf:passwordConfirmBox.value,
+						areaID: areaid,
+						from:'from_11'
+					};
+					if(checkBox.checked){
+						app.reg(regInfo, function(err) {
+							if (err) {
+								plus.nativeUI.toast(err);
+								return;
+							};
+							pw.hide();
+							mui.fire(pw, "regLogin",regInfo);
+							mui.back();
+						});
+					}else{
+						plus.nativeUI.toast("请阅读并接受跟我玩用户协议");
+						return;
+					};
+				});
+				dealBtn.addEventListener('tap',function(e){
+					openwindow('deal.html',{});
+				});
+				countryBox.addEventListener('tap',function(e){
+					var twid = plus.webview.currentWebview().id;
+					openwindow('../public/indexed-list-radio.html',{pwid:twid});
+				});
+				doc.addEventListener('getInfo',function(e){
+					countryNameBox.innerText = e.detail.name;
+					countryNumBox.innerText = e.detail.value;
+					areaid = e.detail.areaid;
+				});
+			}(mui, document));
+		</script>
+	</body>
+</html>

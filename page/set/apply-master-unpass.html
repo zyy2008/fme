@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>申请达人</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			body{
+				font-size:15px;
+			}
+			.app-title:nth-child(1){
+				margin-top: 10px;
+			}
+			.app-title{
+				padding: 0px 15px;
+			}
+			.app-title .mui-btn{
+				margin-top: 2.5px;
+			}
+			.mui-btn{
+				background-color: #5ca7ba;
+				color: #FFFFFF !important;
+				padding: 5px;
+				border: 0;
+				width: 70px;
+			}
+			.mui-table-view{
+				font-size: 14px;
+			}
+			.mui-table-view-cell:after{
+				left: 0;
+			}
+			.app-blue{
+				width: 85px;
+				display: inline-block;
+				color: #5ca7ba;
+			}
+			.app-blue+.mui-pull-right{
+				margin-right: 30px;
+			}
+			input{
+				width: 180px !important;
+				border: 0 !important;
+				font-family: "微软雅黑","microsoft yahei";
+				font-size: 15px;
+				margin-bottom: 0 !important;
+				padding: 5px 6px !important;
+				height: 30px !important;
+			}
+			textarea{
+				border: 0;
+				background-color: #e5e5e5;
+				font-size: 15px;
+				font-family: "微软雅黑","microsoft yahei";
+			}
+			.mui-btn-block{
+				width: 100%;
+				font-size: 16px;
+				padding: 10px 0;
+				border: 0;
+			}
+			.mui-navigate-right:after{
+				font-size: 30px;
+				color: #afd7ed;
+			}
+			.app-footer{
+				padding: 10px 15px;
+				background-color: #e5e5e5;
+			}
+			.app-footer p{
+				margin-bottom: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<a class=" mui-pull-right"></a>
+			<h1 class="mui-title">申请达人</h1>
+		</header>
+		<div class="mui-content">
+			<div class="app-title">
+				对不起，您的申请未能通过审核,原因如下:
+			</div>
+			<div class="app-content">
+				<p id="memo"></p>
+			</div>
+			<div class="app-footer">
+				<p>提交申请达人</p>
+				<p>就意味着您已经接受并同意<a>《达人申请条款》</a></p>
+				<p>审核时间为3个工作日</p>
+			</div>
+		</div>
+		<script type="text/javascript" src="../../js/mui.min.js" ></script>
+		<script type="text/javascript" src="../../js/common.js "></script>
+		<script type="text/javascript" src="../../js/UserInfo.js"></script>
+		<script>
+			mui.init();
+			mui.plusReady(function(){
+				var sessionId = app.sessionId();
+				var server = SITE + 'mySetting/getUserApplyStatus';
+				mui.ajax(server,{
+					data:{
+						sessionId:sessionId
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					success:function(response){
+						if(response.code == 1) {
+							console.log(response.data.memo); 
+							document.getElementById('memo').innerText = response.data.memo;
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type);
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

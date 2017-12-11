@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>公共达人头</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			.mui-bar-nav{
+				-webkit-box-shadow: 0px 3px 5px rgba(0,0,0,0);
+				box-shadow: 0px 3px 5px  rgba(0,0,0,0);
+			}
+			.mui-bar-nav~.mui-content .mui-pull-top-pocket{
+				top:60px;
+			}
+			.mui-content{
+				background-color: #FFFFFF;
+			}
+			.mui-bar-nav.mui-bar .mui-icon{
+				color: #FFFFFF;
+			}
+			.mui-bar .mui-btn{
+				color: #FFFFFF;
+			}
+			.mui-bar-nav~.mui-content {
+				position: absolute;
+				top: 44px;
+				height: 47px;
+				padding-top: 0;
+				width: 100%;
+				padding: 8px 30px;
+			}
+			.mui-segmented-control {
+				background-color: #FFFFFF;
+				border: 0;
+				border-radius: 5px;
+				border: 1px solid #cccccc;
+			}
+			.mui-segmented-control .mui-control-item.mui-active{
+				background-color: inherit;
+				padding: 5px 10px;
+			}
+			.mui-segmented-control .mui-control-item{
+				color:#4cc4d4;
+				line-height: inherit;
+				border-left: 0;
+				position: relative;
+			}
+			.mui-segmented-control .mui-control-item.mui-active span{
+				background-color: #4cc4d4;
+				display: inline-block;
+				width: 100%;
+				border-radius: 5px;
+			}
+			.mui-segmented-control .mui-control-item:nth-child(2):before{
+				content: "";
+				position: absolute;
+				width: 1px;
+				top: 5px;
+				bottom: 5px;
+				left: 0;
+				background-color: #dddddd;
+			}
+			.app-icon-sousuo{
+				width: 24px;
+				height: 24px;
+				top: 10px;
+				position: relative;
+				right: 5px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="app-icon-sousuo mui-pull-right" id="J_search"></a>
+			<div class="mui-title">达人</div>
+		</header>
+		<div class="mui-content">
+			<div  class="mui-segmented-control">
+				<a class="mui-control-item" href="boutique-list.html" data-flag="master">
+					<span>达人</span>
+				</a>
+				<a class="mui-control-item mui-active" href="service-list.html" data-flag="service">
+					<span>特色线路</span>
+				</a>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../js/common.js"></script>
+<script type="text/javascript" charset="utf-8">
+ //mui初始化
+mui.init();
+var subpages = ['service-list.html', 'boutique-list.html'];
+var subpage_style = {
+	top: '91px',
+	bottom: '0'
+};
+var aniShow = {};
+var flag = 'service';
+var postParam;
+ //创建子页面，首个选项卡页面显示，其它均隐藏；
+mui.plusReady(function() {
+	var self = plus.webview.currentWebview();
+	for (var i = 0; i < 2; i++) {
+		var temp = {};
+		var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
+		if (i > 0) {
+			sub.hide();
+		}else{
+			temp[subpages[i]] = "true";
+			mui.extend(aniShow,temp);
+		}
+		self.append(sub);
+	}
+});
+ //当前激活选项
+var activeTab = subpages[0];
+ //选项卡点击事件
+mui('.mui-segmented-control').on('tap', 'a', function(e) {
+	var targetTab = this.getAttribute('href');
+	if (targetTab == activeTab) {
+		return;
+	}
+	
+	//显示目标选项卡
+	if(mui.os.ios||aniShow[targetTab]){
+		plus.webview.show(targetTab);
+	}else{
+		var temp = {};
+		temp[targetTab] = "true";
+		mui.extend(aniShow,temp);
+		plus.webview.show(targetTab);
+	}
+	//隐藏当前;
+	plus.webview.hide(activeTab);
+	//更改当前活跃的选项卡
+	activeTab = targetTab;
+	//切换标记
+	flag 	= this.dataset.flag;
+});
+
+//搜索跳转
+document.getElementById('J_search').addEventListener('tap', function(){
+	if(flag == 'master'){
+		postParam = {from:'boutique-list.html'};
+		var btnArray= [{title:"目的地"},{title:"兴趣"}];
+		var param 	= {title:"选择搜索条件", cancel:"取消", buttons:btnArray};
+		plus.nativeUI.actionSheet(param, function(e){
+			var index = e.index;
+			if(index == 1){
+				openwindow("../public/place-circle.html", postParam);
+			}else if(index == 2){
+				openwindow("../public/cate-master.html", postParam);
+			}
+		});
+	}
+	if(flag == 'service'){	//服务搜索 
+		postParam = {from:'service-list.html'};
+		openwindow("../public/place-circle.html", postParam);
+	}
+});
+</script>

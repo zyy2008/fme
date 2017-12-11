@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>私信</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/mui.imageviewer.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<link rel="stylesheet" href="../../css/activity.css" />
+		<style>
+		html, body {
+			height: 100%;
+			margin: 0px;
+			padding: 0px;
+			overflow: hidden;
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+		}
+		.mui-content {
+			height: 100%;
+			padding: 44px 0px 50px 0px;
+			overflow: auto;
+			background: url(../../img/chat-bg.png) no-repeat;
+			background-size: 100% 100%;
+		}
+		#msg-list {
+			height: 100%;
+			overflow: auto;
+			-webkit-overflow-scrolling: touch;
+		}
+		.msg-item {
+			padding: 8px;
+			clear: both;
+			display: inline-block;
+			width: 100%;
+			vertical-align: top;
+		}
+		.msg-item .msg-user-img {
+			width:50px;
+			height: 50px;
+			display: inline-block;
+			vertical-align: top;
+			text-align: center;
+			float: left;
+		}
+		
+		.msg-item .msg-content {
+			display: inline-block;
+			border-radius: 5px;
+			border: solid 1px #d3d3d3;
+			background-color: #FFFFFF;
+			color: #333;
+			padding: 15px 8px;
+			vertical-align: top;
+			font-size: 15px;
+			position: relative;
+			margin: 0px 8px;
+			max-width: 75%;
+			min-width: 35px;
+			float: left;
+		}
+		.msg-item .msg-content .msg-content-inner {
+			overflow-x: hidden;
+		}
+		.msg-item .msg-content .msg-content-inner img{
+			max-width: 100px;
+		}
+		.msg-item .msg-content .msg-content-arrow {
+			position: absolute;
+			border: solid 1px #d3d3d3;
+			border-right: none;
+			border-top: none;
+			background-color: #FFFFFF;
+			width: 10px;
+			height: 10px;
+			left: -5px;
+			top: 20px;
+			-webkit-transform: rotateZ(45deg);
+			transform: rotateZ(45deg);
+		}
+		.msg-item .mui-item-clear {
+			clear: both;
+		}
+		.msg-item-self .msg-user{
+			float: right;
+		}
+		.msg-item .msg-user{
+			width: 50px;
+			height: 50px;
+			display: inline-block;
+			vertical-align: top;
+			text-align: center;
+		}
+		.msg-item-self .msg-content .msg-content-arrow {
+			background-color: #64bed2;
+			color: #fff;
+			border-color: #64bed2;
+		}
+		.msg-item-self .msg-content {
+			float: right;
+			background-color: #64bed2;
+			color: #fff;
+			border-color: #64bed2;
+		}
+		.msg-item-self .msg-content .msg-content-arrow {
+			left: auto;
+			right: -5px;
+			-webkit-transform: rotateZ(225deg);
+			transform: rotateZ(225deg);
+		}
+
+		footer {
+			position: fixed;
+			width: 100%;
+			height: 50px;
+			min-height: 50px;
+			border-top: solid 1px #bbb;
+			left: 0px;
+			bottom: 0px;
+			overflow: hidden;
+			padding: 0px 50px;
+			background-color: #ffffff;
+			padding-right: 60px;
+		}
+		.footer-left {
+			position: absolute;
+			width: 50px;
+			height: 50px;
+			left: 0px;
+			bottom: 0px;
+			text-align: center;
+			vertical-align: middle;
+			line-height: 100%;
+			padding: 12px 4px;
+		}
+		.footer-center {
+			height: 100%;
+			padding: 5px 0px;
+		}
+		.footer-right {
+			position: absolute;
+			width: 60px;
+			height: 50px;
+			right: 0px;
+			bottom: 0px;
+			text-align: center;
+			vertical-align: middle;
+			line-height: 100%;
+			padding: 10px 5px;
+			display: inline-block;
+		}
+		.footer-right .mui-btn{
+			background-color: #64bed2;
+			color: #FFFFFF;
+			border: 0;
+		}
+		.footer-center .input-text {
+			background: #fff;
+			border: solid 1px #ddd;
+			padding: 10px !important;
+			font-size: 16px !important;
+			line-height: 18px !important;
+			font-family: verdana !important;
+			overflow: hidden;
+		}
+		.footer-center [class*=input] {
+			width: 100%;
+			height: 100%;
+			border-radius: 5px;
+			margin-bottom: 0;
+		}
+		.msg-time{
+			text-align: center;
+			padding: 10px 0;
+			display: inline-block;
+			vertical-align: top;
+			width: 100%;
+		}
+		.msg-time span{
+			display: inline-block;
+			background-color: #b6b3b2;
+			padding: 0 5px;
+			font-size: 12px;
+			color: #FFFFFF;
+			border-radius: 5px;
+		}
+		.app-da:after,
+		.app-jda:after{
+			width: 15px;
+			height: 15px;
+		}
+		</style>
+	</head>
+	<body contextmenu="return false;">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="J_sixin">私信</h1>
+		</header>
+		<div class="mui-content" id="pullrefresh">
+			<div id="J_list">
+				<!--<div class="msg-item" >
+					<div class="app-head app-sex-nan app-da msg-user-img">
+						<img src="../../img/head.png" />
+					</div>
+					<div class="msg-content">
+						<div class="msg-content-inner">
+							Hi，我是 MUI 小管家！Hi，我是 MUI 小管家！Hi，我是 MUI 小管家！
+						</div>
+						<div class="msg-content-arrow"></div>
+					</div>
+					<div class="msg-time"><span>2015-05-06</span></div>
+				</div>
+				<div class="msg-item  msg-item-self">
+					<div class="app-head app-sex-nan app-da msg-user">
+						<img src="../../img/head.png" />
+					</div>
+					<div class="msg-content">
+						<div class="msg-content-inner">
+							ssss
+						</div>
+						<div class="msg-content-arrow"></div>
+					</div>
+					<div class="msg-time"><span>2015-05-06</span></div>
+				</div>
+				<div class="msg-item" >
+					<div class="app-head app-sex-nan app-da msg-user-img">
+						<img src="../../img/head.png" />
+					</div>
+					<div class="msg-content">
+						<div class="msg-content-inner">
+							<img src="../../img/bg-date.png" />
+						</div>
+						<div class="msg-content-arrow"></div>
+					</div>
+					<div class="msg-time"><span>2015-05-06</span></div>
+				</div>-->
+			</div>
+		</div>
+		<footer>
+			<div class="footer-left">
+				<i id='J_image' class="mui-icon mui-icon-camera" style="font-size: 28px;"></i>
+			</div>
+			<div class="footer-center">
+				<textarea id='J_message' type="text" class='input-text'></textarea>
+			</div>
+			<div class="footer-right">
+				<button class="mui-btn J_post">发送</button>
+			</div>
+		</footer>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../js/mui.imageViewer.js"></script>
+<script type="text/javascript" src="../../js/mui.zoom.js" ></script>
+<script type="text/javascript" src="../../js/mui.previewimage.js" ></script>
+<script type="text/javascript" src="../../js/common.js "></script>
+<script type="text/javascript" src="../../js/UserInfo.js"></script>
+<script type="text/javascript" charset="utf-8">
+var sessionId,uid,uploadUrl;
+var lastid = 0;
+var page	= 0;
+var pullflag= false;
+var flagSearch 	= false;
+mui.init({
+	beforeback: function(){
+		var pwid = plus.webview.currentWebview().from;
+		if(empty(pwid) == false){
+			var pw = plus.webview.getWebviewById(pwid);
+			//触发列表界面的自定义事件（refresh）,从而进行数据刷新
+			mui.fire(pw,'backFunc',{flag:'ref'});
+		}
+		//返回true，继续页面关闭逻辑
+		return true;
+	}
+});
+//mui.init({
+//pullRefresh : {
+//  container:"#J_list",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+//  down : {
+//    contentdown : "下拉可以刷新",//可选，在下拉可刷新状态时，下拉刷新控件上显示的标题内容
+//    contentover : "释放立即刷新",//可选，在释放可刷新状态时，下拉刷新控件上显示的标题内容
+//    contentrefresh : "正在刷新...",//可选，正在刷新状态时，下拉刷新控件上显示的标题内容
+//    callback :pullRefresh //必选，刷新函数，根据具体业务来编写，比如通过ajax从服务器获取新数据；
+//  }
+//}
+//});
+//上拉加载更多 
+//function pullRefresh() {
+//	page++;
+//	console.log(page);
+////	getMoreList();
+////	this.endPulldownToRefresh(pullflag);
+//	mui('#J_list').pullRefresh().endPulldownToRefresh();
+//};
+
+mui.previewImage();
+mui.plusReady(function(){
+	if(plus.os.version >= 9.0){
+		plus.webview.currentWebview().setStyle({
+				softinputMode: "adjustResize"
+		});
+	};
+	var self	= plus.webview.currentWebview();
+	sessionId 	= app.sessionId();
+	uid			= self.uid;
+
+	var nickname= self.nickname;
+	var J_sixin	= document.getElementById('J_sixin');
+	var J_list	= document.getElementById('J_list');
+	var J_image = document.getElementById('J_image');
+	var J_message 	= document.getElementById('J_message');
+	var J_sound = document.getElementById('J_sound');
+
+	//对话用户
+	if(empty(nickname) == false) J_sixin.innerText 	= nickname;
+
+	//退出登录
+	if(empty(sessionId)==true){
+		alert('请先登录');
+		mui.back();
+	}
+	//第一屏加载数据
+	plus.nativeUI.showWaiting();
+	var server = SITE + 'sixin/ajaxChatList?sessionId='+sessionId+'&uid='+uid;
+	mui.get(server, {sessionId:sessionId, uid:uid}, function(response) {
+		if(empty(response) == false){
+			J_list.innerHTML = response;
+			//自动追加聊天记录
+			autoRowMessage();
+		}else{
+			J_list.innerHTML = '';
+		}
+		plus.nativeUI.closeWaiting();
+	}, 'html');
+
+	//会员主页
+	mui("#J_list").on("tap", ".J_userhome", function(){
+		var uid 	= this.dataset.uid;
+		var nickname= this.dataset.nickname;
+		openwindow("../master/club-index.html", {uid:uid, nickname:nickname});
+	});
+	//发送文字信息
+	mui("footer").on("tap", ".J_post", function(){
+		var message	= J_message.value;
+		if(empty(message) == true){
+			alert("请输入私信内容");
+			exit;
+		}
+		plus.nativeUI.showWaiting( "发送中..." );
+		var ajaxUrl = SITE + "sixin/ajaxAddMessage";
+		var param 	= {sessionId:sessionId, uid:uid, message:message};
+		mui.getJSON(ajaxUrl, param, function(response){
+			if(response.code == '1'){
+//				alert("发布成功");
+				//避免重复
+//				var ajaxPushRow = document.getElementsByClassName("J_ajaxPushRow");
+//				if(ajaxPushRow.length > 0){
+//					//删除节点
+//					for(var i=0; i<ajaxPushRow.length; i++){
+//						ajaxPushRow[i].remove('div');
+//					}
+//				}
+				J_message.value  = '';
+				J_list.innerHTML += response.data;
+			}else{
+				alert(response.msg);
+			}
+			plus.nativeUI.closeWaiting();
+		});
+	});
+	//发送图片	//J_image
+	mui('footer').on('tap', '#J_image', function(){
+		uploadUrl = SITE + 'sixin/ajaxUploadImg?uid='+uid+'&sessionId='+sessionId;
+		fileUpload();
+	});
+	//发送视频
+	//发送音频
+	mui.scrollTop=mui.scrollHeight;
+});
+function autoRowMessage()
+{
+	var ajaxUrl = SITE + "sixin/ajaxRowMessage";
+	var param 	= {sessionId:sessionId, uid:uid, lastid:lastid};
+	mui.getJSON(ajaxUrl, param, function(response){
+		var last 	= response.lastid;
+		if(response.code == '1'){
+			J_list.innerHTML += response.data;
+			lastid = response.lastid;
+		}
+		if(response.code == '2'){
+			lastid = response.lastid;
+		}
+	});
+	//自动刷新
+	setTimeout("autoRowMessage()", 5000); //设置1000毫秒以后执行一次本函数
+}
+/**
+ * 上传评论图片
+ */
+function fileUpload(){
+	var bts=[{title:"拍照"},{title:"从相册中选择"}];
+	plus.nativeUI.actionSheet({cancel:"取消",buttons:bts},
+		 function(e){
+				if(e.index==1){
+					// 拍照添加文件
+					plus.camera.getCamera().captureImage(function(p){
+						upload(p);
+					});	
+				}else if(e.index==2){
+					// 从相册添加文件
+					plus.gallery.pick(function(p){
+						upload(p);
+    				});
+				}
+		 }
+	)
+}
+// 上传文件	
+function upload(path){
+	var wt=plus.nativeUI.showWaiting();
+	var task=plus.uploader.createUpload(uploadUrl,
+		{method:"POST",blocksize:204800,priority:100},
+		function(t,status){ //上传完成
+			if(status==200){
+				response 	= JSON.parse(t.responseText);
+//				var picdir = JSON.parse(t.responseText);
+//				picpath = picdir.paththumbname;
+//				pics += picpath + ':,';
+//				document.querySelector('.app-comment-function').insertAdjacentHTML('afterEnd', '<div class="app-img"><img src="' + UPLOADDIR + '/' + picpath + '" /></div>');
+				J_list.innerHTML += response.data;
+			}else{
+				plus.nativeUI.alert("上传失败："+status);
+			};
+			wt.close();
+		}
+	);
+	var n=path.substr(path.lastIndexOf('/')+1);
+	task.addFile(path,{name:n});
+	task.start();
+}
+</script>
+

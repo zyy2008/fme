@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>发布修改服务</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			body,
+			.mui-content{
+				background-color: #FFFFFF;
+			}
+			.mui-content{
+				padding: 10px !important;
+				padding-top: 54px !important;
+			}
+			.app-input{
+				border-bottom: 1px solid #cccccc;
+			}
+			.app-input input{
+				border: 0;
+				border-radius: 0;
+				font-size: 14px;
+				padding-left: 0;
+				padding-right: 0;
+				margin-bottom: 0;
+				display: block;
+			}
+			.app-input span{
+				display: block;
+				line-height: 40px;
+				font-size: 14px;
+			}
+			textarea{
+				font-family: "微软雅黑","microsoft yahei";
+				font-size: 14px;
+				border: 0;
+				padding: 0;
+			}
+			.app-textarea{
+				border-bottom: 1px solid #cccccc;
+			}
+			.app-textarea span{
+				display: block;
+				font-size: 14px;
+				line-height: 30px;
+			}
+			.app-textarea textarea{
+				height: 100px;
+				display: block;
+				margin-bottom: 0;
+				padding-top: 5px;
+			}
+			.app-photo{
+				max-height: 150px;
+				overflow : hidden;
+			}
+			.app-img{
+				width: 25%;
+				display: inline-block;
+				padding: 5px;
+				float: left;
+				border-radius: 5px;
+			}
+			.app-img img{
+				width: 65px;
+				height: 65px;
+				display: block;
+				overflow: hidden;
+				vertical-align: top;
+				margin: auto auto;
+				border-radius: 5px;
+			}
+			.app-add{
+				width: 65px;
+				height: 65px;
+				background-image: url(../../img/add.png);
+				background-size: 100% 100%;
+				border-radius: 5px;
+				margin: auto auto;
+			}.app-img{
+				width: 25%;
+				display: inline-block;
+				padding: 5px;
+				float: left;
+				border-radius: 5px;
+				position: relative;
+			}
+			.app-img .app-img-delete{
+				position: absolute;
+				width: 20px;
+				height: 20px;
+				background:  url(../../img/icon/shanchu.png) no-repeat;
+				background-size: 100% 100%;
+				display: block;
+				top: 5px;
+				right: calc(50% - 30px);
+			}
+			.app-img:last-child:after{
+				content: none;
+			}
+			.app-img img{ 
+				width: 65px;
+				height: 65px;
+				display: block;
+				overflow: hidden;
+				vertical-align: top;
+				margin: auto auto;
+				border-radius: 5px;
+				position: relative;
+			}
+			.mui-checkbox input[type=checkbox], .mui-radio input[type=radio] {
+			position: inherit;
+			left: inherit !important;
+			right: inherit;
+			top: inherit;
+			}
+			.mui-checkbox.mui-left label, .mui-radio.mui-left label {
+			padding: 0 !important;
+			line-height: 26px;
+			font-size: 15px;
+			display: inline;
+			vertical-align: top;
+			}
+			.mui-table-view-cell{
+				padding: 0;
+			}
+			.mui-table-view-cell>a:not(.mui-btn){
+				margin: 0;
+				padding: 10px 0;
+			}
+			.mui-table-view .mui-pull-left{
+				font-size: 15px;
+				width: 70px;
+			}
+			.mui-table-view .mui-pull-left-2{
+				font-size: 15px;
+				width: 90px;
+			}
+			.mui-table-view-cell:after{
+				left: 0;
+			}
+			.mui-table-view .mui-media-body{
+				font-size: 16px;
+			}
+			.mui-numbox {
+			   width: 90px;
+			   border: 0;
+			   padding: 0 30px;
+			   position: absolute;
+			top: 50%;
+			display: inline-block;
+			-webkit-transform: translateY(-50%);
+			transform: translateY(-50%);
+			right: 0;
+			}
+			.mui-numbox [class*=mui-numbox-btn][disabled]{
+				background-color: #9cd2e0;
+			}
+			.mui-numbox [class*=mui-numbox-btn] {
+			    background-color:#65bfd2;
+			    color:#FFF;
+			    width:30px;
+			}
+			.mui-numbox .mui-numbox-input {
+			    font-size:14px;
+			    border: 0 !important;
+			     padding: 0 !important;
+			}
+			.app-numbox .mui-pull-left{
+				line-height: 40px;
+			}
+			.app-numbox .mui-pull-left-2{
+				line-height: 40px;
+			}
+			.app-unactive.mui-active{
+				background-color: inherit;
+			}
+			.app-cell-input {
+				padding: 5px 0;
+			}
+			.app-cell-input .mui-pull-left{
+				line-height: 35px;
+			}
+			.app-cell-input input{
+				width: 100px;
+				border-radius: 0;
+				margin-bottom: 0;
+				padding: 5px 10px;
+				height: 35px;
+				font-size: 14px;
+			}
+			.app-cell-input .mui-pull-right{
+				font-size: 15px;
+				color: #ff425d;
+			}
+			.app-cell-date .mui-pull-left{
+				line-height: 30px;
+			}
+			.app-cell-date .mui-pull-right{
+				padding-right: 40px;
+			}
+			.app-icon-date1{
+				width: 28px;
+				height: 30px;
+			}
+			.app-cell-p{
+				padding: 10px 0;
+			}
+			.app-cell-p p{
+				color: #000000;
+				font-size: 15px;
+			}
+			.mui-radio input[type=radio]:checked:before {
+			content: '\e442';
+			}
+			.app-cell-table{
+				padding: 10px 0;
+			}
+			td{
+				padding-bottom: 5px;
+			}
+			.app-cell-row .app-box{
+				border-bottom: 1px solid #cccccc;
+				margin-left: 70px;
+				position: relative;
+				height: 40px;
+			}
+			.app-cell-row:after{
+				content: none;
+			}
+			.app-cell-row .mui-ellipsis{
+				font-size: 15px;
+				color: #000000;
+				padding-right: 90px;
+				white-space:initial;
+				position: absolute;
+				top: 50%;
+			display: inline-block;
+			-webkit-transform: translateY(-50%);
+			transform: translateY(-50%);
+			left: 0;
+			}
+			.app-cell-row .mui-pull-left{
+				line-height: 40px;
+			}
+			.app-cell-listp{
+				padding: 10px 0;
+			}
+			.app-cell-listp .mui-pull-left{
+				padding-right: 10px;
+			}
+			.app-cell-listp .mui-ellipsis{
+				font-size: 15px;
+				color: #000000;
+			}
+			.app-yulan{
+				padding: 30px;
+				text-align: center;
+			}
+			.app-yulan .mui-btn{
+				background-color: #4cc4d4;
+				color: #FFFFFF;
+				border: 0;
+				padding: 5px 20px;
+			}
+			.mui-table-view textarea{
+				border-bottom: 1px solid #cccccc;
+				border-radius: 0;
+				
+			}
+			.app-bottom,
+			.app-bottom .mui-ellipsis{
+				color: red;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<button class="mui-btn  mui-pull-right" id="J_save">提交</button>
+			<h1 class="mui-title">特色线路</h1>
+		</header>
+		<div class="mui-content" id="J_content">
+			<div class="app-input app-box" id="J_title">
+				<span>标题：</span>
+				<input type="text" placeholder="（1-20个字）" id="name" maxlength="20" value="" class="app-box-flex" />
+			</div>
+			<div class="app-textarea app-box">
+				<span>线路描述：</span>
+				<textarea class="app-box-flex" id="introduce" placeholder="请填写旅程描述"></textarea>
+			</div>
+			<div class="app-textarea app-box">
+				<span>关于我：</span>
+				<textarea id="aboutme" class="app-box-flex" placeholder="请填写个人介绍"></textarea>
+			</div>
+			<div class="app-photo">
+				
+				<div class="app-img">
+					<div class="app-add J_upload" id="upload"></div>
+				</div>
+			</div>
+			
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right J_place">
+						<div class="mui-pull-left">目的地</div>
+						<div class="mui-media-body" id="J_place_txt"></div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell app-numbox app-unactive">
+					<div class="mui-pull-left-2">最大服务人数</div>
+					<div class="mui-numbox mui-pull-right" data-numbox-min='1'>
+						<button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
+						<input class="mui-numbox-input J_servicenum" type="number" id="servicenum" value="1" disabled="disabled" />
+						<button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+					</div>
+				</li>
+				<li class="mui-table-view-cell app-unactive app-cell-input">
+					<div class="mui-pull-left">服务价格</div>
+					<div class="mui-pull-right">
+						人民币/元
+						<input type="number" id="price" />
+					</div>
+				</li>
+				<li class="mui-table-view-cell app-unactive app-cell-input">
+					<div class="mui-pull-left">服务时长</div>
+					<div class="mui-pull-right">小时/次<input type="number" id="servicetime" />
+					</div>
+				</li>
+				<li class="mui-table-view-cell app-cell-date">
+					<a class="mui-navigate-right">
+						<div class="mui-pull-left">服务日期</div>
+						<div class='mui-pull-right'>
+							<div class="app-icon-date1"></div>
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell app-cell-p app-unactive">
+					<div class="mui-pull-left">线路地点</div>
+					<div class="mui-media-body">
+						<textarea id="line"></textarea>
+					</div>
+				</li>
+				<li class="mui-table-view-cell app-cell-p app-unactive">
+					<div class="mui-pull-left">见面地点</div>
+					<div class="mui-media-body">
+						<textarea id="meetingplace"></textarea>
+					</div>
+				</li>
+				<li class="mui-table-view-cell app-unactive app-cell-table">
+					
+						<div class="mui-pull-left">服务内容</div>
+						<div class="mui-media-body">
+							<table class="mui-table" >
+					<tr>
+						<td colspan="3">
+							<div class="mui-radio mui-left mui-ellipsis" style="display: inline-block;">
+								<input type="radio" name="meal"  value="1"/>
+								<label>含餐费</label>
+							</div>
+							<div class="mui-radio mui-left mui-ellipsis" style="display: inline-block;">
+								<input type="radio" name="meal" value="3"/>
+								<label>餐费AA</label>
+							</div>
+							<div class="mui-radio mui-left mui-ellipsis" style="display: inline-block;">
+								<input type="radio" name="meal"  value="2" />
+								<label>不含餐</label>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3">
+							<div class="mui-checkbox mui-left">
+								<input type="checkbox" name="traffic" id="traffic" value="1"/>
+								<label>可接送</label>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3">
+							<div class="mui-checkbox mui-left">
+								<input type="checkbox" name="under_12" value="1"/>
+								<label>可接待12岁以下儿童</label>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3">
+							<div class="mui-checkbox mui-left">
+								<input type="checkbox" name="above_60" value="1"/>
+								<label>可接待60岁以上老人</label>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3">
+							<div class="mui-checkbox mui-left mui-ellipsis">
+								<input type="checkbox" />
+								<label>其他服务内容，请参考服务描述</label>
+							</div>
+						</td>
+					</tr>
+				</table>
+						</div>
+				</li>
+				<li class="mui-table-view-cell app-unactive app-cell-row">
+					<div class="mui-pull-left">服务政策</div>
+					<div class="app-box">
+						<p class="mui-ellipsis app-box-flex">提前更改服务时间的天数</p>
+						<div class="mui-numbox" data-numbox-min='0'>
+							<button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
+							<input class="mui-numbox-input J_servicenum" type="number" value="0" disabled="disabled" id="edittime"/>
+							<button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+						</div>
+					</div>
+					<div class="app-box">
+						<p class="mui-ellipsis app-box-flex">更改幅度不可超过的天数</p>
+						<div class="mui-numbox" data-numbox-min='0'>
+							<button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
+							<input class="mui-numbox-input J_servicenum" type="number" value="0" disabled="disabled"  id="edittimedays"/>
+							<button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+						</div>
+					</div>
+					<div class="app-box">
+						<p class="mui-ellipsis app-box-flex">提前更改游客数量的天数</p>
+						<div class="mui-numbox" data-numbox-min='0'>
+							<button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
+							<input class="mui-numbox-input J_servicenum" type="number" value="0" disabled="disabled" id="editcustomer"/>
+							<button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+						</div>
+					</div>
+					<div class="app-box">
+						<p class="mui-ellipsis app-box-flex">更改幅度不可超过的人数</p>
+						<div class="mui-numbox" data-numbox-min='0'>
+							<button class="mui-btn mui-numbox-btn-minus" type="button">-</button>
+							<input class="mui-numbox-input J_servicenum" type="number" value="0" disabled="disabled" id="editcustomernum"/>
+							<button class="mui-btn mui-numbox-btn-plus" type="button">+</button>
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell app-unactive app-cell-listp">
+					<div class="mui-pull-left mui-text-right">Tips</div>
+					<div class="mui-media-body">
+						<p class="mui-ellipsis">其他禁忌，见服务描述</p>
+					</div>
+				</li>		
+				<li class="mui-table-view-cell app-unactive app-cell-listp app-bottom">
+					<div class="mui-pull-left mui-text-right">约定</div>
+					<div class="mui-media-body">
+						<p class="mui-ellipsis">1、以人民币计费</p>
+						<p class="mui-ellipsis">2、时间以当地时间为准</p>
+					</div>
+				</li>	
+			</ul>
+			<div class="app-yulan">
+				<button class="mui-btn J_view" style="display:none;">预览</button>
+			</div>
+			<input type="hidden" id="placeid" value="0"/>
+			<input type="hidden" id="serviceID" value="0"/>
+
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js" ></script>
+<script type="text/javascript" src="../../js/common.js" ></script>
+<script type="text/javascript" src="../../js/UserInfo.js" ></script>
+<script>
+var service_pics = new Array();
+var self, thisid, sessionId;
+mui.init({
+	beforeback: function(){
+		var pwid = plus.webview.currentWebview().pwid
+		var pw = plus.webview.getWebviewById(pwid);
+		//触发列表界面的自定义事件（refresh）,从而进行数据刷新
+		mui.fire(pw,'ref');
+		//返回true，继续页面关闭逻辑
+		return true;
+	}
+});
+mui.plusReady(function(){
+	self 	= plus.webview.currentWebview();
+	thisid 	= self.id;
+	sessionId = app.sessionId();
+	// 获取服务内容
+	getServiceInfo(sessionId);
+
+	//监听回调
+	window.addEventListener('backFunc', function(event) {
+		var flag = event.detail.flag;
+		switch(flag) {
+			case 'place':
+				document.getElementById('placeid').value = event.detail.placeid; 
+				var placename = event.detail.placename;
+				console.log(placename);
+				document.getElementById('J_place_txt').innerText = placename;
+				break;
+		}
+	});
+	//设置日历
+	mui('#J_content').on('tap', '.app-cell-date', function(){
+		openwindow("../public/calendar-set.html", {});
+	});
+
+	// 选择目的地
+	mui('#J_content').on('tap', '.J_place', function(){
+		openwindow('../public/place-circle.html', {from:thisid});
+	});
+	// 预览
+	mui('#J_content').on("tap", ".J_view", function(){
+		var servicename = document.getElementById('name').value; // 服务详情
+		var serviceid = document.getElementById('serviceID').value;
+		openwindow("../master/club-service.html", {serviceid:serviceid, servicename:servicename});
+	});
+	// 上传图片
+	mui('#J_content').on('tap', '.J_upload', function(){
+		fileUpload();
+	});
+	// 删除未入库图片
+	mui('#J_content').on('tap', '.delete_unUpload', function(){
+		var path = this.dataset.path;
+		//console.log('service_pics: '+service_pics);
+		//console.log(path);
+		service_pics.splice(service_pics.indexOf(path), 1);
+		//console.log('service_pics: '+service_pics);
+		this.parentNode.removeChild(this);
+		
+	});
+	// 删除已入库图片
+	mui('#J_content').on('tap', '.app-img-delete', function(){
+		var picID = this.dataset.picid;
+		if(empty(picID)) {
+			alert('删除失败');
+			return false;
+		}
+		var server = SITE + 'myService/deleteServicePic';
+		mui.ajax(server,{
+			data:{
+				picID: picID,
+				sessionId:sessionId
+			},
+			dataType:'json',//服务器返回json格式数据
+			type:'post',//HTTP请求类型
+			timeout:10000,//超时时间设置为10秒；
+			success:function(response){
+				if(response.code == 1) {
+					alert(response.msg);
+					// 删除div节点
+					document.getElementById('pic_'+picID).parentNode.removeChild(document.getElementById('pic_'+picID));
+				}else {
+					alert(response.msg);
+				}
+			},
+			error:function(xhr,type,errorThrown){
+				//异常处理；
+				console.log(xhr.response + type + errorThrown);
+			}
+		});
+	});
+	// 保存
+	document.getElementById('J_save').addEventListener('tap', function(){
+	//mui('#J_content').on('tap', '#J_save', function(){
+		var placeid = document.getElementById('placeid').value;
+		var name 	= document.getElementById('name').value; // 服务名称
+		var price 	= document.getElementById('price').value; // 服务价格
+		var servicetime = document.getElementById('servicetime').value; // 服务时长
+//		var startTime = document.getElementById('startTime').innerText; // 服务开始时间
+//		var endTime = document.getElementById('endTime').innerText; // 服务结束时间
+//		// 服务时间, 如: 周一,周二,周三...
+//		var J_serviceday = document.getElementsByName('serviceday');
+//		var serviceday = getCheckboxVal(J_serviceday);
+		//var serviceday = document.getElementById('serviceday').value; // 服务时间, 如: 周一,周二,周三...
+		var servicenum = document.getElementById('servicenum').value; // 报名人数
+		var meetingplace = document.getElementById('meetingplace').value; // 见面地点
+		var line = document.getElementById('line').value; //旅游线路
+		var edittime = document.getElementById('edittime').value; //更改服务时间需要提前的天数
+		var edittimedays = document.getElementById('edittimedays').value; //更改服务时间的幅度
+		var editcustomer = document.getElementById('editcustomer').value; //更改游客数量可提前的天数
+		var editcustomernum = document.getElementById('editcustomernum').value; //更改游客数量的幅度
+		
+		// 服务内容
+		var J_meal = document.getElementsByName('meal');
+		var meal = getRadioVal(J_meal);
+		
+		var J_traffic = document.getElementsByName('traffic');
+		var traffic = getRadioVal(J_traffic);
+		
+		var J_under_12 = document.getElementsByName('under_12');
+		var under_12 = getRadioVal(J_under_12);
+		
+		var J_above_60 = document.getElementsByName('above_60');
+		var above_60 = getRadioVal(J_above_60);
+		
+		// 服务详情
+		var introduce = document.getElementById('introduce').value; // 服务详情
+		var aboutme = document.getElementById('aboutme').value; // 关于我
+		var serviceID = document.getElementById('serviceID').value;
+		
+		// 检测变量
+		if(empty(placeid)) {
+			alert('请选择目的地');
+			return false;
+		}
+		if(empty(name)) {
+			alert('请填写服务名称');
+			return false;
+		}
+		if(empty(price)) {
+			alert('请填写服务价格');
+			return false;
+		}
+		if(empty(servicetime)) {
+			alert('请填写服务时长');
+			return false;
+		}
+//		if(empty(startTime)) {
+//			alert('请填写服务开始时间');
+//			return false;
+//		}
+//		if(empty(endTime)) {
+//			alert('请填写服务结束时间');
+//			return false;
+//		}
+//		if(empty(serviceday)) {
+//			alert('请填写服务时间');
+//			return false;
+//		}
+		if(empty(servicenum)) {
+			alert('请填写报名人数');
+			return false;
+		}
+		if(empty(meetingplace)) {
+			alert('请填写见面地点');
+			return false;
+		}
+		if(empty(line)) {
+			alert('请填写旅游路线');
+			return false;
+		}
+//		if(empty(edittime)) {
+//			alert('请填写更改服务时间需要提前的天数');
+//			return false;
+//		}
+//		if(empty(edittimedays)) {
+//			alert('请填写更改服务时间的幅度');
+//			return false;
+//		}
+//		if(empty(editcustomer)) {
+//			alert('请填写更改游客数量可提前的天数');
+//			return false;
+//		}
+//		if(empty(editcustomernum)) {
+//			alert('请填写更改游客数量提前天数的幅度');
+//			return false;
+//		}
+		if(empty(meal)) {
+			alert('请选择服务内容');
+			return false;
+		}
+//		if(empty(traffic) && empty(under_12) && empty(above_60)) {
+//			alert('请选择服务内容');
+//			return false;
+//		}
+
+		if(empty(introduce)) {
+			alert('请填写服务详情');
+			return false;
+		}
+		//暂时去掉图片上传  --- 2015-12-2
+//		if(service_pics.length <=0 && serviceID == 0) {
+//			alert('请上传服务配图');
+//			return false;
+//		}
+		
+		// 组合服务内容
+		//if(! empty(fee)) content = content.push(fee); // + ',' + content;
+		//if(! empty(fee)) content[content.length] = fee;
+		
+		// 添加/修改服务
+		var server = SITE + 'myService/add';
+//				startTime:startTime,
+//				endTime:endTime,
+//				serviceday:serviceday,
+		mui.ajax(server,{
+			data:{
+				placeid:placeid,
+				name:name,
+				price:price,
+				servicetime:servicetime,
+				servicenum:servicenum,
+				meetingplace:meetingplace,
+				line:line,
+				edittime:edittime,
+				edittimedays:edittimedays,
+				editcustomer:editcustomer,
+				editcustomernum:editcustomernum,
+				meal:meal,
+				traffic:traffic,
+				under_12:under_12,
+				above_60:above_60,
+				introduce:introduce,
+				aboutme:aboutme,
+				service_pics:service_pics.toString(),
+				serviceID:serviceID,
+				sessionId:sessionId
+			},
+			dataType:'json',//服务器返回json格式数据
+			type:'post',//HTTP请求类型
+			timeout:10000,//超时时间设置为10秒；
+			success:function(response){
+			    if(response.code == 1) {
+			        alert(response.msg);
+					var objwb = plus.webview.getWebviewById("service-list.html");
+					mui.fire(objwb, "backFunc", {flag:'refresh'});
+			        mui.back();
+			    }else {
+			        alert(response.msg);
+			    }
+		    }
+		});
+	});
+});
+mui("#J_content").on('tap','.app-time',function(){
+	var t = this;
+	plus.nativeUI.pickTime(function(e) {
+		var d = e.date;
+		t.innerHTML = d.getHours()+":"+d.getMinutes();
+	}, function(e) {
+		console.log("您没有选择时间");
+	}, {
+		title: "请选择时间",
+		is24Hour: false
+	});
+});
+/**
+ * 获取服务内容
+ * @param {Object} sessionId
+ */
+function getServiceInfo() {
+	sessionId = app.sessionId();
+    var server = SITE + 'myService/index?sessionId='+sessionId;
+//  console.log('url:' + server); 
+	plus.nativeUI.showWaiting("正在加载...");
+	mui.get(server, {sessionId:sessionId}, function(response) {
+		if(response != ''){
+			//console.log('url:' + server + ', 获取成功');
+			//document.getElementById('J_content').insertAdjacentHTML('beforeEnd', response);
+			document.getElementById('J_content').innerHTML = response;
+			mui('.mui-numbox').numbox(); // 重新激活加减计算
+		}else {
+//			alert('当前没有任何服务');
+		}
+		plus.nativeUI.closeWaiting();
+	}, 'html');
+}
+/**
+ * 上传图片
+ */
+var server= SITE + 'myService/upload';
+function fileUpload(){
+	var bts=[{title:"拍照"},{title:"从相册中选择"}];
+	plus.nativeUI.actionSheet({cancel:"取消",buttons:bts},
+		 function(e){
+				if(e.index==1){
+					// 拍照添加文件
+					plus.camera.getCamera().captureImage(function(p){
+						upload(p);
+					});	
+				}else if(e.index==2){
+					// 从相册添加文件
+					plus.gallery.pick(function(p){
+						upload(p);
+    				});
+				}
+		 }
+	)
+}
+// 上传文件	
+function upload(path){
+	var wt=plus.nativeUI.showWaiting();
+	
+	var task=plus.uploader.createUpload(server,
+		{method:"POST",blocksize:204800,priority:100},
+		function(t,status){ //上传完成
+			if(status==200){
+				var picdir = JSON.parse(t.responseText);
+				picpath = picdir.pathname;
+				//service_pics += picpath + ',';
+				service_pics.push(picpath);
+				document.querySelector('.app-img').insertAdjacentHTML('beforeBegin', '<div class="app-img delete_unUpload" data-path="'+picpath+'"><img src="' + UPLOADDIR + '/' + picpath + '" /><div class="app-img-delete"></div></div>');
+				
+				wt.close();
+			}else{
+				plus.nativeUI.alert("上传失败："+status);
+				wt.close();
+			};
+		}
+	);
+	var n=path.substr(path.lastIndexOf('/')+1);
+	task.addFile(path,{name:n});
+	task.start();
+}
+</script>

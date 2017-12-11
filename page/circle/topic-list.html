@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>话题</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<link rel="stylesheet" href="../../css/activity.css" />
+		<style>
+			.app-warper{
+				background-color: inherit;
+			}
+			.app-activity .mui-table-view{
+				padding: 10px !important;
+				background-color: inherit;
+			}
+			.app-activity .mui-table-view .mui-table-view-cell{
+				margin-bottom: 10px;
+				padding: 10px !important;
+				border-radius: 10px;
+				background-color: #FFFFFF;
+			}
+			.mui-table-view:before,
+			.mui-table-view:after{
+				content: none;
+			}
+			.app-title-unstyle{
+				width: 100%;
+				background-color: inherit;
+				display: inline-block;
+				vertical-align: top;
+				padding-left: 0;
+				position: relative;
+			}
+			.app-title-unstyle .mui-pull-left{
+				color: #000000;
+				font-size: 14px;
+			}
+			.app-title-unstyle.mui-text-right{
+				height: 31px;
+			}
+			.app-photo{
+				width: 100%;
+				display: inline-block;
+				vertical-align: top;
+			}
+			.app-bottom{
+				height: 30px;
+				line-height: 30px;
+				font-size: 15px;
+				color: #8c8c8c;
+			}
+			.mui-table-view-cell{
+				padding: 0 !important;
+			}
+			.mui-table-view-cell a{
+				margin: 0 !important;
+			}
+			.mui-table-view-cell.mui-active,
+			.mui-table-view-cell>a:not(.mui-btn).mui-active{
+				background-color: #eee !important;
+			}
+			em{
+				font-style: inherit;
+			}
+			div.mui-btn{
+				background-color: #4cc4d4;
+				color: #FFFFFF;
+				border: 0;
+			}
+				.app-btn-fixed{
+				position: fixed;
+				width: 60px;
+				height: 60px;
+				border-radius: 100%;
+				padding: 0;
+				margin: auto auto;
+				background-color: rgba(100,190,210,.8);
+				bottom: 10px;
+				color: #FFFFFF;
+				border: 0;
+				left: 0;
+				right: 0;
+				z-index: 2;
+			}
+			.app-da:after,
+			.app-jda:after{
+				width: 15px;
+				height: 15px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content" >
+			<div class="app-warper mui-scroll-wrapper" id="pullrefresh">
+				<div class="app-activity mui-scroll">
+					<ul class="mui-table-view" id="J_list">	
+					</ul>
+				</div>
+			</div>
+		</div>
+		<button class="mui-btn app-btn-fixed" id="J_addTheme">发布</button>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js" ></script>
+<script type="text/javascript" src="../../js/common.js" ></script>
+<script type="text/javascript" src="../../js/UserInfo.js" ></script>
+<script>
+var param 	= {};
+var sessionId = null;
+var page	= 0;
+var pullflag= false;
+var flagSearch 	= false;
+mui.init({
+	swipeBack: false,
+	pullRefresh: {
+		container: '#pullrefresh',
+		down: {
+			callback: pulldownRefresh
+		},
+		up: {
+			contentrefresh: '正在加载...',
+			callback: pullupRefresh
+		}
+	}
+});
+//下拉，重新加载列表
+function pulldownRefresh() {
+	mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+	pullflag= false;
+	page	= 0;
+	param 	= {page:page};
+	listThemes(param);
+	mui('#pullrefresh').pullRefresh().refresh(true);
+};
+//上拉加载更多 
+function pullupRefresh() {
+	page++;
+	param['page'] = page;
+	listThemes(param);
+	this.endPullupToRefresh(pullflag);
+};
+mui.plusReady(function(){
+	sessionId 	= app.sessionId();
+	var J_list 	= document.getElementById("J_list");
+	//加载第一屏话题列表，推荐的
+	listThemes(param);
+	//互动详情
+	mui("#J_list").on('tap', '.J_themeinfo', function(){
+		var _parent	= this.parentNode;
+		var themeid	= _parent.dataset.themeid;
+		var groupname	= _parent.dataset.groupname;
+//		console.log(themeid);console.log(groupname);
+		openwindow("../circle/theme.html", {themeid:themeid, groupname:groupname});
+	});
+	//回调函数
+	document.addEventListener('backFunc',function(e){
+		param	= {};
+		page 	= 0;
+		flagSearch = true;
+		//兴趣分类搜索
+		if(e.detail.flag == 'cate'){
+			param['cids'] 	= e.detail.cids.toString();	//转换成字符串
+		}
+		var last = JSON.stringify(param);
+		listThemes(param);
+	});
+	
+		//发布话题 
+	document.getElementById('J_addTheme').addEventListener('tap', function(){
+		var sessionId = app.sessionId();
+		if(empty(sessionId) == true){
+			openwindow('../login/login.html',{});
+			return false;
+		}
+		var paramAddtheme = {};
+		openwindow('../circle/main-release-addtopic.html', paramAddtheme);
+	});
+});
+
+//取得列表
+function listThemes(param)
+{
+	plus.nativeUI.showWaiting();
+	var ajaxUrl = SITE + "theme/search";
+	mui.get(ajaxUrl, param, function(response){
+		if(response != ''){
+			if(page > 0){
+				J_list.innerHTML += response;
+			}else{
+				J_list.innerHTML = response;
+			}
+		}else{
+			if(flagSearch == true){
+				J_list.innerHTML = '';
+				alert("对不起，没有搜索到任何话题");
+			}
+			pullflag 	= true;
+		}
+		flagSearch = false;
+		plus.nativeUI.closeWaiting();
+		plus.nativeUI.closeWaiting();
+	});
+}
+
+//加载第一屏话题列表，推荐的
+//function listfrst(){
+//	plus.nativeUI.showWaiting();
+//	var ajaxUrl = SITE + "theme/index";
+//	mui.get(ajaxUrl, {}, function(response){
+//		if(empty(response) == false){
+//			J_list.innerHTML = response;
+//		};
+//		plus.nativeUI.closeWaiting();
+//	});
+//}
+</script>
+

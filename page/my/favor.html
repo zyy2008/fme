@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>我的收藏</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			.mui-bar-nav.mui-bar .mui-icon{
+				color: #FFFFFF;
+			}
+			.mui-bar .mui-btn{
+				color: #FFFFFF;
+			}
+			.app-search{
+				width: 100%;
+				height: 30px;
+				border-radius: 3px;
+				-webkit-border-radius: 3px;
+				background-color: #5ca7ba;
+			}
+			.app-search .mui-icon{
+				position: absolute;
+				margin: auto !important;
+				top: 0;
+				bottom: 0;
+				left: 10px;
+				height: 24px;
+			}
+			.app-search span{
+				position: absolute;
+				line-height: 30px;
+				left: 38px;
+				font-size: 14px;
+			}
+			.mui-bar-nav~.mui-content {
+				position: absolute;
+				top: 44px;
+				height: 60px;
+				padding-top: 0;
+				width: 100%;
+				padding: 10px 15px;
+			}
+			.mui-segmented-control {
+				position: absolute;
+				border-color: #787367;
+			}
+			.mui-segmented-control .mui-control-item.mui-active{
+				background-color: #5ca7ba;
+			}
+			.mui-segmented-control{
+				position: absolute;
+				border-color: #5ca7ba;
+			}
+			.mui-segmented-control .mui-control-item{
+				color: #5ca7ba;
+				border-left-color: #5ca7ba;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<div class="mui-title">
+				我的收藏
+			</div>
+		</header>
+		<div class="mui-content">
+			<div id="segmentedControl" class="mui-segmented-control">
+				<a class="mui-control-item mui-active J_select" href="#item1" data-type="service">
+					服务
+				</a>
+				<a class="mui-control-item J_select" href="#item2" data-type="theme">
+					话题
+				</a>
+			</div>
+			<div id="item1" class="mui-control-content mui-active">
+				<div id="scroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<ul class="mui-table-view app-content-list" id="J_service">
+						
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div id="item2" class="mui-control-content">
+				<div id="scroll" class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<ul class="mui-table-view app-content-list" id="J_theme">
+							
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../js/common.js "></script>
+<script type="text/javascript" src="../../js/UserInfo.js"></script>
+<script type="text/javascript" charset="utf-8">
+	var sessionId;
+	mui.init(); 
+	mui('.mui-scroll-wrapper').scroll({
+			indicators: true //是否显示滚动条
+	});
+	mui.plusReady(function(){
+		sessionId = app.sessionId();
+		
+		getOrderList('service', sessionId);
+		
+		// 获取订单
+		mui('.mui-content').on('tap', '.J_select', function(){
+			var type = this.dataset.type;
+			//console.log('type:' + type);
+			getOrderList(type, sessionId);
+		})
+		// 订单详情
+		mui('.mui-content').on('tap', '.J_order', function(){
+			var orderid = this.dataset.orderid;
+			console.log(orderid);
+			
+			openwindow('../my/order-details.html',{orderid:orderid});
+		});
+		// 取消收藏
+		mui('.mui-content').on('tap', '.J_cancle', function(){
+			var orderID = this.dataset.orderid;
+			//console.log(orderID);
+			var server = SITE + 'myOrder/cancle';
+			console.log('url:' + server); 
+			mui.ajax(server,{
+				data:{
+					orderID:orderID,
+					sessionId:sessionId
+				},
+				dataType:'json',//服务器返回json格式数据
+				type:'post',//HTTP请求类型
+				timeout:10000,//超时时间设置为10秒；
+				success:function(response){
+				    if(response.code == 1) { // 获取成功 id="J_cardno_num"
+				        alert(response.msg);
+				        // 刷新列表
+				        getOrderList('mybuy', sessionId);
+				    }else {
+				        alert(response.msg);
+				    }
+			    }
+			});
+		});
+	});
+	/**
+	 * 获取收藏列表
+	 * @param {Object} type
+	 * @param {Object} sessionId
+	 */
+	function getFavorList(type, sessionId){
+		
+		var returnID = null; // 返回html插入位置的ID
+		if(type == 'service') {
+			returnID = 'J_service';
+		}else {
+			returnID = 'J_theme';
+		}
+		//console.log('type:' + type);
+		var server = SITE + 'myOrder/index';
+		console.log('url:' + server);
+		//console.log(sessionId);
+		mui.get(server, {type:type,sessionId:sessionId}, function(response) {
+			//console.log(returnID);
+			//console.log('response:' + response);
+			if(empty(response) == false){
+				//document.getElementById(returnID).insertAdjacentHTML('beforeEnd', response);
+				document.getElementById(returnID).innerHTML = response;
+			}else {
+				alert('没有更多订单');
+			}
+		}, 'html');
+	}
+</script>

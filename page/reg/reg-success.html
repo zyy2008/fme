@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>注册成功</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet" />
+		<style>
+			.mui-content,body{background-color:#FFF}.app-btn{background-color:#64bed2;color:#FFF;border:0;font-size:16px}.mui-btn-block{padding:5px 0}.mui-content-padded p{color:#5ca7ba;text-align:center;font-size:15px}.app-footer{position:absolute;bottom:0;width:100%}.app-footer img{width:100%;vertical-align:bottom}.app-red p{line-height:26px;color:#e64445}.app-red img{width:20px;vertical-align:top;margin-left:20px}.app-reg{width:230px;height:230px;margin:auto auto;position:relative;margin-top:20px}.app-reg{background:url(../../img/reg-success.png) no-repeat;background-size:100% 100%}.app-reg-info{position:absolute;left:85px;top:85px}.app-reg-info>div{line-height:30px}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<h1 class="mui-title">注册成功</h1>
+		</header>
+		<div class="mui-content">
+			<div class="mui-content-padded app-reg">
+				<div class="app-reg-info">
+					<div class="uid" id="uid"></div>
+					<div class="tel" id="tel"></div>
+				</div>
+			</div>
+			<div class="mui-content-padded app-red">
+				<p>已赠送100元<img src="../../img/red.png"></p>
+			</div>
+			<div class="mui-content-padded">
+				<button id='confirm' class="mui-btn mui-btn-block app-btn">确定</button>
+			</div>
+			<div class="mui-content-padded app-red">
+				<p>完善个人资料，再送100元<img src="../../img/red.png"></p>
+			</div>
+			<div class="app-footer">
+				<img src="../../img/find.png" />
+			</div>
+		</div>
+		<script type="text/javascript" src="../../js/mui.min.js" ></script>
+		<script>
+			mui.init();
+			mui.plusReady(function(){
+				
+				var uid = document.getElementById('uid');
+				var tel = document.getElementById('tel');
+				var smt = document.getElementById('confirm');
+				uid.innerHTML = plus.webview.currentWebview().uid;
+				tel.innerHTML = plus.webview.currentWebview().tel;
+				
+				smt.addEventListener('tap',function(){
+					mui.back();
+					plus.webview.getWebviewById('../login/login.html').show();
+					plus.webview.getWebviewById('../reg/reg.html').reload(true);
+				});
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>他的圈子</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			body{
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				background-color: #e5e5e5;
+			}
+			header{
+				position: absolute ;
+			}
+			.mui-bar-nav~.mui-content{
+				padding-top: 0;
+			}
+			.mui-content{
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 5px;
+				bottom: 0px;
+			}
+			.app-header{
+				position:fixed;
+				width: 100%;
+			}
+			.app-list{
+				position: absolute;
+				top: 50px;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				overflow-y: auto;
+				z-index: 0;
+			}
+			.app-header .mui-btn{
+				position: relative;
+				border: 0;
+				border-radius: 0;
+				-webkit-border-radius: 0;
+				width: 50%;
+				height: 32px;
+			}
+			.mui-btn .mui-badge{
+				background-color: #5ca7ba; 
+			}
+			.app-header .mui-btn:before{
+				font-family: Muiicons;
+				font-size: 30px;
+				line-height: 1;
+				position: absolute;
+				top: 50%;
+				display: inline-block;
+				-webkit-transform: translateY(-50%);
+				transform: translateY(-50%);
+				text-decoration: none;
+				color: #bbb;
+				-webkit-font-smoothing: antialiased;
+				right: 0;
+				content: '\e583';
+				color: #858585;
+			}
+			.mui-segmented-control.mui-pull-right .mui-control-item{
+				border-left-color: #ff425d;
+				color: #ff425d;
+				background-color: #FFFFFF;
+				line-height: 20px;
+				font-size: 14px;
+			}
+			.mui-table-view-cell:after{
+				left: 0;
+			}
+			.mui-badge-primary{
+				font-size: 14px;
+				background-color: #5ca7ba;
+			}
+			.app-list-circle{
+				position: relative;
+				display: inline-block;
+				width: 100%;
+			}
+			.app-list-circle img{
+				width: 100%;
+				height: auto;
+				vertical-align: top;
+				border-radius: 5px;
+			}
+			.app-list-info{
+				position: absolute;
+				margin: auto;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				height: 80px;
+				display: inline-block;
+				background-color: rgba(0,0,0,.5);
+				
+			}
+			.app-list-info h5{
+				position: absolute;
+				width: 100%;
+				height: 30px;
+				line-height: 30px;
+				font-weight: bold;
+				font-size: 20px;
+				opacity: 1;
+				text-align: center;
+				text-shadow: 0 0 10px #000000;
+				color: #FFFFFF;
+			}
+			.app-list-info button{
+				position: absolute;
+				margin: auto;
+				width: 70px;
+				height: 30px;
+				left: 0;
+				right: 0;
+				bottom: 5px;
+				background-color: #ff425d;
+				border:2px solid #FFFFFF;
+				border-radius: 20px;
+				padding: 0;
+				color: #FFFFFF;
+				opacity: .7;
+			}
+			.app-header .mui-table{
+				border-bottom: 1px solid #aaaaaa;
+				background-color: #e5e5e5;
+			}
+			.app-header .mui-table-cell{
+				position: relative;
+				text-align: center;
+				line-height: 40px;
+				font-size: 15px;
+				border-radius: 0;
+				color: #767676;
+				padding: 0;
+			}
+			.app-header .mui-table-cell:first-child:after{
+				content: "";
+				position: absolute;
+				width: 1px;
+				height: auto;
+				right: 0;
+				top: 1px;
+				bottom: 1px;
+				left: initial;
+				background-color: #969696;
+				display: block;
+			}
+			.mui-table-view-cell>.mui-badge{
+				position: inherit;
+				top: inherit; 
+				 right: inherit; 
+				 -webkit-transform: none; 
+				 transform: none; 
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="J_userinfo">Ta的圈子</h1>
+		</header>
+		<div class="mui-content">
+			<div class="app-list">
+				<ul class="mui-table-view" id="J_groupList">
+					<!--<li class="mui-table-view-cell">
+						<a>
+							<div class="app-list-circle">
+								<img  src="../../img/lunbo.png" />
+								<div class="app-list-info">
+									<h5>曼哈顿的美妙夜色</h5>
+									<button>加入</button>
+								</div>
+							</div>
+						</a>
+					</li>-->
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js" ></script>
+<script type="text/javascript" src="../../js/common.js" ></script>
+<script type="text/javascript" src="../../js/UserInfo.js" ></script>
+<script>
+mui.init();
+var param 	= {};
+var sessionId, self, uid;
+var page 	= 0;
+mui.plusReady(function() {
+	sessionId = app.sessionId();
+	self 	= plus.webview.currentWebview();
+	uid		= self.uid;
+	//初始化参数
+	if(empty(uid) == false){
+		param['uid'] 	= uid;
+	}else{
+		param['sessionId'] 	= sessionId;
+	}
+	param['page'] 	= page;
+	
+	//标题
+	var nickname = self.nickname;
+	if(empty(nickname) == false) {
+		document.getElementById("J_userinfo").innerHTML = nickname+"的圈子";
+	}
+	//取得列表
+	getList();
+	// 打开圈子
+	mui('#J_groupList').on('tap','h5', function(){
+		var groupid 	= this.dataset.groupid;
+		var groupname 	= this.innerText;
+		var postParam 	= {groupid:groupid, groupname:groupname};
+		openwindow('../circle/main.html', postParam);
+	});
+});
+function getList()
+{
+	plus.nativeUI.showWaiting();
+    var server = SITE + 'circle/circles';
+	mui.getJSON(server, param, function(response) {
+		if(response.code == 1){
+			document.getElementById('J_groupList').innerHTML = response.html;
+		}else{
+			alert(response.msg);
+		}
+		plus.nativeUI.closeWaiting();
+	});
+}
+
+
+	
+//	//加入圈子
+//	mui('#J_groupList').on('tap','button', function(){
+//		var groupid	= this.dataset.groupid;
+//		if(empty(groupid)) {
+//			alert('缺少圈子ID');
+//			return false;
+//		}
+//		var server = SITE + 'circle/addCircle';
+//		mui.ajax(server,{
+//			data:{
+//				circleID:groupid,
+//				sessionId:sessionId
+//			},
+//			dataType:'json',//服务器返回json格式数据
+//			type:'post',//HTTP请求类型
+//			timeout:10000,//超时时间设置为10秒；
+//			success:function(response){
+//				if(response.code == 1) {
+//					alert('成功加入圈子');
+////					document.getElementById('addCircle').style.display = 'none';
+//				}else {
+//					alert(response.msg);
+//				}
+//			},
+//			error:function(xhr,type,errorThrown){
+//				//异常处理；
+//				console.log(type);
+//			}
+//		});
+//	});
+</script>

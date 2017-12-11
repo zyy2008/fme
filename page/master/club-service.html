@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>特色线路</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<link rel="stylesheet" href="../../css/master-list.css" />
+		<link rel="stylesheet" href="../../css/activity.css" />
+		<style>
+			body{
+				position: absolute;
+				width: 100%;
+				height: 100%;
+			}
+			header{
+				position: absolute ;
+			}
+			.mui-content{
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 44px;
+				bottom: 44px;
+				overflow-y: auto;
+				z-index: 0;
+				padding: 10px !important;
+			}
+			.mui-bar-nav .mui-pull-right{
+				padding: 9px 0;
+			}
+			.mui-bar-nav .mui-pull-right .mui-icon{
+				width: 24px;
+				height: 24px;
+				margin: 0;
+				padding: 0;
+				margin-left: 5px;
+			}
+			.app-list-head{
+				padding:10px;
+			}
+			.app-line{
+				position: relative;
+				height: 7px;
+			}
+			.app-line:before{
+				content: '';
+				position: absolute;
+				width: 7px;
+				height: 7px;
+				display: inline-block;
+				border-radius: 100%;
+				background-color: #cccccc;
+				left: 10px;
+			}
+			.app-line:after{
+				content: '';
+				position: absolute;
+				margin: auto;
+				height: 1px;
+				right: 10px;
+				left: 10px;
+				top: 0;
+				bottom: 0;
+				background-color: #CCCCCC;
+			}
+			.app-name{
+				text-align: center;
+				padding: 0px 10px;
+			}
+			.app-name h5{
+				font-size: 16px;
+				color: #555555;
+				margin: 0;
+				padding: 10px;
+				white-space:inherit;
+			}
+			.app-name var{
+				text-align: right;
+				display: block;
+				font-style: initial;
+				color: #ff425d;
+				font-size: 16px;
+			}
+			.app-the{
+				padding:0 10px;
+				padding-top: 5px;
+				padding-bottom: 10px;
+			}
+			.app-the span{
+				font-size: 14px;
+				color: #4cc4d4;
+				width: 65px;
+				display: inline-block;
+			}
+			
+			
+			.app-img img{
+				width: 100%;
+				display: block;
+				overflow: hidden;
+				margin-bottom: 10px;
+			}
+			.app-date{
+				text-align: center;
+				padding-top:10px;
+				padding-bottom: 20px;
+			}
+			.app-date .mui-btn{
+				width: 63px;
+				height: 63px;
+				padding: 0;
+				border: 0;
+				background-color: #4cc4d4;
+				padding: 15px;
+				border-radius: 100%;
+			}
+			.app-date span{
+				display: block;
+				font-size: 14px;
+				color: #333333;
+			}
+			.app-unline{
+				padding-left: 20px;
+				-webkit-box-align: center;
+			}
+			.app-unline .app-icon-guanyu{
+				width: 19px;
+				height: 20px;
+				display: inline-block;
+				vertical-align: top;
+			}
+			.app-unline .app-icon-didian{
+				width: 19px;
+				height: 22px;
+				display: inline-block;
+				vertical-align: top;
+			}
+			.app-unline .app-icon-neirong{
+				width: 20px;
+				height: 20px;
+				display: inline-block;
+				vertical-align: top;
+			}
+			.app-unline .app-icon-jianmian{
+				width: 20px;
+				height: 24px;
+				display: inline-block;
+				vertical-align: top;
+			}
+			.app-unline span{
+				font-size: 14px;
+				color: #4CC4D4;
+				line-height: 20px;
+			}
+			.app-unline .app-line{
+				
+				display: block;
+			}
+			.app-unline .app-line:after{
+				right: 0;
+			}
+			.app-this{
+				padding-top: 5px;
+				padding-bottom: 20px;
+			}
+			.app-this p{
+				margin-bottom: 0;
+				padding-left: 45px;
+				color: #333333;
+			}
+			.mui-bar-footer{
+				background-color: #FFFFFF;
+				-webkit-box-shadow: 0 0 0px rgba(0,0,0,0);
+				box-shadow: 0 0 0px rgba(0,0,0,0);
+			}
+			.mui-bar-footer .mui-btn{
+				color: #FFFFFF;
+				border: 0;
+				width: 100%;
+			}
+			.mui-bar-footer .mui-table-cell:first-child{
+				padding-right: 5px;
+			}
+			.mui-bar-footer .mui-table-cell:last-child{
+				padding-left: 5px;
+			}
+			.mui-bar-footer .left{
+				background-color: #4cc4d4;
+				
+			}
+			.mui-bar-footer .right{
+				background-color: #ff425d;
+			}
+			.mui-preview-image{
+				margin: 0 !important;
+			}
+			
+			
+			.app-the p{
+				font-size: 14px;
+				color: #333333;
+				overflow : hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 3;
+-webkit-box-orient: vertical;
+margin-bottom: 0;
+position: relative;
+			}
+			.app-the .mui-active p{
+				-webkit-line-clamp:initial;
+			}
+			.app-bottom .mui-btn{
+				margin-top: 5px;
+				width: 30px;
+				height: 30px;
+				padding: 5px;
+				border: 0;
+				background-color: inherit;
+			}
+			.app-bottom .mui-btn img{
+				width: 100%;
+			}
+			.mui-active .app-bottom .mui-btn img{
+				-webkit-transform:rotate(180deg);
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<div class="mui-pull-right">
+				<a class="mui-icon app-icon-shoucang" id="J_favorIcon"></a>
+				<a class="mui-icon app-icon-fenxiang1"></a>
+			</div>
+			<h1 class="mui-title" id="J_title">特色线路</h1>
+		</header>
+		<div class="mui-content" id="J_content">
+			<!--<div class="app-warper">
+				<div class="app-list-head app-box">
+					<div class="app-head app-sex-nan app-jda">
+						<img src="../../img/head.png" />
+					</div>
+					<div class="app-list-info app-box-flex">
+						<div class="app-list-content">
+							<h5 class="mui-ellipsis">北京香山的红叶</h5>
+							<div class="app-list-icon">
+								<div class="mui-icon app-icon-sheng mui-active"></div>
+								<div class="mui-icon app-icon-hu mui-active"></div>
+								<div class="mui-icon app-icon-da mui-active"></div>
+							</div>
+						</div>
+						<div class="app-list-follow">
+							关注:<span>9999</span>
+						</div>
+					</div>
+				</div>
+				<div class="app-line"></div>
+				<div class="app-name">
+					<h5 class="mui-ellipsis">泰国达人带你跟最妖的妖人跟最妖的妖人</h5>
+					<var>￥150.00</var>
+				</div>
+				<div class="app-line"></div>
+				<div class="app-the app-box">
+					<span>旅程描述 :</span>
+					<div class="app-box-flex"><p>日本潮流网站的设计师，时尚杂志社的时尚编
+辑，独立摄影师。原创品牌“性格矫正所”的
+主理人。性格真诚，亲和，有幽默感，爱交朋
+友。热爱vintage，对设计有自己一番我魅力。</p>
+						<div class="app-bottom mui-text-center">
+							<button class="mui-btn"><img src="../../img/icon/xiala.png" /></button>
+						</div>
+					</div>
+				</div>
+				<div class="app-line"></div>
+				<div class="app-the app-box">
+					<span>关于Ta :</span>
+					<div class="app-box-flex"><p>日本潮流网站的设计师，时尚杂志社的时尚编
+辑，独立摄影师。原创品牌“性格矫正所”的
+主理人。性格真诚，亲和，有幽默感，爱交朋
+友。热爱vintage，对设计有自己一番我魅力。</p>
+						<div class="app-bottom mui-text-center">
+							<button class="mui-btn"><img src="../../img/icon/xiala.png" /></button>
+						</div>
+					</div>
+				</div>
+				<div class="app-img">
+					<img src="../../img/example.png" />
+					<img src="../../img/example.png" />
+					<div class="app-date">
+						<button class="mui-btn app-icon-date"></button>
+						<span>服务日历</span>
+					</div>
+				</div>
+				<div class="app-unline">
+					<div class="mui-icon app-icon-guanyu"></div>
+					<span>关于服务</span>
+				</div>
+				<div class="app-line"></div>
+				<div class="app-this">
+					<p>服务时间：17:30pm-21:30pm</p>
+					<p>服务时长：4小时</p>
+					<p>服务人数：2人</p>
+				</div>
+				<div class="app-unline">
+					<div class="mui-icon app-icon-didian"></div>
+					<span>线路地点</span>
+				</div>
+				<div class="app-line"></div>
+				<div class="app-this">
+					<p>从南山南到北山北，再从西山西到东山东</p>
+				</div>
+				<div class="app-unline">
+					<div class="mui-icon app-icon-neirong"></div>
+					<span>服务内容</span>
+				</div>
+				<div class="app-line"></div>
+				<div class="app-this">
+					<p>含餐费（买家提供餐费）</p>
+					<p>可接送</p>
+					<p>可接待12岁以下儿童</p>
+					<p>可接待60岁以上老人</p>
+					<p>其他服务内容，请参考服务描述</p>
+				</div>
+				<div class="app-unline">
+					<div class="mui-icon app-icon-jianmian"></div>
+					<span>见面地点</span>
+				</div>
+				<div class="app-line"></div>
+				<div class="app-this">
+					<p>东城区崇文门大街商界写字楼B座</p>
+				</div>
+			</div>-->
+		</div>
+		<footer class="mui-bar mui-bar-footer mui-table">
+			<div class="mui-table-cell">
+				<button class="mui-btn left J_contact">
+					联系Ta
+				</button>
+			</div>
+			<div class="mui-table-cell">
+				<button class="mui-btn right J_buy">
+					立刻购买
+				</button>
+			</div>
+		</footer>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../js/mui.zoom.js" ></script>
+<script type="text/javascript" src="../../js/mui.previewimage.js" ></script>
+<script type="text/javascript" src="../../js/common.js"></script>
+<script type="text/javascript" src="../../js/UserInfo.js" ></script>
+<script type="text/javascript" charset="utf-8">
+mui.init();
+mui.previewImage();
+var sessionId,
+	self,
+	thisid,
+	uid,
+	nickname,
+	servicenum,
+	serviceid,
+	sharew;
+mui.plusReady(function() {
+	self 	= plus.webview.currentWebview();
+	thisid 	= self.id;
+	sessionId 	= app.sessionId();
+	serviceid	= self.serviceid;
+	var servicename = self.servicename;
+	var J_title 	= document.getElementById("J_title");
+	var J_content 	= document.getElementById("J_content");
+
+	//标题
+//	if(empty(servicename) == false) J_title.innerText = servicename;
+	chkFavored();
+	//内容
+	plus.nativeUI.showWaiting();
+	var ajaxUrl = SITE + "service/info?serviceid="+serviceid;
+	mui.get(ajaxUrl, {serviceid:serviceid}, function(response){
+		if(empty(response) == false){
+			J_content.innerHTML = response;
+			uid 	= document.getElementById("J_uid").dataset.uid;
+			nickname	= document.getElementById("J_nickname").dataset.nickname;
+			servicenum	= document.getElementById("J_servicenum").dataset.servicenum;
+		}
+		plus.nativeUI.closeWaiting();
+	});
+	//日历 --- 服务行程
+	mui('#J_content').on('tap', '.app-icon-date', function(){
+		openwindow("../public/calendar-view.html", {uid:uid, serviceid:serviceid});
+	});
+	// 达人主页
+	mui('#J_content').on('tap', '.J_masterInfo', function(){
+		var uid		= this.dataset.uid;
+		var nickname= this.dataset.nickname;
+		openwindow("../master/club-index.html", {uid:uid, nickname:nickname});
+	});
+	//联系他
+	mui('footer').on('tap', '.J_contact', function(){
+		var sessionId 	= app.sessionId();
+		if(empty(sessionId) == true){
+			openwindow('../login/login.html',{});
+			return;
+		};
+		openwindow('../my/chat.html', {uid:uid,nickname:nickname});
+	});
+	//立刻购买
+	mui('footer').on('tap', '.J_buy', function(){
+		var sessionId 	= app.sessionId();
+		if(empty(sessionId) == true){
+			openwindow('../login/login.html',{});
+			return;
+		};
+		var postParam = {sessionId:sessionId, serviceid:serviceid, servicenum:servicenum};
+		openwindow('../master/buy.html', postParam);
+	});
+	//收藏
+	mui('header').on('tap', '.app-icon-shoucang', function(){
+		var sessionId 	= app.sessionId();
+		var th = this;
+		if(empty(sessionId) == true){
+			openwindow('../login/login.html',{});
+			return;
+		};
+		var ajaxUrl = SITE + "myFavor/ajaxAdd";
+		var param 	= {sessionId:sessionId, flag:'service', id:serviceid};
+		mui.getJSON(ajaxUrl, param, function(response){
+			if(response.code == 1){
+				th.classList.add('mui-active');
+				alert(response.msg);
+			}else if(response.code == 2){
+				th.classList.remove('mui-active');
+				alert(response.msg);
+			}else{
+				alert(response.msg);
+			}
+		});
+	});
+	//分享
+	mui('header').on('tap', '.app-icon-fenxiang1', function(){
+		shareWebview();
+	});
+	
+	//展开
+	mui('#J_content').on('tap', '.app-bottom .mui-btn', function(){
+			var p = this.parentNode.parentNode;
+			p.classList.toggle('mui-active');
+	});
+}); 
+//是否已经收藏过
+function chkFavored(){
+	sessionId = app.sessionId();
+	if(empty(sessionId) == true){
+		return false;
+	}
+	var ajaxUrl = SITE + "myFavor/ajaxChkFavored";
+	var param 	= {sessionId:sessionId, flag:'service', id:serviceid};
+	mui.getJSON(ajaxUrl, param, function(response){
+		if(response.code == 1){
+			document.getElementById('J_favorIcon').classList.add('mui-active');
+		}else{
+//			alert(response.msg);
+		}
+	});
+};
+
+
+/**
+	 *分享窗口
+	 */
+function shareWebview() {
+	var info = document.querySelectorAll('.app-the .app-box-flex')[0].innerText;
+	ws = plus.webview.currentWebview();
+	if (sharew) { // 避免快速多次点击创建多个窗口
+		return;
+	}
+	var top = plus.display.resolutionHeight - 186;
+	var href = "../public/share.html";
+	var phref = UPLOADDIR + "/share/wapService?serviceid="+serviceid;
+	console.log(phref);
+	sharew = plus.webview.create(href, "share.html", {
+		width: '100%',
+		height: '186',
+		top: top,
+		scrollIndicator: 'none',
+		scalable: false,
+		popGesture: 'none'
+	}, {
+		pwid:ws.id,
+		phref:phref,
+		nickname:nickname,
+		info:info
+		
+	});
+	sharew.addEventListener("loaded", function() {
+		sharew.show('slide-in-bottom', 300);
+	}, false);
+	// 显示遮罩层  
+	ws.setStyle({
+		mask: "rgba(0,0,0,0.5)"
+	});
+	// 点击关闭遮罩层
+	ws.addEventListener("maskClick", closeMask, false);
+}
+
+window.addEventListener('clospw',function(){
+	closeMask();
+});
+
+function closeMask() {
+ws.setStyle({
+	mask: "none"
+});
+//避免出现特殊情况，确保分享页面在初始化时关闭 
+if (!sharew) {
+	sharew = plus.webview.getWebviewById("../share/share.html");
+	}
+	if (sharew) {
+		sharew.close();
+		sharew = null;
+	}
+}
+</script>

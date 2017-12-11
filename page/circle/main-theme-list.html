@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>圈子互动列表</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<link rel="stylesheet" href="../../css/activity.css" />
+		<style>
+			body{
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				background-color: #FFFFFF;
+			}
+			header{
+				position: absolute ;
+			}
+			.mui-bar-nav~.mui-content{
+				padding-top: 0;
+			}
+			.mui-content{
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 44px;
+				bottom: 0px;
+				background-color: #FFFFFF;
+			}
+			.app-activity{
+				position: absolute;
+				top: 122px;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				overflow-y: auto;
+				z-index: 0;
+			}
+			.mui-btn .mui-badge{
+				background-color: #5ca7ba; 
+			}
+			.mui-table-view-cell:after{
+				left: 0;
+			}
+			.mui-navigate-right:after{
+				font-size: 30px;
+				color: #858585;
+			}
+			.app-terms .mui-radio.mui-pull-left input[type=radio]:first-child:before{
+				content: "话题";
+			}
+			.app-terms .mui-radio.mui-pull-left input[type=radio]:last-child:before{
+				content: "问答";
+			}
+			.app-title{
+				background-color: #ede7d7;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="J_groupName">圈子主题列表</h1>
+		</header>
+		<div class="mui-content">
+			<div class="app-header">
+				<div class="mui-table">
+					<div class="mui-table-cell mui-table-view-cell" id="J_searchCate">
+						兴趣
+					</div>
+				</div>
+				<div class="app-terms">
+					<div class="mui-radio mui-pull-left J_type">
+            			<!--<input type="radio" name="type" value="0" checked="checked" />-->
+            			<input type="radio" name="type" value="1" />
+            			<input type="radio" name="type" value="2" />
+            		</div>
+            		<div class="mui-radio mui-pull-right J_sort">
+            			<input type="radio" name="sort" value="latest" checked="checked" />
+            			<input type="radio" name="sort" value="hottest" />
+            		</div>
+				</div>
+			</div>
+			
+			<div class="app-activity">
+					<ul class="mui-table-view" id="J_list">
+						<li class="mui-table-view-cell mui-media">
+							<a>
+								<div class="app-head app-sex-nan mui-pull-left app-da">
+									<img  src="../../img/head.png">
+								</div>
+								<div class="mui-media-body">
+									
+									<div class="app-titleinfo">
+										<div class="mui-ellipsis name">北京香山的红叶北京香山的红叶北京香山的红叶</div>
+										<span class="app-when">刚刚</span>
+									</div>
+									<h5 class="app-box">
+										<span class="mui-ellipsis app-box-flex">互动标题互动标互动标题互动标互动标题互动标互动标题互动标</span>
+										<span class="mui-badge mui-badge-danger">15</span>
+									</h5>
+									<p>发就算了算了算了算了算了算了算了算了算了算了算了算了算了算了算了算了算了算了</p>
+									<div class="app-photo">
+										<img src="../../img/xc.png" data-preview-src="https://ss1.baidu.com/6ONXsjip0QIZ8tyhnq/it/u=4085976640,4019855387&fm=80" data-preview-group="3" />
+										<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+										<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+										<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+										<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+										<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+									</div>
+								</div>
+								<div class="app-badge">
+									<div class="mui-badge mui-badge-primary">美食</div>
+									<div class="mui-badge mui-badge-primary">美食</div>
+								</div>
+								<div class="app-line">
+									<span></span>
+								</div>
+							</a>
+						</li>
+					</ul>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js" ></script>
+<script type="text/javascript" src="../../js/common.js"></script>
+<script type="text/javascript" src="../../js/mui.zoom.js" ></script>
+<script type="text/javascript" src="../../js/mui.previewimage.js" ></script>
+<script>
+mui.init();
+mui.previewImage();
+var param 	= {};
+mui.plusReady(function() {
+	var self 		= plus.webview.currentWebview();
+	var pid 		= self.pid;
+	var groupid		= self.groupid;
+	var groupName 	= self.groupName;
+	var J_groupName = document.getElementById("J_groupName");
+	
+	
+	//圈子名称
+	J_groupName.innerText = groupName;
+	//搜索条件
+	param['groupid']= groupid;
+	param['sort']	= 'latest';
+
+	//搜索用
+	var J_searchCate 	= document.getElementById('J_searchCate');
+	//兴趣分类搜索跳转
+    J_searchCate.addEventListener('tap', function(){
+    	var suburl 	= "../public/cate-circle.html";
+    	mui.openWindow({url:suburl, id:suburl, extras:{from: self.id}});
+	});
+	//类型切换
+	mui('.J_type').on('tap', 'input', function(){
+		var type 	= this.value;
+		if(this.value == param['type']) return true;
+		param['type']	= type;
+		getList(param);
+	});
+	//排序
+	mui('.J_sort').on('tap', 'input', function(){
+		var sort 	= this.value;
+		if(this.value == param['sort']) return true;
+		param['sort']	= sort;
+		getList(param);
+	});
+	//取得列表
+//	getList(param);
+	
+	//回调函数
+	document.addEventListener('backFunc',function(e){
+		//兴趣分类搜索
+		if(e.detail.flag == 'cate'){
+			param['cids'] 	= e.detail.cids.toString();	//转换成字符串
+			document.getElementById('J_searchCate').innerHTML = e.detail.cnames;
+		}
+		getList(param);
+	});
+	//主题详情
+//	mui('#J_list').on('tap','li', function(){
+//		var themeid 	= this.dataset.themeid;
+//		var twid = plus.webview.currentWebview().id;
+//		openwindow('../circle/theme.html', {pwid:twid, themeid:themeid, groupid:groupid, group_name:groupName});
+//	});
+});
+
+function getList(param)
+{
+    var server = SITE + 'theme/search';
+	mui.get(server, param, function(response) {
+		if(response!=''){
+			document.getElementById('J_list').innerHTML = response;
+		}
+	}, 'html');
+}
+</script>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>设置性别</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			@font-face {
+			    font-family: Appicons;
+			    font-weight: normal;
+			    font-style: normal;
+			    src: url('../../fonts/app.ttf') format('truetype');
+			}
+			body{
+				background-color: #f7f7f7;
+				position: absolute;
+				width: 100%;
+				height: 100%;
+			}
+			header{
+				position: absolute;
+			}
+			.mui-bar-nav~.mui-content{
+				padding-top: 0;
+			}
+			.mui-content{
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 44px;
+				bottom: 0px;
+				overflow-y: auto;
+				z-index: 0;
+			}
+			.mui-table-view-cell:after{
+				left: 0;
+			}
+			.mui-input-group{
+				font-size: 15px;
+			}
+			.mui-radio input[type=radio]:before{
+				content: none;
+			}
+			.mui-radio input[type=radio]:checked:before{
+				content: '\e472';
+				font-size: 30px;
+				font-weight: 600;
+			}
+			.app-title .app-icon-add{
+				position: absolute;
+				margin: auto;
+				right: 20px;
+				color: #5ca7ba;
+				top: 5.5px;
+			}
+			.mui-input-group:last-child{
+				margin-bottom: 30px;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<button class="mui-btn  mui-pull-right" id="save">保存</button>
+			<h1 class="mui-title">设置性别</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group">
+				<div class="mui-input-row mui-radio">
+					<label for="male">男</label>
+					<input name="gender" class="J_radio" type="radio" id="male" value="1">
+				</div>
+				<div class="mui-input-row mui-radio">
+					<label for="female">女</label>
+					<input name="gender" class="J_radio" type="radio" id="female" value="2">
+				</div>
+			</form>
+		</div>
+		<script type="text/javascript" src="../../js/mui.min.js" ></script>
+		<script>
+			mui.init();
+			mui.plusReady(function(){
+				var thisid=plus.webview.currentWebview().id;
+				var pid 	= plus.webview.currentWebview().pid;
+				
+				document.getElementById('save').addEventListener('tap', function(event) {
+					var genderObj = document.getElementsByName('gender');
+					var gender = 1;
+					for(var i=0; i < genderObj.length; i++) {
+						if(genderObj[i].checked) {
+							gender = genderObj[i].value;
+						}
+					}
+					
+				});
+				mui('.J_radio').on('click', 'input', function() {
+					
+				});
+			});
+		</script>
+	</body>
+</html>

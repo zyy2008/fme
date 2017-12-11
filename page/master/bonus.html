@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>红包使用</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+.mui-content{
+	padding-top: 54px !important;
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 10px;
+}
+p {
+    color:#000;
+    margin-bottom:0;
+    padding:0 20px
+}
+.app-policy {
+    padding:10px 0
+}
+.mui-table-view-cell:after {
+    left:0
+}
+.mui-table-view {
+    font-size:14px
+}
+.mui-navigate-right:after {
+    font-size:30px;
+    right:5px;
+    color:#5ca7ba
+}
+.mui-table-view-cell>a:not(.mui-btn) {
+    margin-right:-30px;
+}
+.mui-pull-right {
+    color:#000
+}
+.mui-table-view-cell {
+    padding-right:30px
+}
+.app-headinfo p {
+    padding:0
+}
+.app-country {
+    color:#000
+}
+.app-payname {
+    font-size:16px;
+    line-height:42px
+}
+.app-bonus input {
+    position:absolute;
+    top:50%;
+    right:90px;
+    -webkit-transform:translateY(-50%);
+    transform:translateY(-50%);
+    width:110px;
+    height:28px;
+    margin-bottom:0;
+    border: 0;
+    font-size: 14px;
+    background-color: #e6e6e6;
+    border-radius: 10px;
+    padding: 0 10px;
+}
+.app-bonus button {
+    background-color:#64bed2;
+    color:#FFF;
+    width:70px;
+    border:0
+}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">使用红包</h1>
+		</header>
+		<div class="mui-content">
+			<div class="app-warper">
+				<div class="app-title">我的红包</div>
+				<div class="app-content">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<a>
+								总金额
+								<span class="mui-pull-right">￥<span id="J_totalmoney">0.00</span></span>
+							</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a>
+								已使用金额
+								<span class="mui-pull-right">￥<span id="J_outmoney">0.00</span></span>
+							</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a>
+								可用金额
+								<span class="mui-pull-right">￥<span id="J_balance">0.00</span></span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="app-title">使用红包</div>
+				<div class="app-content">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell app-bonus">
+							<a>
+								可用金额
+								<input type="number" class="mui-pull-right" id="J_giftmoney" />
+								<button class="mui-btn mui-pull-right" id="J_submit">使用</button>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../js/common.js"></script>
+<script type="text/javascript" src="../../js/UserInfo.js" ></script>
+<script>
+var thisid, from, serviceid, sessionId, totalredpacket, outmoney, redpacket, giftmoney, maxmoney;
+mui.init();
+mui.plusReady(function(){
+	self 	= plus.webview.currentWebview();
+	thisid 	= self.id;
+	from 	= self.from;
+	serviceid 	= self.serviceid;
+	maxmoney 	= self.maxmoney;
+	sessionId 	= app.sessionId();
+
+	//判断登录
+	if(empty(sessionId) == true){
+		alert('请先登录');
+		mui.close();
+	}
+	if(empty(serviceid) == true){
+		alert('选择服务参数');
+		mui.close();
+	}
+	//红包计算
+	var ajaxUrl = SITE + "myMoney/giftmoneyPay";
+	mui.getJSON(ajaxUrl, {sessionId:sessionId, serviceid:serviceid}, function(response){
+		if(response.code == 1){
+			totalredpacket 	= response.data.totalredpacket;
+			redpacket 	= response.data.redpacket;
+			outmoney 	= totalredpacket - redpacket;
+			outmoney = outmoney.toFixed(2); // 格式化金额
+			document.getElementById('J_totalmoney').innerText	= totalredpacket;
+			document.getElementById('J_balance').innerText 	= redpacket;
+			document.getElementById('J_outmoney').innerText	= outmoney;
+		}
+	});
+	//使用红包
+	mui('.mui-content').on('tap', '#J_submit', function(){
+		giftmoney 	= document.getElementById("J_giftmoney").value;
+		if(parseFloat(giftmoney) > parseFloat(redpacket)){
+			alert('可用金额不足');
+			return;
+		}
+		
+		if(parseFloat(giftmoney) > parseFloat(maxmoney)){
+			alert('最多不超过￥'+maxmoney);
+			return;
+		}
+		var pw 		= plus.webview.getWebviewById(from);
+		var param	= {flag:'giftmoney', giftmoney:giftmoney};
+		mui.fire(pw,'backFunc', param);
+		mui.back();
+	})
+});
+</script>

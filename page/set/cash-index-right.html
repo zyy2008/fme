@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>提现记录</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<link rel="stylesheet" href="../../css/activity.css" />
+		<style>
+			.mui-table-view-cell{
+				padding: 0px 0;
+			}
+			.mui-table-view-cell>.mui-slider-handle{
+				padding: 10px 0;
+				font-size: 14px;
+				border-top: 1px solid #c8c7cc;
+			}
+			.app-left{
+				width: 90px;
+				padding-left: 10px;
+				color: #777777;
+			}
+			.app-center{
+				width: 50px;
+				padding-left: 10px;
+				color: #333333;
+			}
+			.app-right{
+				padding-right: 10px;
+				color: #999999;
+			}
+			.app-chuli{
+				color: #4cc4d4;
+			}
+			.mui-slider-handle p{
+				padding-left: 10px;
+				padding-right: 30px;
+				color: #555555;
+			}
+			.app-shibai{
+				color: #ff425d;
+			}
+			.mui-table-view:before{
+				content: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content">
+			<ul id="J_list" class="mui-table-view">
+				<!--<li class="mui-table-view-cell">
+					<div class="mui-slider-right mui-disabled">
+						<a class="mui-btn mui-btn-red">删除</a>
+					</div>
+					<div class="mui-slider-handle">
+						<div class="app-box">
+							<div class="app-left">2015-19-21</div>
+							<div class="app-center">¥150</div>
+							<div class="app-right app-box-flex mui-text-right app-chuli">处理中</div>
+						</div>
+					</div>
+				</li>
+				<li class="mui-table-view-cell">
+					<div class="mui-slider-right mui-disabled">
+						<a class="mui-btn mui-btn-red">删除</a>
+					</div>
+					<div class="mui-slider-handle">
+						<div class="app-box">
+							<div class="app-left">2015-9-21</div>
+							<div class="app-center">¥150</div>
+							<div class="app-right app-box-flex mui-text-right app-shibai">处理失败</div>
+						</div>
+						<p class="mui-ellipsis">银行卡错误，请仔细检查，取消本次申请再次申请</p>
+					</div>
+				</li>-->
+			</ul>
+		</div>
+		<script type="text/javascript" src="../../js/mui.min.js" ></script>
+		<script type="text/javascript" src="../../js/common.js "></script>
+		<script type="text/javascript" src="../../js/UserInfo.js"></script>
+		<script>
+			mui.init();
+			var sessionId;
+			mui.plusReady(function(){
+				sessionId = app.sessionId();
+				getList('undone');
+				// 取消
+				mui('.mui-table-view').on('tap', '.J_cancle', function(){
+					var recordid = this.dataset.recordid; // 记录ID
+					console.log('recordid:' + recordid);
+					var server = SITE + 'myWithdrawal/cancle';
+					mui.ajax(server,{
+						data:{
+							recordid:recordid,
+							sessionId:sessionId
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						success:function(response){
+							if(response.code == 1) {
+								getList('undone');
+							}else {
+								alert(response.msg);
+							}
+						}
+					});
+				})
+			});
+			function getList(val){
+				var server = SITE + 'myWithdrawal/index';
+				//console.log('val:' + val);
+				if(val == 'done') {
+					var params = {type:'done',sessionId:sessionId};
+				}else {
+					var params = {type:'undone',sessionId:sessionId};
+				}
+				console.log('val:' + val + ', url:' + server);
+				mui.get(server, params, function(response) {
+					//console.log(params['type']);
+					//console.log('response:' + response);
+					if(empty(response) == false){
+						document.getElementById('J_list').innerHTML = response;
+					}else {
+						document.getElementById('J_list').innerHTML = '';
+					}
+				}, 'html');
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>选择国家</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			.mui-table-view{
+				background-color: #FFFFFF;
+				margin-top: 0 !important;
+				font-size: 14px;
+			}
+			.mui-table-view-cell:after{
+				left: 0 ;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">选择目的地</h1>
+		</header>
+		<div class="mui-content">
+			<ul class="mui-table-view" id="J_list">
+				<li class="mui-table-view-cell mui-indexed-list-item mui-checkbox" data-placeid="2">韩国</li>
+				<li class="mui-table-view-cell mui-indexed-list-item mui-checkbox" data-placeid="1">日本</li>
+				<!--<li class="mui-table-view-cell mui-indexed-list-item mui-checkbox" data-placeid="3">东南亚</li>-->
+				<li class="mui-table-view-cell mui-indexed-list-item mui-checkbox" data-placeid="4">欧洲</li>
+				<li class="mui-table-view-cell mui-indexed-list-item mui-checkbox" data-placeid="5">澳大利亚</li>
+			</ul>
+		</div>
+	</body>
+</html>
+<script src="../../js/mui.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+mui.init();
+mui.plusReady(function() {
+	var self = plus.webview.currentWebview();
+	var from = plus.webview.currentWebview().from;
+	mui('#J_list').on('tap', 'li', function(){
+		var placeid 	= this.dataset.placeid;
+		var placename 	= this.innerText;
+		var pw 		= plus.webview.getWebviewById(from);
+		var param	= {flag:'place', placeid:placeid, placename:placename};
+		mui.fire(pw,'backFunc', param);
+		mui.back();
+	});
+});
+</script>

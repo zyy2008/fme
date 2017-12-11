@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>发布话题或者话题</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+	<style>
+			body,
+			.mui-content{
+				background-color: #FFFFFF;
+			}
+			.mui-content{
+				padding: 10px !important;
+				padding-top: 54px !important;
+			}
+			.app-input input{
+				border: 0;
+				border-bottom: 1px solid #cccccc;
+				border-radius: 0;
+				font-size: 14px;
+				padding-left: 0;
+				padding-right: 0;
+				margin-bottom: 0;
+			}
+			.app-textarea textarea{
+				height: 100px;
+				margin-bottom: 0;
+				border: 0;
+				padding: 0;
+				font-family: "微软雅黑","microsoft yahei";
+				font-size: 14px;
+				padding-top: 5px;
+			}
+			.app-photo{
+				max-height: 150px;
+				overflow : hidden;
+			}
+			.app-img{
+				width: 25%;
+				display: inline-block;
+				padding: 5px;
+				float: left;
+				border-radius: 5px;
+			}
+			.app-img img{
+				width: 65px;
+				height: 65px;
+				display: block;
+				overflow: hidden;
+				vertical-align: top;
+				margin: auto auto;
+				border-radius: 5px;
+			}
+			.app-add{
+				width: 65px;
+				height: 65px;
+				background-image: url(../../img/add.png);
+				background-size: 100% 100%;
+				border-radius: 5px;
+				margin: auto auto;
+			}.app-img{
+				width: 25%;
+				display: inline-block;
+				padding: 5px;
+				float: left;
+				border-radius: 5px;
+				position: relative;
+			}
+			.app-img:after{
+				content: '';
+				position: absolute;
+				width: 20px;
+				height: 20px;
+				background:  url(../../img/icon/shanchu.png) no-repeat;
+				background-size: 100% 100%;
+				display: block;
+				top: 5px;
+				right: calc(50% - 30px);
+			}
+			.app-img:last-child:after{
+				content: none;
+			}
+			.app-img img{ 
+				width: 65px;
+				height: 65px;
+				display: block;
+				overflow: hidden;
+				vertical-align: top;
+				margin: auto auto;
+				border-radius: 5px;
+				position: relative;
+			}
+			
+.mui-table-view-cell{
+	padding: 0;
+}
+.mui-table-view-cell>a:not(.mui-btn){
+	margin: 0;
+	padding: 10px 0;
+}
+.mui-table-view .mui-pull-left{
+	font-size: 15px;
+	width: 70px;
+}
+.mui-table-view-cell:after{
+	left: 0;
+}
+.mui-table-view .mui-media-body{
+	font-size: 16px;
+}
+td{
+	padding-bottom: 5px;
+}
+.app-btn-add{
+	width: 26px;
+	height: 26px;
+	display: inline-block;
+	padding: 0;
+	background-color: #4cc4d4;
+	color: #FFFFFF;
+	border: 0;
+}
+.app-cell-add{
+	padding: 8px 0;
+}
+.app-cell-add .mui-pull-left{
+	line-height: 26px;
+}
+.app-unactive.mui-active{
+	background-color: inherit;
+}
+.app-yulan{
+	padding: 30px;
+	text-align: center;
+}
+.app-yulan .mui-btn{
+	background-color: #4cc4d4;
+	color: #FFFFFF;
+	border: 0;
+	padding: 10px 100px;
+}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">话题</h1>
+		</header>
+		<div class="mui-content" id="J_content">
+			<div class="app-input">
+				<input type="text" placeholder="标题*（1-16个字）" id="title"  maxlength="16"/>
+			</div>
+			<div class="app-textarea">
+				<textarea placeholder="请输入文字" id="content"></textarea>
+			</div>
+			<div class="app-photo">
+				
+				<div class="app-img">
+					<div class="app-add" id="upload"></div>
+				</div>
+			</div>
+			
+			<ul class="mui-table-view">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right" id="select_circle">
+						<div class="mui-pull-left">当前圈子</div>
+						<div class="mui-media-body" id="group_name">
+							
+						</div>
+					</a>
+				</li>
+				<li class="mui-table-view-cell app-cell-add app-unactive">
+					
+					<div class="mui-pull-left">兴趣分类</div>
+					<div class="mui-media-body" id="classification">
+						<!--兴趣分类-->
+					</div>
+					<button class="mui-btn app-btn-add" id="get_classification">+</button>
+				</li>
+			</ul>
+			<div class="app-yulan">
+				<button class="mui-btn" id="save">发布话题</button>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js" ></script>
+<script type="text/javascript" src="../../js/common.js "></script>
+<script type="text/javascript" src="../../js/UserInfo.js"></script>
+<script>
+var pics = new Array(); // 上传图片
+mui.init();
+mui.plusReady(function(){
+	var pwid = plus.webview.currentWebview().pwid;
+	var twid = plus.webview.currentWebview().id;
+	var thispw 		= plus.webview.getWebviewById(twid);
+	var groupid = plus.webview.currentWebview().groupid; // 圈子id
+	var groupname = plus.webview.currentWebview().groupname; // 圈子名称
+	var pw = plus.webview.getWebviewById(pwid);
+	var sessionId = app.sessionId();
+	var cid = null; // 兴趣分类
+	var J_disply = document.getElementById('J_disply');
+	
+	//监听回调
+	window.addEventListener('backFunc', function(event) {
+		var value 	= event.detail.value;
+		var name = event.detail.name;
+		var flag = event.detail.flag;
+		switch(flag) {
+			case 'select_group':
+				document.getElementById('group_name').innerText = name;
+				groupid = value;
+			break;
+			case 'select_classification':
+				cid = value;
+				document.getElementById('classification').innerHTML = name;
+			break;
+		}
+	}); 
+	if(empty(groupname) == true) groupname = '请选择圈子';
+	document.getElementById('group_name').innerText = groupname;
+	// 选择圈子
+	document.getElementById('select_circle').addEventListener('tap', function(){
+		var twid = plus.webview.currentWebview().id;
+		//console.log(group_name);
+		//var group_name = document.getElementById('group_name').innerText;
+		var param 	= {pwid:twid, groupid:groupid, group_name:groupname};
+		openwindow('../circle/main-release-switch.html', param);
+	});
+	// 选择类型
+	mui('.app-content').on('tap', '.mui-radio', function(){
+		type = this.querySelector('.J_radio').value;
+		if(type==1){
+			J_disply.style.display = 'none';
+		}else{
+			J_disply.style.display = 'block';
+		};
+	});
+	// 兴趣分类 classification
+	/** <div class="mui-badge mui-badge-primary">美食</div> **/
+	document.getElementById('get_classification').addEventListener('tap', function(){
+		var twid = plus.webview.currentWebview().id;
+		openwindow('../circle/main-release-addsort.html', {pwid:twid});
+	});
+	// 删除图片
+	mui('.app-photo').on('tap', '.delete', function(){
+		var path = this.dataset.path;
+		pics.splice(pics.indexOf(path), 1);
+		this.parentNode.removeChild(this);
+	});
+	// 上传图片
+	document.getElementById('upload').addEventListener('tap', function(){
+		if(pics.length >=8) {
+			alert('配图最多8张.');
+			return false;
+		}
+		fileUpload();
+	});
+	// 发布话题
+	document.getElementById('save').addEventListener('tap', function(){
+		var params = {sessionId:sessionId};
+		// 圈子id
+		if(empty(groupid)){
+			alert('请选择要发往的圈子');
+		}else {
+			params['circleID'] = groupid;
+		}
+//					// 类型 J_radio 
+//					if(empty(type)) {
+//						alert('请选择发布类型');
+//						return false;
+//					}
+		// 标题
+		var title = document.getElementById('title').value;
+		if(empty(title)) {
+			alert('请填写标题');
+			return false;
+		}else {
+			params['title'] = title;
+		}
+		// 采纳时效性
+		// var expire = document.getElementById('expire').value;
+		
+		// 兴趣分类
+//					if(empty(cid)) {
+//						alert('请选择兴趣分类');
+//						return false;
+//					}
+		if(! empty(cid)) {
+			params['cid'] = cid.toString();
+		}
+		// 内容
+		var content = document.getElementById('content').value;
+		if(empty(content)) {
+			alert('请填写发布内容');
+			return false;
+		}else {
+			params['content'] = content;
+		}
+		// 检测图片数量
+//					if(pics.length <=0) {
+//						alert('请上传配图');
+//						return false;
+//					}
+		if(pics.length >8) {
+			alert('图片最多不能超过8张');
+			return false;
+		}
+		if(pics.length > 0) {
+			params['pics'] = pics.toString();
+		}
+		
+		var server = SITE + 'theme/add';
+		mui.ajax(server,{
+			data:params,
+			dataType:'json',//服务器返回json格式数据
+			type:'post',//HTTP请求类型
+			timeout:10000,//超时时间设置为10秒；
+			success:function(response){
+				if(response.code == 1) {
+					alert('发布成功');
+					var themeid = response.data.themeid;
+					var pwid	= plus.webview.currentWebview().id;
+					var param 	= {themeid:themeid, groupid:groupid, groupname:groupname, from:'addTheme', pwid:pwid};
+					mui.fire(plus.webview.currentWebview("../circle/main.html"), "backFunc", {flag:'refeshThemeList'});
+					openwindow('../circle/theme.html', param);
+				}else {
+					alert(response.msg);
+				}
+			},
+			error:function(xhr,type,errorThrown){
+				//异常处理；
+				console.log('response:' + xhr.response + ',type:'+type + ',errorThrown:' + errorThrown);
+			}
+		});
+	});
+});
+var server= SITE + 'circle/upload';
+function fileUpload(){
+	var bts=[{title:"拍照"},{title:"从相册中选择"}];
+	plus.nativeUI.actionSheet({cancel:"取消",buttons:bts},
+	function(e){
+		if(e.index==1){
+			// 拍照添加文件
+		plus.camera.getCamera().captureImage(function(p){
+			upload(p);
+		});	
+	}else if(e.index==2){
+		// 从相册添加文件
+					plus.gallery.pick(function(p){
+						upload(p);
+    				});
+				}
+		 }
+	)
+}
+// 上传文件	
+function upload(path){
+	var wt=plus.nativeUI.showWaiting();
+	var task=plus.uploader.createUpload(server, {method:"POST",blocksize:204800,priority:100}, function(t,status){ //上传完成
+		if(status==200){
+			var picdir = JSON.parse(t.responseText);
+			picpath = picdir.paththumbname;
+			pics.push(picpath);
+			document.querySelector('.app-img').insertAdjacentHTML('beforeBegin', '<div class="app-img delete" data-path="'+picpath+'"><img src="' + UPLOADDIR + '/' + picpath + '" /></div>');
+			wt.close();
+		}else{
+			plus.nativeUI.alert("上传失败："+status);
+			wt.close();
+		}
+	});
+	var n=path.substr(path.lastIndexOf('/')+1);
+	task.addFile(path,{name:n});
+	task.start();
+}
+</script>

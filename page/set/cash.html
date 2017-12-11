@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>申请提现</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			body{
+				background-color: #e5e5e5;
+				font-size:15px;
+			}
+			.app-title:nth-child(1),
+			.app-title:nth-child(3),
+			.app-title:nth-child(5){
+				margin-top: 10px;
+			}
+			.app-content:nth-child(2){
+				height: 35px;
+				line-height: 35px;
+				padding: 0px 15px;
+				background-color: #FFFFFF;
+			}
+			.app-title{
+				padding: 0px 15px;
+			}
+			.app-title .mui-btn{
+				margin-top: 2.5px;
+			}
+			.mui-btn{
+				background-color: #64bed2;
+				color: #FFFFFF;
+				padding: 5px;
+				border: 0;
+				width: 70px;
+			}
+			.mui-table-view{
+				font-size: 14px;
+			}
+			.mui-table-view-cell:after{
+				left: 0;
+			}
+			.app-blue{
+				width: 85px;
+				display: inline-block;
+			}
+			input{
+				width: 180px !important;
+				border: 0 !important;
+				background-color: #e5e5e5 !important;
+				font-family: "微软雅黑","microsoft yahei";
+				font-size: 15px;
+				margin-bottom: 0 !important;
+				padding: 5px 6px !important;
+				height: 30px !important;
+			}
+			.mui-btn-block{
+				width: 100%;
+				font-size: 16px;
+				padding: 10px 0;
+				bottom: 0;
+				margin-bottom: 0;
+				border-radius: 0;
+				margin-top: 20px;
+			}
+			.mui-table-view{
+				background-color: #FFFFFF;
+			}
+			em{
+				font-style: inherit;
+			}
+			i.mui-pull-right{
+				font-style: inherit;
+				margin-right: 30px;
+				color: #888;
+			}
+			.mui-bar .mui-btn.mui-pull-right{
+				width: 90px;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<button class="mui-btn mui-pull-right" id='tixian'>提现记录</button>
+			<h1 class="mui-title">申请提现</h1>
+		</header>
+		<div class="mui-content">
+			<div class="app-title">
+				我的收益
+			</div>
+			<div class="app-content" >
+				<div class="mui-pull-left">
+					<span>总收益：</span>
+					¥ <em id="totalmoney">0.00</em>
+				</div>
+				<div class="mui-pull-right">
+					<span>可提现：</span>
+					¥ <em id="balance">0.00</em>
+				</div>
+			</div>
+			<div class="app-title">
+				申请提现
+				<!--<button class="mui-btn mui-pull-right">提现记录</button>-->
+			</div>
+			<div class="app-content">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<a  id="J_paymethod" class="mui-navigate-right">
+							<span class="app-blue">提现方式</span>
+							<i class="mui-pull-right" id="J_paymethod_txt">银行卡</i>
+						</a>
+					</li>
+					<li class="mui-table-view-cell" id="J_cardno">
+						<span class="app-blue">银行卡号</span>
+						<span id="J_cardno_num"></span>
+					</li>
+					<li class="mui-table-view-cell" id="J_bankname">
+						<span class="app-blue">银行</span>
+						<span id="J_bankname_txt"></span>
+					</li>
+					<li class="mui-table-view-cell" id="J_others" style="display:none;">
+						<span class="app-blue">账号</span>
+						<span><input id="account" type="text" maxlength="32" id="label" placeholder="" /></span>
+					</li>
+					<li class="mui-table-view-cell">
+						<span class="app-blue">姓名</span>
+						<span><input type="text" id="name" maxlength="32" id="label" placeholder="请输入姓名" /></span>
+					</li>
+					<li class="mui-table-view-cell">
+						<span class="app-blue">手机号</span>
+						<span><input type="number" id="mobile" maxlength="11" id="label" placeholder="请输入手机号码" /></span>
+					</li>
+					<li class="mui-table-view-cell">
+						<span class="app-blue">金额</span>
+						<input type="number" id="money" placeholder="请输入提现金额"/>
+					</li>
+					<li class="mui-table-view-cell">
+						<span class="app-blue">支付密码</span>
+						<input type="password" id="paypassword" placeholder="请输入支付密码"/>
+					</li>
+				</ul>
+			</div>
+			<button class="mui-btn mui-btn-block" id="save">确定</button>
+		</div>
+		<script type="text/javascript" src="../../js/mui.min.js" ></script>
+		<script type="text/javascript" src="../../js/common.js "></script>
+		<script type="text/javascript" src="../../js/UserInfo.js"></script>
+		<script>
+			mui.init();
+			mui.plusReady(function(){
+				
+				var J_tixian = document.getElementById('tixian');
+				var sessionId = app.sessionId();
+				var paymethod = 0; // 银行卡
+				var balance = 0.00; // 可用余额
+				
+				J_tixian.addEventListener('tap',function(){
+					
+					openwindow('cash-index.html',{});
+				});
+				
+				
+				// 监听
+				window.addEventListener('backFunc', function(event) {
+					var value 	= event.detail.value;
+					var flag 	= event.detail.flag;
+					var name 	= event.detail.name;
+					//console.log(flag + value + name);
+					switch(flag) {
+						case 'paymethod':
+							document.getElementById('J_paymethod_txt').innerText = name;
+							if(value == 0) {
+								document.getElementById('J_cardno').style.display = 'block';
+								document.getElementById('J_bankname').style.display = 'block';
+								document.getElementById('J_others').style.display = 'none';
+							}else {
+								document.getElementById('J_cardno').style.display = 'none';
+								document.getElementById('J_bankname').style.display = 'none';
+								document.getElementById('J_others').style.display = 'block';
+								document.getElementById("account").setAttribute("placeholder",'请输入' + name + '账号');
+							}
+							paymethod = value;
+							break;
+					}
+				}); 
+				// 获取用户绑定银行卡信息
+    			var server = SITE + 'myWithdrawal/getBankCardInfo';
+//  			console.log('url:' + server); 
+    			mui.ajax(server,{
+    				data:{
+    					sessionId:sessionId
+    				},
+    				dataType:'json',//服务器返回json格式数据
+    				type:'post',//HTTP请求类型
+    				timeout:10000,//超时时间设置为10秒；
+    				success:function(response){
+//  					console.log('code:' + response.code); 
+    					//console.log('balance:' + response.data.balance);
+    				    if(response.code == 1) { // 获取成功 id="J_cardno_num"
+    				    	document.getElementById('totalmoney').innerText = response.data.totalmoney;
+    				    	document.getElementById('balance').innerText = response.data.balance;
+    				    	document.getElementById('J_cardno_num').innerText = response.data.cardno;
+    				    	document.getElementById('J_bankname_txt').innerText = response.data.bankname_txt;
+    				    	document.getElementById('name').value = response.data.cardholder;
+    				    	document.getElementById('mobile').value = response.data.mobileno;
+    				    	balance = response.data.balance;
+    				    }else {
+    				        alert(response.msg);
+    				    }
+    			    }
+    			});
+				// 提现方式选择
+				document.getElementById('J_paymethod').addEventListener('tap', function(event){
+					var twid = plus.webview.currentWebview().id;
+					openwindow('../set/cash-paymethod.html', {pwid:twid});
+				});
+				
+				// 提交提现申请
+				document.getElementById('save').addEventListener('tap', function(event){
+					var account = document.getElementById('account').value; // 账号
+					var name = document.getElementById('name').value; // 姓名
+					var mobile = document.getElementById('mobile').value; // 手机号码
+					var money = document.getElementById('money').value; // 提现金额
+					var paypassword = document.getElementById('paypassword').value; // 提现密码
+					
+					if(balance < 1) {
+						alert('您的可用余额不足');
+						return false;
+					}
+					if(paymethod != 0) {
+						if(empty(account)) {
+							alert('请填写账号');
+							return false;
+						}
+					}
+					if(empty(name)) {
+						alert('请填写姓名');
+						return false;
+					}
+					if(empty(mobile)) {
+						alert('请填写手机号码');
+						return false;
+					}
+					if(empty(money) || money <= 0) {
+						alert('请填写提现金额');
+						return false;
+					}
+					if(empty(paypassword)) {
+						alert('请填写支付密码');
+						return false;
+					}
+					
+					// 提交申请
+					var server = SITE + 'myWithdrawal/apply';
+//					console.log('url:' + server);
+//					console.log('session:' + sessionId);
+					mui.ajax(server,{
+						data:{
+							paymethod:paymethod,
+							name:name,
+							account:account,
+							mobile:mobile,
+							money:money,
+							paypassword:paypassword,
+							sessionId:sessionId
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						success:function(response){
+							if(response.code == 1) {
+								alert(response.msg);
+								mui.back();
+							}else {
+								alert(response.msg);
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							console.log(type + ' - ' + errorThrown);
+						}
+					});
+				});
+			});
+		</script>
+	</body>
+</html>

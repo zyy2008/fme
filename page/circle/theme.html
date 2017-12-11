@@ -1,0 +1,1042 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<title>话题详情</title>
+<link href="../../css/mui.min.css" rel="stylesheet" />
+<link rel="stylesheet" href="../../css/public.css" />
+<link rel="stylesheet" href="../../css/activity.css" />
+<style>
+	html, body {
+		height: 100%;
+		margin: 0px;
+		padding: 0px;
+		overflow: hidden;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+	}
+	.mui-content{
+		padding: 10px !important;
+		padding-top: 54px !important;
+		height: 100%;
+		overflow: auto;
+	}
+	.app-warper{
+		background-color: #FFFFFF;
+	}
+	.app-warper button{
+		background-color: #63bdd0;
+		color: #FFFFFF;
+		border: 0;
+	}
+	.mui-table-view:before,
+	.mui-table-view:after{
+		content: none;
+	}
+	.mui-table-view-cell:after{
+		left: 0;
+	}
+	.app-activity{
+		padding: 10px;
+	}
+	.app-activity h5 div.mui-badge-danger{
+		position: absolute;
+		left: 5px;
+	}
+	.app-function{
+		color: #FFFFFF;
+		padding-left: 10px;
+		padding-right: 0;
+	}
+	.app-function .mui-active{
+		color: #ff425d;
+	}
+	.mui-table{
+		background-color: #65bfd2;
+		padding: 5px 0;
+		border-radius: 5px;
+	}
+	.app-action{
+		font-size: 14px;
+		display: inline-block;
+	}
+	.app-title-unstyle{
+		width: 100%;
+		background-color: inherit;
+		display: inline-block;
+		vertical-align: top;
+		padding-left: 0;
+		position: relative;
+	}
+	.app-title-unstyle .mui-pull-left{
+		color: #000000;
+		font-size: 14px;
+	}
+	.app-title-unstyle.mui-text-right{
+		border-bottom: 1px solid #cccccc;
+		height: 31px;
+		background-color: #FFFFFF;
+		padding-right: 10px;
+	}
+	.app-chat-list{
+		position: relative;
+		padding-left: 55px;
+		display: inline-block;
+		padding-top: 10px;
+		padding-bottom: 10px;
+		vertical-align: top;
+	}
+	
+	.app-chat-list .mui-pull-right{
+		width: 100%;
+		background-color: #ede7d7;
+		border-radius: 10px;
+		padding: 10px;
+	}
+	.app-chat-list .list{
+		width: 100%;
+		display: inline-block;
+	}
+	.app-chat-list .name{
+		font-size: 15px;
+	}
+	.app-chat-list .name+p{
+		display: inline;
+		font-size: 15px;
+		color: #000000;
+	}
+	.app-photo{
+		width: 100%;
+		display: inline-block;
+		vertical-align: top;
+	}
+	.app-bottom{
+		height: 30px;
+		line-height: 30px;
+		font-size: 15px;
+		color: #8c8c8c;
+	}
+	.app-comment{
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	.app-comment .mui-media-body{
+		padding-left: 65px;
+	}
+	.app-comment+.app-title{
+		border-bottom: 1px solid #cccccc;
+		height: 37px;
+		padding-top: 5px;
+	}
+	.app-comment-photo{
+		width: 100%;
+		max-height: 235px;
+		overflow : hidden;
+	}
+	.app-img,
+	.app-add-img{
+		width: 25%;
+		display: inline-block;
+		padding: 5px;
+		float: left;
+		border-radius: 5px;
+		position: relative;
+	}
+	.app-img img{
+		width: 65px;
+		height: 65px;
+		display: block;
+		overflow: hidden;
+		vertical-align: top;
+		margin: auto auto;
+		border-radius: 5px;
+	}
+	.app-add{
+		width: 65px;
+		height: 65px;
+		background-image: url(../../img/add.png);
+		background-size: 100% 100%;
+		border-radius: 5px;
+		margin: auto auto;
+	}
+	.app-comment-function{
+		height: 85px;
+		padding: 5px 0;
+	}
+	.app-comment-function textarea{
+		background-color: #e6e6e6;
+		font-size: 14px;
+		margin-bottom: 0;
+		font-family: "微软雅黑","microsoft yahei";
+		width: 75%;
+		height: 75px;
+	}
+	.mui-table-view-cell{
+		padding: 0 !important;
+	}
+	.mui-table-view-cell a{
+		margin: 0 !important;
+	}
+	.mui-modal a{
+		display: block;
+	}
+	.mui-modal.mui-active{
+		height: auto;
+	}
+	.mui-modal{
+		background-color: rgba(0,0,0,0);
+	}
+	.app-bottom-modal{
+		padding:5px;
+		background-color: #FFFFFF;
+		position: absolute;
+		bottom: 0;
+		width: 100%;
+	}
+	.app-bottom-modal input{
+		display: block;
+		margin-bottom: 0;
+		height: 31px;
+	}
+	.app-bottom-modal button{
+		background-color: #65bfd2;
+		color: #FFFFFF;
+		margin: 0px 10px;
+		border: 0;
+	}
+	.app-close{
+		position: absolute;
+		width: 100%;
+		top: 0;
+		bottom: 41px;
+	}
+	.mui-table-view-cell.mui-active,
+	.mui-table-view-cell>a:not(.mui-btn).mui-active{
+		background-color: inherit;
+	}
+	em{
+		font-style: inherit;
+	}
+	div.mui-btn{
+		background-color: #4cc4d4;
+		color: #FFFFFF;
+		border: 0;
+	}
+	.app-list-icon{
+		display: inline-block;
+		float: right;
+	}
+	.app-list-icon .app-icon-zan{
+		width: 18px;
+		height: 24px;
+	}
+	.app-list-icon .app-icon-jubao{
+		width: 22px;
+		height: 18px;
+		top: 1.5px;
+	}
+	.app-list-icon .app-icon-pinglun{
+		width: 21px;
+		height: 21px;
+		top: 2px;
+	}
+	.app-list-icon .app-icon-shoucang1{
+		width: 21px;
+		height: 21px;
+		top: 2px;
+	}
+	.app-list-icon .app-icon-fenxiang{
+		width: 18px;
+		height: 19px;
+		top: 3px;
+	}
+	.app-list-icon .mui-icon{
+		vertical-align: top;
+		position: relative;
+	}
+	.app-list-icon .mui-btn{
+		background-color: inherit;
+		color: #555555;
+		padding: 0;
+		margin: 5px 0;
+		margin-left: 5px;
+		line-height: 25px;
+	}
+	.app-list-reply{
+		padding-left: 65px;
+	}
+	.app-list-reply .reply{
+		width: 100%;
+		display: inline-block;
+		vertical-align: top;
+		padding: 10px 0;
+	}
+	.app-list-reply .reply .mui-pull-right{
+		font-size: 16px;
+		color: #555555;
+	}
+	.app-list-reply .msg{
+		background-color: #eeeeee;
+		border-radius: 5px;
+		padding: 10px;
+	}
+	.app-list-reply .msg p{
+		display: inline;
+		font-size: 15px;
+		color: #000000;
+	}
+	.app-list-reply .msg span{
+		font-size: 15px;
+		color: #000000;
+	}
+	.app-btn-fixed{
+		position: fixed;
+		width: 60px;
+		height: 60px;
+		border-radius: 100%;
+		padding: 0;
+		margin: auto auto;
+		background-color: rgba(100,190,210,.8);
+		bottom: 10px;
+		color: #FFFFFF;
+		border: 0;
+		left: 0;
+		right: 0;
+	}
+	.app-goods{
+		border: 1px solid #4cc4d4;
+		margin: 10px 0;
+	}
+	.app-goods .mui-active{
+		background-color: #EEEEEE;
+	}
+	.app-goods p{
+		-webkit-line-clamp:1;
+		font-size: 15px;
+		color: #333333;
+		margin-top: 0;
+	}
+	.app-goods .mui-ellipsis{
+		line-height: 25px;
+		height: 25px;
+	}
+	.app-goods .mui-media-object{
+		max-width: 50px;
+		height: 50px;
+	}
+	.app-goods .mui-media-body{
+		font-size: 14px;
+		line-height: 25px;
+	}
+	.app-goods .mui-media-body span{
+		color: #ff425e;
+	}
+	.app-goods .mui-table-view-cell{
+		padding: 5px 10px!important;
+	}
+	.mui-btn.mui-active:enabled,
+	button.mui-active:enabled{
+		background-color: inherit;
+		color: inherit;
+	}
+	button.mui-active .app-icon-zan:before{
+		background: url(../../img/icon/zan_active.png) no-repeat;
+		background-size: 100% 100%;
+	}
+	button.mui-active .app-icon-shoucang1:before{
+		background: url(../../img/icon/shoucang1_active.png) no-repeat;
+		background-size: 100% 100%;
+	}
+	.app-activity p{
+		-webkit-line-clamp:initial;
+	}
+	.app-comment .app-head{
+		width: 45px;
+		height: 45px;
+	}
+	.app-comment .app-da:after,
+	.app-comment .app-jda:after{
+		width: 15px;
+		height: 15px;
+	}
+	.app-activity .app-head{
+		width: 50px;
+		height: 50px;
+	}
+	.app-activity .app-da:after,
+	.app-activity .app-head:after{
+		width: 18px;
+		height: 18px;
+	}
+	.app-comment .mui-table-view-cell{
+		padding-top:10px !important;
+	}
+	.app-comment .mui-table-view-cell:after{
+		content: '';
+	}
+	
+	
+	.app-img .app-img-delete{
+				position: absolute;
+				width: 20px;
+				height: 20px;
+				background:  url(../../img/icon/shanchu.png) no-repeat;
+				background-size: 100% 100%;
+				display: block;
+				top: 5px;
+				right: calc(50% - 30px);
+			}
+</style>
+</head>
+<body contextmenu="return false;">
+<header class="mui-bar mui-bar-nav">
+	<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+	<button class="mui-btn mui-pull-right J_manager" id="J_manager">管理</button>
+	<h1 class="mui-title" id="J_groupName">话题详情</h1>
+</header>
+<div class="mui-content">
+	<div class="app-warper">
+		<div id="J_info">
+			<!--<div class="app-activity">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<div class="app-list-head app-box">
+							<div class="app-head app-sex-app-sex-nan  app-da">
+						        <img  src="http://test.jikechufa.com/uploads/tmp/thumb_5632ee83643be.jpg">
+							</div>
+							<div class="app-titleinfo app-box-flex">
+								<div class="mui-ellipsis name">天天向上</div>
+								<span class="app-when">1个月前</span>
+							</div>
+						</div>
+			
+						<div class="mui-media-body">
+							<h5 class="mui-ellipsis">第一个圈子第五条主题</h5>
+							<p>第一个圈子第五条主题</p>
+							<div class="app-badge"></div>
+						</div>
+						<div class="app-list-icon">
+							<button class="mui-btn J_support"><span class="mui-icon  app-icon-zan"></span> 赞 </button>
+							<button class="mui-btn J_report"><span class="mui-icon app-icon-jubao"></span> 举报</button>
+							<button class="mui-btn J_comment"><span class="mui-icon app-icon-pinglun"></span> 评论</button>
+							<button class="mui-btn"><span class="mui-icon app-icon-shoucang1"></span> 收藏</button>
+							<button class="mui-btn"><span class="mui-icon app-icon-fenxiang"></span> 分享</button>
+						</div>
+					</li>
+				</ul>
+				<div class="mui-table-view app-goods J_service" data-serviceid="2" data-servicename="ii哦哦如果冬天服务">
+					<div class="mui-table-view-cell">
+						<img src="http://test.jikechufa.com/uploads/tmp/thumb_564550d419a6b.jpg" class="mui-media-object mui-pull-left" />
+						<div class="mui-media-body">
+							<p class='mui-ellipsis'>ii哦哦如果冬天服务</p>
+							<div class="mui-ellipsis">
+								<span>￥365.00</span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>-->
+			<div class="app-title app-title-unstyle mui-text-right">
+				<div class="mui-btn">评论<em id="commentCount"></em></div>
+			</div>
+
+			<input type="hidden" id="iscomment" value="1" />
+			<input type="hidden" id="istop" value="0" />
+			<input type="hidden" id="isclose" value="2" />
+			<input type="hidden" id="isforbid" value="0" />
+		</div>
+		<ul class="mui-table-view app-comment" id="J_list">
+			<!--评论列表-->
+		</ul>
+		<div class="app-title app-title-unstyle comment-title">
+			<span class="mui-pull-left">发布评论</span>
+			<button class="mui-btn mui-pull-right" id="save">完成</button>
+		</div>
+		<div class="app-content app-comment-photo comment">
+			<form class="app-comment-function">
+				<textarea class="mui-pull-left" placeholder="这里是对话题的评论" id="content"></textarea>
+				<div class="app-add-img">
+					<div class="app-add"></div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div id="modal" class="mui-modal">
+	<a class="app-close" href="#modal">
+	</a>
+	<div class="app-bottom-modal app-box">
+		<input type="text" class="app-box-flex" id="replyContent" />
+		<button class="mui-btn" id="saveReply">发送</button>
+	</div>
+</div>
+<!--<button class="mui-btn app-btn-fixed" id="addTheme">发布</button>-->
+</body>
+</html>
+
+<script type="text/javascript" src="../../js/mui.min.js" ></script>
+<script type="text/javascript" src="../../js/mui.zoom.js" ></script>
+<script type="text/javascript" src="../../js/mui.previewimage.js" ></script>
+<script type="text/javascript" src="../../js/common.js" ></script>
+<script type="text/javascript" src="../../js/UserInfo.js" ></script>
+<script>
+var pics = '',sharew,themeid; // 评论图片
+var postID = 0; // 评论ID
+mui.init({
+	swipeBack: false,
+	pullRefresh: {
+		container: '#pullrefresh',
+		down: {
+			callback: pulldownRefresh
+		},
+		up: {
+			contentrefresh: '正在加载...',
+			callback: pullupRefresh
+		}
+	}
+}); 
+mui.previewImage();
+function pulldownRefresh() {
+	 mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+};
+function pullupRefresh() {
+	 this.endPullupToRefresh(true);
+};
+mui.plusReady(function(){
+	plus.nativeUI.showWaiting('加载数据中...');
+	var sessionId 	= app.sessionId();
+	var pwid		= plus.webview.currentWebview().pwid;		//上一个页面id
+	themeid		= plus.webview.currentWebview().themeid;	//主题id
+	var groupid		= plus.webview.currentWebview().groupid;	//圈子id
+	var groupname	= plus.webview.currentWebview().groupname;	//圈子名称
+	var J_groupName = document.getElementById('J_groupName');
+	var reply = document.getElementById('replyContent');
+	var modal = document.getElementById('modal');
+
+	var from 	= plus.webview.currentWebview().from;
+//	if(from == 'addTheme'){
+//		//定义返回后的事件
+//		plus.webview.getWebviewById(pwid).hide();
+//		plus.webview.getWebviewById(pwid).close();
+//	}
+	
+	if(plus.os.version >= 9.0){
+		plus.webview.currentWebview().setStyle({
+				softinputMode: "adjustResize"
+		});
+	};
+	//判断权限
+	var ajaxUrl = SITE + "theme/AjaxGetThemeRole";
+	mui.getJSON(ajaxUrl, {themeid:themeid, sessionId:sessionId}, function(response){
+		if(response.code == 1){
+			document.getElementById('J_manager').style.display = 'block';
+		}else{
+			document.getElementById('J_manager').style.display = 'none';
+		}
+		if(response.data.iscomment == 0) {
+			// 话题不可评论, 隐藏评论区域, 注意: 在管理话题的时候,同样会对该区域进行操作.
+			document.querySelector('.comment-title').style.display = 'none';
+			document.querySelector('.comment').style.display = 'none';
+		}
+	});
+	//自动弹出软盘
+	var openSoftKeyboard = function() {
+        if(mui.os.ios){
+        	alert(1);
+            var webView = plus.webview.currentWebview().nativeInstanceObject();
+            webView.plusCallMethod({
+                "setKeyboardDisplayRequiresUserAction": false
+            });
+        }else{
+            var webview = plus.android.currentWebview();
+            plus.android.importClass(webview);
+            webview.requestFocus();
+            var Context = plus.android.importClass("android.content.Context");
+            var InputMethodManager = plus.android.importClass("android.view.inputmethod.InputMethodManager");
+            var main = plus.android.runtimeMainActivity();
+            var imm = main.getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(0, InputMethodManager.SHOW_FORCED);
+        }
+    };
+	//进入服务
+	mui("#J_info").on("tap", ".J_service", function(){
+		var ajaxUrl = "../master/club-service.html";
+		var param 	= {serviceid:this.dataset.serviceid, servicename:this.dataset.servicename};
+		openwindow(ajaxUrl, param);
+	});
+	// 达人主页
+	mui('.mui-content').on('tap', '.J_masterInfo', function(){
+		var uid		= this.dataset.uid;
+		var nickname= this.dataset.nickname;
+		openwindow("../master/club-index.html", {uid:uid, nickname:nickname});
+	});
+	//回复是否显示
+	mui('#J_list').on('tap',".J_saveReplay",function(){
+		var sessionId 	= app.sessionId();
+		if(empty(sessionId) == true){
+			openwindow('../login/login.html',{});
+			return;
+		}
+		postID = this.dataset.postid;
+		reply.value = '';
+		modal.classList.add('mui-active');
+		reply.focus();
+	});
+
+	document.querySelector('#modal a.app-close').addEventListener('tap',function(){
+		reply.blur();
+	});
+
+	// 圈子名称
+	if(empty(groupname) == false) {
+		J_groupName.innerText = groupname;
+	}else{
+		var ajaxUrl	= SITE + "theme/ajaxGetGroupByThemeid";
+		mui.getJSON(ajaxUrl, {themeid:themeid}, function(response){
+			var last = JSON.stringify(response);
+			if(response.code == 1){
+				groupname 	= response.groupname;
+				J_groupName.innerText = groupname;
+			};
+			plus.nativeUI.closeWaiting();
+		});
+	}
+
+	//主题内容
+    var ajaxUrl = SITE + 'theme/ajaxInfo';
+	mui.get(ajaxUrl, {themeid:themeid,sessionId:sessionId}, function(response) {
+		if(response != ''){
+			document.getElementById('J_info').innerHTML = response;
+		}
+	}, 'html');
+	//document.getElementById('commentCount').innerText = document.getElementById('postnum').innerText;
+	// 获取评论列表
+	getCommentList(themeid);
+
+	// 赞 
+	mui('.mui-content').on('tap', '.J_support', function(){
+		var sessionId 	= app.sessionId();
+		var th = this;
+		if(empty(sessionId) == true){
+			openwindow('../login/login.html',{});
+			return;
+		};
+		themeOperation('support', '', themeid, sessionId , th);
+	});
+	// 评论
+	mui('.mui-content').on('tap', '.J_comment', function(){
+		document.getElementById('content').focus();
+	});
+	// 收藏
+	mui('.mui-content').on('tap', '.J_favor', function(){
+		var sessionId 	= app.sessionId();
+		var th = this;
+		if(empty(sessionId) == true){
+			openwindow('../login/login.html',{});
+			return;
+		};
+		themeOperation('favor', '', themeid, sessionId, th);
+	});
+//	// 举报
+//	mui('.mui-content').on('tap', '.J_report', function(){
+//		var sessionId 	= app.sessionId();
+//		if(empty(sessionId) == true){
+//			openwindow('../login/login.html',{});
+//			return;
+//		};
+//		var btnArray = [{title:"反动",val:0},{title:"暴力、色情",val:1},{title:"广告",val:2}];
+//		plus.nativeUI.actionSheet( {
+//			title:"选择举报类型",
+//			cancel:"取消",
+//			buttons:btnArray
+//		}, function(e){
+//			var i = e.index;
+//			if(i > 0) {
+//				//console.log(btnArray[i-1].title);
+//				themeOperation('report', btnArray[i-1].val, themeid, sessionId);
+//			}
+//		});
+//	});
+	// 管理话题
+	mui(".mui-bar").on("tap", ".J_manager", function(){
+		var sessionId 	= app.sessionId();
+		if(empty(sessionId) == true){
+			openwindow('../login/login.html',{});
+			return;
+		};
+		var iscomment = document.getElementById('iscomment').value; // 是否可评论
+		var istop = document.getElementById('istop').value; // 是否置顶
+		var isclose = document.getElementById('isclose').value; // 是否关闭
+		var isforbid = document.getElementById('isforbid').value; // 是否禁止
+		
+		var btnArray = [];
+		// 是否可评论
+		if(iscomment == 1) {
+			btnArray.push({title:"不可评论",act:'comment'});
+		}else {
+			btnArray.push({title:"可评论",act:'comment'});
+		}
+//		if(istop == 1) {
+//			btnArray.push({title:"不置顶",act:'top'});
+//		}else {
+//			btnArray.push({title:"置顶",act:'top'});
+//		}
+		if(isclose == 1) {
+			btnArray.push({title:"开启",act:'close'});
+		}else {
+			btnArray.push({title:"关闭",act:'close'});
+		}
+//		if(isforbid == 1) {
+//			btnArray.push({title:"可用",act:'forbid'});
+//		}else {
+//			btnArray.push({title:"禁用",act:'forbid'});
+//		}
+		
+		//var btnArray = [{title:"不可评论",act:'comment',val:1},{title:"关闭",act:'close',val:1},{title:"置顶",act:'top',val:1},{title:"禁用",act:'forbid',val:1}];
+		// var btnArray = [{title:"可评论",val:'dismiss'},{title:"开启",val:'dismiss'},{title:"取消置顶",val:'dismiss'}];
+		plus.nativeUI.actionSheet({
+			title:"选择管理操作",
+			cancel:"取消",
+			buttons:btnArray
+		}, function(e){
+			var i = e.index;
+			if(i > 0) {
+				var act = btnArray[i-1].act;
+				var server = SITE + 'theme/manageTheme';
+				mui.ajax(server,{
+					data:{
+						themeID:themeid,
+						act:act,
+						sessionId:sessionId
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					success:function(response){
+						if(response.code == 1) {
+							alert(response.msg);
+							if(response.data.act == 'comment') {
+								document.getElementById('iscomment').value = response.data.iscomment;
+								if(response.data.iscomment == 1){ // 话题可评论
+									// 显示评论操作区域
+									document.querySelector('.comment-title').style.display = 'block';
+									document.querySelector('.comment').style.display = 'block';
+								}else { // 话题不可评论
+									// 隐藏评论操作区域
+									document.querySelector('.comment-title').style.display = 'none';
+									document.querySelector('.comment').style.display = 'none';
+								}
+							}else if(response.data.act == 'top') {
+								document.getElementById('istop').value = response.data.istop;
+							}else if(response.data.act == 'close') {
+								document.getElementById('isclose').value = response.data.isclose;
+							}else if(response.data.act == 'forbid') {
+								document.getElementById('isforbid').value = response.data.isforbid;
+							}
+						}else {
+							alert(response.msg);
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log('xhr:' + xhr.response + ', type:' + type);
+					}
+				});
+			}
+		});
+	});
+	// 分享
+	mui('#J_info').on('tap', '.J_share', function(){
+		shareWebview();
+	});
+	// 上传评论图片
+	mui('.app-comment-photo').on('tap', '.app-add', function(){
+		var sessionId 	= app.sessionId();
+		if(empty(sessionId) == true){
+			openwindow('../login/login.html',{});
+			return;
+		};
+		fileUpload();
+	});
+	
+	//删除图片
+	mui('.app-comment-photo').on('tap', '.app-img-delete', function(){
+		
+	});
+	
+//	//发布话题 addTheme
+//	document.getElementById('addTheme').addEventListener('tap', function(){
+//		var sessionId 	= app.sessionId();
+//		console.log(groupname);
+//		if(empty(sessionId) == true){
+//			openwindow('../login/login.html',{});
+//			return;
+//		};
+//		var twid = plus.webview.currentWebview().id;
+//		//var group_name = document.getElementById('J_groupName').innerText;
+//		openwindow('../circle/main-release-addtopic.html', {pwid:twid, groupid:groupid, groupname:groupname});
+//	});
+
+	// 发布评论
+	document.getElementById('save').addEventListener('tap', function(){
+		var sessionId 	= app.sessionId();
+		if(empty(sessionId) == true){
+			openwindow('../login/login.html',{});
+			return;
+		};
+		var content = document.getElementById('content').value; 
+		if(empty(content)) {
+			alert('评论内容不能为空');
+			return false;
+		}
+		var server = SITE + 'theme/addComment';
+		mui.ajax(server,{
+			data:{
+				themeID:themeid,
+				pics:pics,
+				content:content,
+				sessionId:sessionId
+			},
+			dataType:'json',//服务器返回json格式数据
+			type:'post',//HTTP请求类型
+			timeout:10000,//超时时间设置为10秒；
+			success:function(response){
+				if(response.code == 1) {
+					alert('评论成功');
+					// 重新获取评论列表
+					getCommentList(themeid);
+					var postnum = document.getElementById('commentCount').innerText;
+					document.getElementById('commentCount').innerText=  parseInt(postnum) + 1;
+					document.getElementById('content').value = '';
+					if(empty(document.querySelector('.app-comment-photo .app-img')) == false){
+					document.querySelector('.app-comment-photo .app-img').remove();
+					}
+				}else {
+					alert(response.msg);
+				}
+			},
+			error:function(xhr,type,errorThrown){
+				//异常处理；
+				console.log('response:' + xhr.response + ',type:'+type + ',errorThrown:' + errorThrown);
+			}
+		});
+	});
+	// 回复
+	document.getElementById('saveReply').addEventListener('tap', function(){
+		var sessionId 	= app.sessionId();
+		if(empty(sessionId) == true){
+			openwindow('../login/login.html',{});
+			return;
+		};
+		var reply = document.getElementById('replyContent');
+		if(empty(content)) {
+			alert('回复内容不能为空');
+			return false;
+		};
+		var server = SITE + 'theme/addReply';
+		mui.ajax(server,{
+			data:{
+				postID:postID,
+				reply:reply.value,
+				sessionId:sessionId
+			},
+			dataType:'json',//服务器返回json格式数据
+			type:'post',//HTTP请求类型
+			timeout:10000,//超时时间设置为10秒；
+			success:function(response){
+				if(response.code == 1) {
+					alert(response.msg);
+					reply.blur();
+					modal.classList.remove('mui-active'); 
+					// 重新获取评论列表
+					getCommentList(themeid);
+				}else {
+					alert(response.msg);
+				}
+			},
+			error:function(xhr,type,errorThrown){
+				//异常处理；
+				console.log(type);
+			}
+		});
+	});
+	//评论列表
+	
+	//最新互动
+});
+/**
+ * 获取评论列表
+ */
+function getCommentList(themeID){
+	plus.nativeUI.showWaiting('正在加载...');
+    var server = SITE + 'theme/commentList?themeID='+themeID;
+	mui.get(server, {themeID:themeID}, function(response) {
+		if(response != ''){
+//			console.log(response);
+			document.getElementById('J_list').innerHTML = response;
+		}
+		plus.nativeUI.closeWaiting();
+	}, 'html');
+}
+/**
+ * 话题操作: 赞,反对,举报
+ * @param {Object} act
+ */
+function themeOperation(act, reporttype, themeid, sessionId ,active){
+	if(empty(sessionId) == true){
+		alert('请先登录');
+		return true;
+	}
+	var server = SITE + 'theme/themeAdditionalOperation';
+	mui.ajax(server,{
+		data:{
+			themeID:themeid,
+			act:act,
+			reporttype:reporttype,
+			sessionId:sessionId
+		},
+		dataType:'json',//服务器返回json格式数据
+		type:'post',//HTTP请求类型
+		timeout:10000,//超时时间设置为10秒；
+		success:function(response){
+			if(response.code == 1) {
+				if(response.msg === '赞成功' || response.msg === '收藏成功'){
+					active.classList.add('mui-active');
+				}else{
+					active.classList.remove('mui-active');
+				};
+				alert(response.msg);
+			}else {
+				alert(response.msg);
+			}
+		},
+		error:function(xhr,type,errorThrown){
+			//异常处理；
+			console.log(type);
+		}
+	});
+}
+/**
+ * 上传评论图片
+ */
+var server= SITE + 'circle/upload';
+function fileUpload(){
+	var bts=[{title:"拍照"},{title:"从相册中选择"}];
+	plus.nativeUI.actionSheet({cancel:"取消",buttons:bts},
+		 function(e){
+				if(e.index==1){
+					// 拍照添加文件
+					plus.camera.getCamera().captureImage(function(p){
+						upload(p);
+					});	
+				}else if(e.index==2){
+					// 从相册添加文件
+					plus.gallery.pick(function(p){
+						upload(p);
+    				});
+				}
+		 }
+	)
+}
+// 上传文件	
+function upload(path){
+	var wt=plus.nativeUI.showWaiting();
+	
+	var task=plus.uploader.createUpload(server,
+		{method:"POST",blocksize:204800,priority:100},
+		function(t,status){ //上传完成
+			if(status==200){
+				var picdir = JSON.parse(t.responseText);
+				picpath = picdir.paththumbname;
+				pics += picpath + ':,';
+				document.querySelector('.app-comment-function').insertAdjacentHTML('afterEnd', '<div class="app-img"><img src="' + UPLOADDIR + '/' + picpath + '" /></div>');
+				
+				wt.close();
+			}else{
+				plus.nativeUI.alert("上传失败："+status);
+				wt.close();
+			};
+		}
+	);
+	var n=path.substr(path.lastIndexOf('/')+1);
+	task.addFile(path,{name:n});
+	task.start();
+}
+
+
+
+/**
+	 *分享窗口
+	 */
+function shareWebview() {
+	var nickname = document.querySelector('.app-titleinfo .name').innerText;
+	var info = document.querySelector('.app-activity .mui-media-body h5+p').innerText;
+	ws = plus.webview.currentWebview();
+	if (sharew) { // 避免快速多次点击创建多个窗口
+		return;
+	}
+	var top = plus.display.resolutionHeight - 186;
+	var href = "../public/share.html";
+	var phref = UPLOADDIR + "/share/wapTheme?themeid="+themeid;
+	console.log(phref);
+	sharew = plus.webview.create(href, "share.html", {
+		width: '100%',
+		height: '186',
+		top: top,
+		scrollIndicator: 'none',
+		scalable: false,
+		popGesture: 'none'
+	}, {
+		pwid:ws.id,
+		phref:phref,
+		nickname:nickname,
+		info:info
+		
+	});
+	sharew.addEventListener("loaded", function() {
+		sharew.show('slide-in-bottom', 300);
+	}, false);
+	// 显示遮罩层  
+	ws.setStyle({
+		mask: "rgba(0,0,0,0.5)"
+	});
+	// 点击关闭遮罩层
+	ws.addEventListener("maskClick", closeMask, false);
+}
+
+window.addEventListener('clospw',function(){
+	closeMask();
+});
+
+function closeMask() {
+ws.setStyle({
+	mask: "none"
+});
+//避免出现特殊情况，确保分享页面在初始化时关闭 
+if (!sharew) {
+	sharew = plus.webview.getWebviewById("../share/share.html");
+	}
+	if (sharew) {
+		sharew.close();
+		sharew = null;
+	}
+}
+//检查是否圈子成员
+function ajaxChkGroupMember(themeid, sessionId){
+	var ajaxChkGroupMemberUrl = SITE + "theme/ajaxChkGroupMember";
+	mui.getJSON(ajaxChkGroupMemberUrl, {themeid:themeid, sessionId:sessionId}, function(response){
+		if(response.code == 2){
+			var chkPostRole 	= 2;	//黑名单
+		}else if(response.code == 1){
+			var chkPostRole 	= 1;	//圈子成员
+		}else{
+			var chkPostRole 	= 0;	//不是圈子成员
+		}
+		return chkPostRole;
+	});
+}
+</script>
+

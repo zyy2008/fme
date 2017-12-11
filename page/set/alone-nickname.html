@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>昵称</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			input{
+				border: 0 !important;
+				background-color: #FFFFFF;
+				font-size: 16px;
+				font-family: "微软雅黑","microsoft yahei";
+				border-radius: 0 !important;
+				border-bottom: 1px solid #bbbbbb !important;
+				text-align: center;
+				margin: 0 !important;
+				color: #767676;
+			}
+			.app-content{
+				margin-top: 10px;
+				padding-top: 40px;
+				padding-bottom: 50px;
+				padding-left: 20px;
+				padding-right: 20px;
+				background-color: #FFFFFF;
+				position: relative;
+			}
+			.app-content span{
+				position: absolute;
+				font-size: 15px;
+				color: #bbbbbb;
+				top: 50px;
+				right: 20px;
+			}
+			.app-content p{
+				margin-top: 5px;
+				margin-bottom: 0;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<button class="mui-btn  mui-pull-right" id="save">保存</button>
+			<h1 class="mui-title">昵称</h1>
+		</header>
+		<div class="mui-content">
+			<div class="app-content mui-text-center">
+				<input type="text" id="nickname" placeholder="请输入昵称" maxlength="16" />
+				<span>16</span>
+				<p>好的名字让人更容易记住您</p>
+			</div>
+		</div>
+		<script type="text/javascript" src="../../js/mui.min.js" ></script>
+		<script type="text/javascript" src="../../js/common.js "></script>
+		<script type="text/javascript" src="../../js/UserInfo.js"></script>
+		<script>
+			mui.init();
+			mui.plusReady(function(){
+				//当前页面的id 
+				var pwid = plus.webview.currentWebview().pwid;
+				var pw = plus.webview.getWebviewById(pwid);
+				var sessionId = app.sessionId();
+				// 获取页面值
+				var server = SITE + 'my/getMyNickName';
+				mui.ajax(server,{
+					data:{
+						sessionId:sessionId
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					success:function(response){
+						if(response.code == 1) {
+							document.getElementById('nickname').value = response.data;
+						}
+					}
+				});
+				
+				// 保存
+				document.getElementById('save').addEventListener('tap', function(event){
+					var nickname = document.getElementById('nickname').value;
+					if(empty(nickname)) {
+						alert('昵称不能为空');
+						return false;
+					}
+					
+					console.log(sessionId);
+					var server = SITE + 'mySetting/saveNickname';
+					mui.ajax(server,{
+						data:{
+							nickname: nickname,
+							sessionId:sessionId
+						},
+						dataType:'json',//服务器返回json格式数据
+						type:'post',//HTTP请求类型
+						timeout:10000,//超时时间设置为10秒；
+						success:function(response){
+							console.log(response.msg);
+							if(response.code == 1) {
+								alert(response.msg);
+								var param	= {flag:'nickname', value:nickname };
+								mui.fire(pw,'backFunc', param);
+								mui.back();
+							}else {
+								alert(response.msg);
+							}
+						},
+						error:function(xhr,type,errorThrown){
+							//异常处理；
+							console.log(type + errorThrown);
+						}
+					});
+					
+				});
+			});
+			
+		</script>
+	</body>
+</html>

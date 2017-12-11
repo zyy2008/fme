@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>达人服务列表</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			@font-face {
+			    font-family: Appicons;
+			    font-weight: normal;
+			    font-style: normal;
+			    src: url('../../fonts/app.ttf') format('truetype');
+			}
+			.mui-table-view:before,
+			.mui-table-view:after,
+			.mui-table-view-cell:after{
+				content:none;
+			}
+			.app-list-img{
+				position: relative;
+				width: 100%;
+				display: inline-block;
+			}
+			.app-list-img img{
+				width: 100%;
+				display: block;
+				overflow: hidden;
+				vertical-align: top;
+				border-top-left-radius: 5px;
+				border-top-right-radius: 5px;
+			}
+			.app-list-img .mui-badge{
+				position: absolute;
+				left: 10px;
+				top: 10px;
+				border-radius: 10px;
+				color: #FFFFFF;
+				border:1px solid #FFFFFF;
+				background-color: rgba(0,0,0,.2);
+				padding: 3px 10px;
+				
+			}
+			.mui-table-view{
+				padding: 10px 15px;
+			}
+			.mui-table-view-cell{
+				padding: 0;
+				background-color: #FFFFFF;
+				border-radius: 5px;
+				margin-bottom: 10px;
+			}
+			.mui-table-view-cell>a:not(.mui-btn){
+				margin: 0;
+				white-space:inherit
+			}
+			.mui-media-body{
+				padding: 0px 10px;
+			}
+			.mui-media-body h5{
+				font-size: 16px;
+				color: #333333;
+				padding: 10px 20px;
+				margin: 0;
+				font-weight: bold;
+				white-space:inherit;
+			}
+			.mui-media-body p{
+				overflow : hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+				color: #666666;
+				line-height: 18px;
+			}
+			.app-list-hot{
+				border: 1px solid #4cc4d4;
+				border-radius: 50px;
+				padding: 2px;
+				margin: 10px 0;
+				background-color: #f7ffff;
+			}
+			.app-list-hot span:not(.mui-badge){
+				color: #ff1839;
+				font-size: 14px;
+				line-height: 40px;
+				padding-right: 5px;
+			}
+			.app-list-hot .app-box-flex{
+				padding: 0px 10px;
+				font-size: 13px;
+				color: #555555;
+				line-height: 40px;
+			}
+			.app-box-flex .mui-ellipsis{
+				font-size: 15px;
+				line-height: 18px;
+			}
+			.app-box-flex .mui-ellipsis>div{
+				width: 16px;
+				height: 16px;
+				display: inline-block;
+				vertical-align: top;
+			}
+			.app-list-btn{
+				padding: 10px 0;
+			}
+			.app-list-btn .mui-btn{
+				border: 1px solid #4cc4d4;
+				color: #4cc4d4;
+				padding: 0;
+				width: 70px;
+				margin: 5px;
+				line-height: 30px;
+				display: inline-block;
+				vertical-align: top;
+			}
+			.app-list-center{
+				width: 250px;
+				height: 82px;
+				vertical-align: top;
+				margin: auto auto;
+				overflow: hidden;
+				text-align: center;
+			}
+			.app-head{
+				width: 40px;
+				height: 40px;
+			}
+			.app-da:after,
+			.app-jda:after{
+				width: 14px;
+				height: 14px;
+			}
+			.mui-table-view-cell.mui-active,
+			.mui-table-view-cell a.mui-active{
+				background-color: #FFFFFF !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+			<div class="mui-scroll">
+				<ul class="mui-table-view" id="J_list">
+					<!--<li class="mui-table-view-cell" data-servicid="1">
+						<a>
+							<div class="app-list-img">
+								<img  src="../../img/example.png">
+								<div class="mui-badge">泰国</div>
+							</div>
+							<div class="mui-media-body">
+								<h5 class='mui-ellipsis mui-text-center'>泰国达人，带你跟最妖的妖人泰国达人，带你跟最妖的妖人</h5>
+								<p>带你去看最妖的妖人，带你去看最妖的妖人，带你去看最妖带你去看最妖的妖人，带你去看最妖的妖人，带你去看最妖带你去看最妖的妖人，带你去看最妖的妖人，带你去看最妖带你去看最妖的妖人，带你去看最妖的妖人，带你去看最妖</p>
+								<div class="app-list-hot app-box">
+									<div class="app-head app-sex-nv app-da">
+										<img  src="../../img/head.png" />
+									</div>
+									<div class="app-box-flex">
+										<div class="mui-ellipsis">香山上的红叶</div>
+										<div class="mui-ellipsis">
+											<div class="mui-icon app-icon-sheng mui-active"></div>
+											<div class="mui-icon app-icon-hu mui-active"></div>
+											<div class="mui-icon app-icon-da mui-active"></div>
+										</div>
+									</div>
+									<span>
+										￥150.00
+									</span>
+								</div>
+							</div>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<div class="app-list-btn">
+							<div class="app-list-center">
+								<button class="mui-btn">日本sss</button>
+								<button class="mui-btn">日本</button>
+								<button class="mui-btn">日本</button>
+								<button class="mui-btn">日本</button>
+								<button class="mui-btn">日本</button>
+								<button class="mui-btn">日本</button>
+							</div>
+						</div>
+					</li>-->
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/common.js"></script>
+<script src="../../js/UserInfo.js"></script>
+<script type="text/javascript" charset="utf-8">
+var param 	= {};
+var sessionId = null;
+var page	= 0;
+var pullflag= false;
+var flagSearch 	= false;
+mui.init({
+	swipeBack: false,
+	pullRefresh: {
+		container: '#pullrefresh',
+		down: {
+			callback: pulldownRefresh
+		},
+		up: {
+			contentrefresh: '正在加载...',
+			callback: pullupRefresh
+		}
+	}
+});
+//下拉，重新加载列表
+function pulldownRefresh() {
+	mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+	pullflag= false;
+	page	= 0;
+	param 	= {page:page};
+	getList(param);
+	mui('#pullrefresh').pullRefresh().refresh(true);
+};
+//上拉加载更多 
+function pullupRefresh() {
+	page++;
+	param['page'] = page;
+	getList(param);
+	this.endPullupToRefresh(pullflag);
+};
+
+mui.plusReady(function(){
+	sessionId = app.sessionId();
+	var self = plus.webview.currentWebview();
+
+	//达人服务
+	getList(param);
+//  var server = SITE + 'service';
+//	mui.get(server, {}, function(response) {
+//		if(response != ''){
+//			//console.log(response);
+//			document.getElementById('J_list').innerHTML = response;
+//		}
+//	}, 'html');
+	
+	//快速搜索 --按照目的地
+	mui('#J_list').on('tap', '.mui-btn', function(){
+		//搜索条件
+		param	= {};
+		flagSearch = true;
+		page 	= 0;
+		param['placeid']= this.dataset.placeid;
+		getList(param);
+		mui('#pullrefresh').pullRefresh().refresh(true);
+		mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
+	});
+	//进入服务详情
+	mui("#J_list").on("tap", ".J_servieInfo", function(){
+		var serviceid 	= this.dataset.serviceid;
+		var servicename	= this.dataset.servicename;
+		if(empty(serviceid) == true){
+			alert("缺少参数");
+			return false;
+		}
+		var postParam 	= {servicename:servicename, serviceid:serviceid};
+		openwindow("../master/club-service.html", postParam);
+	});
+	//回调函数
+	document.addEventListener('backFunc',function(e){
+		param	= {};
+		page 	= 0;
+		flagSearch = true;
+		//目的地搜索
+		if(empty(e.detail.placename) == false) {
+			//搜索条件
+			param['placeid']= e.detail.placeid;
+		}
+		if(e.detail.flag	== 'refresh'){
+		}
+		mui('#pullrefresh').pullRefresh().refresh(true);
+		mui('#pullrefresh').pullRefresh().scrollTo(0,0,100);
+		getList(param);
+	});
+});
+//调用列表
+function getList(param)
+{
+	plus.nativeUI.showWaiting('正在加载...');
+    var server = SITE + 'service/list';
+	mui.get(server, param, function(response) {
+		if(response != ''){
+			if(page > 0){
+				document.getElementById('J_list').innerHTML += response;
+			}else{
+				document.getElementById('J_list').innerHTML = response;
+			}
+		}else{
+			if(flagSearch == true){
+				document.getElementById('J_list').innerHTML = '';
+				alert("对不起，没有搜索到任何特色线路");
+			}
+			pullflag 	= true;
+		}
+		flagSearch = false;
+		plus.nativeUI.closeWaiting();
+	}, 'html');
+}
+</script>

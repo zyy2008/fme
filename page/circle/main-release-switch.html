@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>发布切换圈子</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			body{
+				background-color: #f7f7f7;
+			}
+			.mui-table-view-cell:after{
+				left: 0;
+			}
+			.mui-input-group{
+				font-size: 15px;
+			}
+			.app-not{
+				background-color: #FFFFFF;
+				text-align: center;
+				line-height: 60px;
+				font-size: 15px;
+				color: #ff425d;
+			}
+			.mui-radio input[type=radio]:before{
+				content: none;
+			}
+			.mui-radio input[type=radio]:checked:before{
+				content: '\e472';
+				font-size: 30px;
+				font-weight: 600;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<button class="mui-btn  mui-pull-right" id="save">选择</button>
+			<h1 class="mui-title" id="group_name"></h1>
+		</header>
+		<div class="mui-content" id="pullrefresh">
+			<form class="mui-input-group" id="J_grouplist">
+			</form>
+			<div class="app-not" id="error" style="display:none;">不能选择，你还没有加入任何圈子</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js" ></script>
+<script type="text/javascript" src="../../js/common.js "></script>
+<script type="text/javascript" src="../../js/UserInfo.js"></script>
+<script>
+var page	= 0;
+var pullflag= false;
+var flagSearch 	= false;
+mui.init({
+	swipeBack: false,
+	pullRefresh: {
+		container: '#pullrefresh',
+		up: {
+			contentrefresh: '正在加载...',
+			callback: pullupRefresh
+		}
+	}
+});
+//上拉加载更多 
+function pullupRefresh() {
+	page++;
+	getMoreList();
+	this.endPullupToRefresh(pullflag);
+};
+
+mui.plusReady(function(){
+	var pwid = plus.webview.currentWebview().pwid;
+	var groupid = plus.webview.currentWebview().groupid; // 圈子id
+	var group_name = plus.webview.currentWebview().group_name; // 圈子名称
+	var pw = plus.webview.getWebviewById(pwid);
+	var sessionId = app.sessionId();
+	var J_groupid = groupid;
+	var J_groupname = group_name;
+	
+	document.getElementById('group_name').innerText = group_name;
+	
+	// 获取我的圈子
+	var server = SITE + 'circle/myCircle';
+	mui.ajax(server,{
+		data:{
+			sessionId:sessionId
+		},
+		dataType:'json',//服务器返回json格式数据
+		type:'post',//HTTP请求类型
+		timeout:10000,//超时时间设置为10秒；
+		success:function(response){
+			//console.log(response.code);
+			if(response.code == 1) {
+				// 隐藏 提示语句
+				document.getElementById('error').style.display = 'none';
+				var html = '';
+				for(var item in response.data) {
+					var name = response.data[item].name;
+					var id = response.data[item].id;
+					if(groupid != id) {
+						html += '<div class="mui-input-row mui-radio"><label>'+name+'</label><input class="J_radio" name="radio"  type="radio" value="'+id+'"  data-name="'+name+'" ></div>';
+					}else {
+						html += '<div class="mui-input-row mui-radio"><label>'+name+'</label><input class="J_radio" name="radio"  type="radio"  value="'+id+'" data-name="'+name+'" checked></div>';
+					}
+					document.getElementById('J_grouplist').innerHTML = html;
+				}
+				/**
+					<div class="mui-input-row mui-radio">
+						<label>德国慕尼黑美食圈</label>
+						<input name="radio1" type="radio">
+					</div>
+				**/
+			}else {
+				document.getElementById('error').style.display = 'block';
+				alert(response.msg);
+			}
+		},
+		error:function(xhr,type,errorThrown){
+			//异常处理；
+			console.log(xhr.response + type + errorThrown);
+		}
+	});
+	mui('.mui-input-group').on('tap', '.mui-radio', function(){
+		J_groupid = this.querySelector('.J_radio').value;
+		J_groupname = this.querySelector('.J_radio').dataset.name;
+		var param	= {flag:'select_group', value:J_groupid, name:J_groupname};
+		mui.fire(pw,'backFunc', param);
+		mui.back();
+	});
+	document.getElementById('save').addEventListener('tap', function(){
+		//圈子列表
+		var ajaxUrl	= SITE + "circle/selectCircle";
+		mui.ajax(ajaxUrl,{
+			data:{sessionId:sessionId},
+			dataType:'json',//服务器返回json格式数据
+			type:'post',//HTTP请求类型
+			timeout:10000,//超时时间设置为10秒；
+			success:function(response){
+				if(response.code == 1) {
+					// 隐藏 提示语句
+					document.getElementById('error').style.display = 'none';
+					var html = '';
+					for(var item in response.data) {
+						var name = response.data[item].name;
+						var id = response.data[item].id;
+						if(groupid != id) {
+							html += '<div class="mui-input-row mui-radio"><label>'+name+'</label><input class="J_radio" name="radio"  type="radio" value="'+id+'"  data-name="'+name+'" ></div>';
+						}else {
+							html += '<div class="mui-input-row mui-radio"><label>'+name+'</label><input class="J_radio" name="radio"  type="radio"  value="'+id+'" data-name="'+name+'" checked></div>';
+						}
+						document.getElementById('J_grouplist').innerHTML = html;
+					}
+				}else {
+//					document.getElementById('error').style.display = 'block';
+//					alert(response.msg);
+					pullflag 	= true;
+				}
+			},
+			error:function(xhr,type,errorThrown){
+				//异常处理；
+				console.log(xhr.response + type + errorThrown);
+			}
+		});
+	});
+});
+
+function getMoreList()
+{
+	var sessionId = app.sessionId();
+	var ajaxUrl	= SITE + "circle/selectCircle";
+	mui.getJSON(ajaxUrl, {page:page, sessionId:sessionId}, function(response){
+		if(response.code == 1) {
+			// 隐藏 提示语句
+			document.getElementById('error').style.display = 'none';
+			var html = '';
+			for(var item in response.data) {
+				var name = response.data[item].name;
+				var id = response.data[item].id;
+				if(groupid != id) {
+					html += '<div class="mui-input-row mui-radio"><label>'+name+'</label><input class="J_radio" name="radio"  type="radio" value="'+id+'"  data-name="'+name+'" ></div>';
+				}else {
+					html += '<div class="mui-input-row mui-radio"><label>'+name+'</label><input class="J_radio" name="radio"  type="radio"  value="'+id+'" data-name="'+name+'" checked></div>';
+				}
+				document.getElementById('J_grouplist').innerHTML += html;
+			}
+		}else {
+//			alert(response.msg);
+			pullflag 	= true;
+		}
+	});
+}
+</script>

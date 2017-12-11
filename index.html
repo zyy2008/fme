@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <title>入口页面</title>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="css/public.css" />
+    <style>
+    	.mui-bar {
+    background-color:#eeeeee;
+}
+[class*='app-icon-']:before{
+	content:'';
+	width:25px;
+    height:25px;
+    display:block;
+}
+.app-icon-master:before {
+    background:url(img/icon/master.png) no-repeat;
+    background-size:100% 100%
+}
+.mui-active .app-icon-master:before {
+    background:url(img/icon/master-a.png) no-repeat;
+    background-size:100% 100%
+}
+.app-icon-circle:before {
+    background:url(img/icon/circle.png) no-repeat;
+    background-size:100% 100%
+}
+.mui-active .app-icon-circle:before {
+    background:url(img/icon/circle-a.png) no-repeat;
+    background-size:100% 100%
+}
+.app-icon-my:before {
+    background:url(img/icon/my.png) no-repeat;
+    background-size:100% 100%
+}
+.mui-active .app-icon-my:before {
+    background:url(img/icon/my-a.png) no-repeat;
+    background-size:100% 100%
+}
+.mui-bar-tab .mui-tab-item .mui-icon {
+    width:35px;
+    height:32px;
+    border-radius:100%;
+    -webkit-border-radius:100%;
+    text-align:center
+}
+.mui-bar-tab .mui-tab-item .mui-icon {
+	padding: 3.5px 5px;
+}
+.mui-bar-tab .mui-tab-item.mui-active {
+    color:#4cc4d4
+}
+.mui-bar-tab .mui-tab-item {
+    position:relative;
+    color:#777777
+}
+    </style>
+</head>
+<body>
+	<nav class="mui-bar mui-bar-tab">
+		<a class="mui-tab-item mui-active" href="page/master/index.html">
+			<span class="mui-icon app-icon-master"></span>
+			<span class="mui-tab-label">达人</span>
+		</a>
+		<a class="mui-tab-item" href="page/circle/index.html">
+			<span class="mui-icon app-icon-circle"></span>
+			<span class="mui-tab-label">圈子</span>
+		</a>
+		<a  class="mui-tab-item"  href="page/my/not-login.html">
+			<span class="mui-icon app-icon-my"></span>
+			<span class="mui-tab-label">我的</span>
+		</a>
+	</nav>
+	<script src="js/mui.min.js"></script>
+	<script src="js/common.js"></script>
+	<script type="text/javascript" src="js/UserInfo.js" ></script>
+	<script type="text/javascript" charset="utf-8">
+			 //mui初始化
+			mui.init();
+			var subpages = ['page/master/index.html', 'page/circle/index.html', 'page/my/not-login.html'];
+			var subpage_style = {
+				top: '0',
+				bottom: '59px'
+			};
+			var aniShow = {};
+			
+			 //创建子页面，首个选项卡页面显示，其它均隐藏；
+			mui.plusReady(function() {
+				
+       			 plus.navigator.setStatusBarBackground("#4cc4d4");// 设置系统状态栏背景色
+				 plus.screen.lockOrientation('portrait-primary');//锁定屏幕方向垂直向下
+				
+				//读取本地存储，检查是否为首次启动
+				var showGuide = plus.storage.getItem("lauchFlag");
+				if(showGuide){
+					plus.navigator.closeSplashscreen();
+					plus.navigator.setFullscreen(false);
+				}else{
+					//显示启动导航
+					mui.openWindow({
+						id:'guide',
+						url:'guide.html',
+						show:{
+							aniShow:'none'
+						},
+						waiting:{
+							autoShow:false
+						}
+					});
+				};
+				var self = plus.webview.currentWebview();
+				for (var i = 0; i < 3; i++) {
+					var temp = {};
+					var sub = plus.webview.create(subpages[i], subpages[i], subpage_style);
+					if (i > 0) {
+						sub.hide();
+					}else{
+						temp[subpages[i]] = "true";
+						mui.extend(aniShow,temp);
+					}
+					self.append(sub);
+				};
+			});
+			 //当前激活选项
+			var activeTab = subpages[0];
+			 //选项卡点击事件
+			mui('.mui-bar-tab').on('tap', 'a', function(e) {
+				var targetTab = this.getAttribute('href');
+				if (targetTab == activeTab) {
+					return;
+				}
+				//显示目标选项卡
+				if(mui.os.ios||aniShow[targetTab]){
+					plus.webview.show(targetTab,"fade-in",300);
+				}else{
+					var temp = {};
+					temp[targetTab] = "true";
+					mui.extend(aniShow,temp);
+					plus.webview.show(targetTab,"fade-in",300);
+				}
+				//隐藏当前;
+				plus.webview.hide(activeTab);
+				//更改当前活跃的选项卡
+				activeTab = targetTab;
+			});
+			var first = null;
+			mui.back = function() {
+				if (!first) {
+					first = new Date().getTime();
+					mui.toast('再按一次退出应用');
+					setTimeout(function() {
+						first = null;
+				}, 1000);
+				}else {
+					if (new Date().getTime() - first < 1000) {
+						plus.runtime.quit();
+					}
+				}
+			};
+	</script>
+</body>
+</html>

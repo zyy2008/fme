@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>我的话题</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<link rel="stylesheet" href="../../css/activity.css" />
+	</head>
+	<body>
+		<div class="mui-content mui-scroll-wrapper" id="pullrefresh">
+			<div class="app-activity mui-scroll">
+				<ul class="mui-table-view" id="J_list">
+				
+				</ul>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js" ></script>
+<script type="text/javascript" src="../../js/common.js" ></script>
+<script type="text/javascript" src="../../js/UserInfo.js" ></script>
+<script>
+var param 	= {};
+var sessionId = null;
+var page	= 0;
+var pullflag= false;
+mui.init({
+	swipeBack: false,
+	pullRefresh: {
+		container: '#pullrefresh',
+		down: {
+			callback: pulldownRefresh
+		},
+		up: {
+			contentrefresh: '正在加载...',
+			callback: pullupRefresh
+		}
+	}
+});
+//下拉，重新加载列表
+function pulldownRefresh() {
+	mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+	pullflag= false;
+	page	= 0;
+	param 	= {page:page,sessionId:sessionId};
+	listThemes(param);
+	mui('#pullrefresh').pullRefresh().refresh(true);
+};
+//上拉加载更多 
+function pullupRefresh() {
+	page++;
+	param['page'] = page;
+	param['sessionId'] = sessionId;
+	listThemes(param);
+	this.endPullupToRefresh(pullflag);
+};
+mui.plusReady(function(){
+	sessionId 	= app.sessionId();
+	param['sessionId'] = sessionId;
+	var J_list 	= document.getElementById("J_list");
+
+	listThemes(param);
+	//互动详情
+	mui("#J_list").on('tap', '.J_themeinfo', function(){
+		var _parent	= this.parentNode;
+		var themeid	= _parent.dataset.themeid;
+		var groupname	= _parent.dataset.groupname;
+//		console.log(themeid);console.log(groupname);
+		openwindow("../circle/theme.html", {themeid:themeid, groupname:groupname});
+	});
+});
+
+//取得列表
+function listThemes(param)
+{
+	plus.nativeUI.showWaiting();
+	var ajaxUrl = SITE + "theme/ajaxMyList";
+	mui.get(ajaxUrl, param, function(response){
+		if(response != ''){
+			if(page > 0){
+				J_list.innerHTML += response;
+			}else{
+				J_list.innerHTML = response;
+			}
+		}else{
+			pullflag 	= true;
+		}
+		plus.nativeUI.closeWaiting();
+		plus.nativeUI.closeWaiting();
+	});
+}
+</script>

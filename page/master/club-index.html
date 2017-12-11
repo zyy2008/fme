@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>会员主页</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<link rel="stylesheet" href="../../css/activity.css" />
+		<style>
+			body{
+				position: absolute;
+				width: 100%;
+				height: 100%;
+			}
+			header{
+				position: absolute ;
+			}
+			.mui-content{
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 44px;
+				bottom: 0;
+				overflow-y: auto;
+				z-index: 0;
+				padding: 10px !important;
+			}
+			.mui-bar-nav .mui-pull-right{
+				padding: 9px 0;
+			}
+			.mui-table-view:before,
+			.mui-table-view:after{
+				content: none;
+			}
+			.mui-bar-nav .mui-pull-right .mui-icon{
+				width: 24px;
+				height: 24px;
+				margin: 0;
+				padding: 0;
+				margin-left: 5px;
+			}
+			.app-line{
+				position: relative;
+				height: 7px;
+			}
+			.app-line:before{
+				content: '';
+				position: absolute;
+				width: 7px;
+				height: 7px;
+				display: inline-block;
+				border-radius: 100%;
+				background-color: #cccccc;
+				left: 10px;
+			}
+			.app-line:after{
+				content: '';
+				position: absolute;
+				margin: auto;
+				height: 1px;
+				right: 10px;
+				left: 10px;
+				top: 0;
+				bottom: 0;
+				background-color: #CCCCCC;
+			}
+			.app-name{
+				text-align: center;
+				padding: 0px 10px;
+			}
+			.app-name h5{
+				font-size: 16px;
+				color: #555555;
+				margin: 0;
+				padding: 10px;
+			}
+			.app-name var{
+				text-align: right;
+				display: block;
+				font-style: initial;
+				color: #ff425d;
+				font-size: 16px;
+			}
+			.app-the{
+				padding:0 10px;
+				padding-top: 5px;
+				padding-bottom: 10px;
+			}
+			.app-the span{
+				font-size: 14px;
+				color: #4cc4d4;
+				width: 80px;
+				display: inline-block;
+			}
+			.app-the p{
+				font-size: 14px;
+				color: #333333;
+				overflow : hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 3;
+-webkit-box-orient: vertical;
+margin-bottom: 0;
+			}
+			
+			.app-the .mui-text-right{
+				color: #ff425d;
+			}
+			.app-img img{
+				width: 100%;
+				display: block;
+				overflow: hidden;
+				margin-bottom: 10px;
+			}
+			.app-date{
+				text-align: center;
+				padding-top:10px;
+				padding-bottom: 20px;
+			}
+			.app-date .mui-btn{
+				width: 30px;
+				height: 32px;
+				padding: 0;
+				border: 0;
+			}
+			.app-date span{
+				display: block;
+				font-size: 14px;
+				color: #333333;
+			}
+			.app-unline{
+				padding-left: 10px;
+				-webkit-box-align: center;
+			}
+			.app-this{
+				padding-top: 5px;
+				padding-bottom: 20px;
+			}
+			.app-this p{
+				margin-bottom: 0;
+				padding-left: 35px;
+				color: #333333;
+			}
+			.mui-badge{
+				background-color: inherit;
+				border: 1px solid #4cc4d4;
+				text-align: center;
+				width: auto !important;
+			}
+			.app-badge {
+				padding: 10px;
+			}
+			.app-badge .app-box{
+				padding: 5px 0;
+			}
+			.app-list-circle{
+				position: relative;
+				display: inline-block;
+				width: 100%;
+			}
+			.app-list-circle img{
+				width: 100%;
+				height: auto;
+				vertical-align: top;
+			}
+			.app-list-info{
+				position: absolute;
+				margin: auto;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				height: 80px;
+				display: inline-block;
+				background-color: rgba(0,0,0,.5);
+				
+			}
+			.app-list-info h5{
+				position: absolute;
+				width: 100%;
+				height: 30px;
+				line-height: 30px;
+				font-size: 18px;
+				opacity: 1;
+				text-align: center;
+				color: #FFFFFF;
+			}
+			.app-list-info button{
+				position: absolute;
+				margin: auto;
+				width: 90px;
+				height: 30px;
+				left: 0;
+				right: 0;
+				bottom: 5px;
+				background-color: rgba(0,0,0,0);
+				border:1px solid #4cc4d4;
+				border-radius: 20px;
+				padding: 0;
+				color: #4cc4d4;
+			}
+			.app-circle{
+				padding: 0;
+				padding-bottom: 10px;
+			}
+			.app-circle span{
+				width: 100px;
+				font-size: 16px;
+				padding: 5px 0;
+				padding-left: 10px;
+			}
+			.app-list-icon{
+	display: block;
+	padding-top: 10px;
+}
+.app-list-icon>div{
+	width: 25px;
+	height: 25px;
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 5px;
+}
+.app-header{
+	position: relative;
+	text-align: center;
+	padding-top: 15px;
+	padding-bottom: 5px;
+}
+.app-header button{
+	width: 35px;
+	height: 35px;
+	padding: 0;
+	border: 0;
+	border-radius: 100%;
+	position: absolute;
+	bottom: 40px;
+}
+.app-header h5{
+	color: #333333;
+	font-size: 16px;
+	margin: 0;
+}
+.app-header span{
+	color: #777777;
+	font-size: 14px;
+}
+.app-header .app-icon-guanzhu{
+	left: 30px;
+}
+.app-header .app-icon-sixing{
+	right: 30px;
+}
+.app-head{
+	display: inline-block;
+	width: 70px;
+	height: 70px;
+}
+.mui-slider{
+	margin: 10px 0;
+}
+.mui-table-view.mui-grid-view{
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 0;
+}
+.mui-table-view.mui-grid-view .mui-table-view-cell{
+	padding: 0;
+	margin: 0;
+	vertical-align: top;
+	line-height: initial;
+	min-height: initial;
+	font-size: inherit;
+}
+.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-object{
+	border: 1px solid #FFFFFF;
+}
+.mui-action{
+	width: 24px;
+	height: 24px;
+	position: absolute;
+	border: 0;
+	color: #FFFFFF;
+	margin: auto;
+	top: 0;
+	bottom:0;
+}
+.mui-action-previous{
+	left: 10px;
+}
+.mui-action-next{
+	right: 10px;
+}
+.app-more .mui-btn{
+	background-color: inherit;
+	border: 1px solid #4cc4d4;
+	color: #4cc4d4;
+	width: 200px;
+}
+.app-tap-more{
+	font-size: 15px;
+	padding-left: 10px;
+	padding-top: 10px;
+}
+.mui-preview-image{
+	margin: 0 !important;
+}
+ button.mui-active:enabled{
+ 	background-color: inherit;
+ }
+.mui-active.app-icon-guanzhu:before{
+	background: url(../../img/icon/guanzhu_active.png) no-repeat;
+	background-size: 100% 100%;
+}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<div class="mui-pull-right">
+				<a class="mui-icon app-icon-fenxiang1" id='share'></a>
+			</div>
+			<h1 class="mui-title" id="J_title">达人</h1>
+		</header>
+		<div class="mui-content" id="J_content">
+			<!--<div class="app-warper">
+				<div class="app-header">
+					<div class="app-head app-sex-nan app-jda">
+						<img src="../../img/head.png" />
+					</div>
+					<h5>北京香山的红叶</h5>
+					<span>中国 北京</span>
+					<div class="app-list-icon">
+						<div class="mui-icon app-icon-sheng mui-active"></div>
+						<div class="mui-icon app-icon-hu mui-active"></div>
+						<div class="mui-icon app-icon-da mui-active"></div>
+					</div>
+					<button class="app-icon-guanzhu mui-active"></button>
+					<button class="app-icon-sixing"></button>
+				</div>
+				 <div class="mui-slider">
+			        <div class="mui-slider-group mui-slider-loop">
+			            <div class="mui-slider-item">
+			                <ul class="mui-table-view mui-grid-view">
+			                    <li class="mui-table-view-cell mui-col-xs-3">
+			                    	<img class="mui-media-object" src="../../img/1.png">
+			                     </li>
+			                  <li class="mui-table-view-cell mui-col-xs-3">
+			                    	<img class="mui-media-object" src="../../img/1.png">
+			                     </li>
+			                      <li class="mui-table-view-cell mui-col-xs-3">
+			                    	<img class="mui-media-object" src="../../img/1.png">
+			                     </li>
+			                      <li class="mui-table-view-cell mui-col-xs-3">
+			                    	<img class="mui-media-object" src="../../img/1.png">
+			                     </li>
+			                </ul>
+			            </div>
+			            <div class="mui-slider-item">
+			                <ul class="mui-table-view mui-grid-view">
+			                    <li class="mui-table-view-cell mui-col-xs-3">
+			                    	<img class="mui-media-object" src="../../img/1.png">
+			                     </li>
+			                  <li class="mui-table-view-cell mui-col-xs-3">
+			                    	<img class="mui-media-object" src="../../img/1.png">
+			                     </li>
+			                      <li class="mui-table-view-cell mui-col-xs-3">
+			                    	<img class="mui-media-object" src="../../img/1.png">
+			                     </li>
+			                      <li class="mui-table-view-cell mui-col-xs-3">
+			                    	<img class="mui-media-object" src="../../img/1.png">
+			                     </li>
+			                </ul>
+			            </div>
+			        </div>
+		            <span class="mui-action mui-action-previous mui-icon mui-icon-back mui-pull-left"></span>
+		            <span class="mui-action mui-action-next mui-icon mui-icon-forward  mui-pull-right"></span>
+			    </div>
+				
+				<div class="app-line"></div>
+				<div class="app-the app-box">
+					<span>Ta的心情:</span>
+					<p class="app-box-flex">今天不高兴啊不高兴不高兴不高兴不高兴不高
+兴不高兴不高兴不高兴不高兴不高</p>
+				</div>
+				<div class="app-line"></div>
+				<div class="app-the app-box">
+					<span>Ta的介绍:</span>
+					<p class="app-box-flex">日本潮流网站的设计师，时尚杂志社的时尚编
+辑，独立摄影师。原创品牌“性格矫正所”的
+主理人。性格真诚，亲和，有幽默感，爱交...</p>
+				</div>
+				<div class="app-line"></div>
+				<div class="app-the">
+					<div class="app-box">
+						<span>Ta的线路:</span>
+						<p class="app-box-flex">泰国达人带你跟最妖的妖人跟最妖的妖...</p>
+					</div>
+					<div class="mui-text-right">￥150.00</div>
+					
+				</div>
+				<div class="app-line"></div>
+				<div class="app-the app-badge">
+					<div class="app-box">
+						<span>标签:</span>
+						<div class="app-box-flex">
+							<span class="mui-badge">美食</span>
+							<span class="mui-badge">美食</span>
+						</div>
+					</div>
+					<div class="app-box">
+						<span>熟悉的地方:</span>
+						<div class="app-box-flex">
+							<span class="mui-badge">美食</span>
+							<span class="mui-badge">美食</span>
+						</div>
+					</div>
+					<div class="app-box">
+						<span>熟悉的地方:</span>
+						<div class="app-box-flex">
+							<span class="mui-badge">美食</span>
+							<span class="mui-badge">美食</span>
+						</div>
+					</div>
+				</div>
+				<div class="app-line"></div>
+				<div class="app-the app-circle">
+					<span>Ta的圈子：</span>
+					<div class="app-list-circle">
+			            <img src="http://test.jikechufa.com/uploads/20151031/5634bd343eedc.jpg">
+			            <div class="app-list-info">
+			                <h5 data-groupid="1">第一个圈子</h5>
+			                <button data-groupid="1">逛一逛</button>
+			            </div>
+			        </div>
+			        <div class="app-tap-more">
+			        	想看他更多的圈子？<a>点击进入</a>
+			        </div>
+				</div>
+				<div class="app-line"></div>
+				<div class="app-the">
+						<div class="app-activity">
+						<ul class="mui-table-view" id="J_list">
+							<li class="mui-table-view-cell">
+								
+							<div class="app-list-head app-box">
+								<div class="app-head app-sex-nan app-da">
+									<img  src="../../img/head.png">
+								</div>
+								<div class="app-titleinfo app-box-flex">
+									<div class="mui-ellipsis name">北京香山的红叶北京香山的红叶北京香山的红叶</div>
+									<span class="app-when">刚刚</span>
+								</div>
+							</div>
+							
+							<div class="mui-media-body">
+								<h5 class="mui-ellipsis">
+									互动标题互动标互动标题互动标互动标题互动标互动标题互动标
+								</h5>
+								<p>发就算了算了算了算了算了算了算了算了算了算了算了算了算了算了算了算了算了算了</p>
+								<div class="app-badge">
+									<div class="mui-badge mui-badge-primary">美食</div>
+									<div class="mui-badge mui-badge-primary">美食</div>
+								</div>
+								<div class="app-photo">
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+								</div>
+							</div>
+							</li>
+						</ul>
+						<div class="app-more mui-text-center">
+							<button class="mui-btn">更多动态</button>
+						</div>
+					</div>
+				</div>
+			</div>-->
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js" ></script>
+<script type="text/javascript" src="../../js/common.js"></script>
+<script type="text/javascript" src="../../js/UserInfo.js"></script>
+<script type="text/javascript" src="../../js/mui.zoom.js" ></script>
+<script type="text/javascript" src="../../js/mui.previewimage.js" ></script>
+<script>
+var sessionId, self, uid, nickname,sharew;
+mui.previewImage();
+mui.init();
+mui.plusReady(function(){
+	sessionId = app.sessionId();
+	self= plus.webview.currentWebview();
+	uid	= self.uid;
+	nickname	= self.nickname;
+	var title 	= document.getElementById('J_title');
+	var J_content 	= document.getElementById('J_content');
+	if(empty(nickname) == false) title.innerHTML = nickname;
+	//取得个人资料
+	plus.nativeUI.showWaiting();
+	var surl 	= SITE + "master/info?uid="+uid;
+	mui.get(surl, {uid:uid, sessionId:sessionId}, function(response){
+		if(empty(response) == false){
+			J_content.innerHTML = response;
+		};
+		plus.nativeUI.closeWaiting();
+		mui('.mui-slider').slider().gotoItem(-1);
+	}, 'html');	
+	//私信
+	mui("#J_content").on('tap', '.J_sixin', function(){
+		var sessionId 	= app.sessionId();
+		if(empty(sessionId) == true){
+			openwindow('../login/login.html',{});
+			return;
+		};
+		var suburl 	= "../my/chat-detail.html";
+		openwindow(suburl, {uid:uid, nickname:nickname});
+	});
+	//关注
+	mui("#J_content").on('tap', '.J_focus', function(){
+		var sessionId 	= app.sessionId();
+		var Th = this;
+		console.log(sessionId);
+		if(empty(sessionId) == true){
+			openwindow('../login/login.html',{});
+			return;
+		};
+		var server = SITE + 'myFans/ajaxFocus';
+		if(empty(uid)) {
+			alert('请选择要加为好友的用户.');
+			return false;
+		}
+		mui.ajax(server,{
+			data:{
+				uid: uid,
+				sessionId:sessionId
+			},
+			dataType:'json',//服务器返回json格式数据
+			type:'post',//HTTP请求类型
+			timeout:10000,//超时时间设置为10秒；
+			success:function(response){
+				if(response.code == 1) {
+					if(response.data == 'follow') { // 关注
+						document.querySelector('.J_focus').classList.add('mui-active');
+					}else { // 取消关注
+						document.querySelector('.J_focus').classList.remove('mui-active');
+					}
+					//Th.setAttribute('disabled','disabled'); 
+					alert(response.msg);
+				}else {
+					alert(response.msg);
+				}
+			},
+			error:function(xhr,type,errorThrown){
+				//异常处理；
+				console.log(xhr.response + type + errorThrown);
+			}
+		});
+	});
+	//他的服务
+	mui("#J_content").on('tap', '.J_serviceInfo', function(){
+		var serviceid	= this.dataset.serviceid;
+		var servicename	= this.dataset.servicename;
+		var param 	= {serviceid:serviceid, servicename:servicename};
+		openwindow("../master/club-service.html", param);
+	});
+	//他的更多圈子 
+	mui("#J_content").on('tap', '.J_moreGroup', function(){
+		var param 	= {uid:uid, nickname:nickname};
+		openwindow('../master/he-circle.html', param);
+	});
+	//他的圈子
+	mui("#J_content").on('tap', '.J_group', function(){
+		var groupid 	= this.dataset.groupid;
+		var groupname 	= this.dataset.groupname;
+		openwindow('../circle/main.html', {groupid:groupid, groupname:groupname});
+	});
+	//他的更多互动
+	mui("#J_content").on("tap", ".J_moreTheme", function(){
+		openwindow("../master/he.html", {uid:uid});
+	});
+	//互动详情
+	mui("#J_content").on('tap', '.J_themeinfo', function(){
+		var _parent	= this.parentNode;
+		var themeid	= _parent.dataset.themeid;
+		var groupname	= _parent.dataset.groupname;
+//		console.log(themeid);console.log(groupname);
+		openwindow("../circle/theme.html", {themeid:themeid, groupname:groupname});
+	});
+	//分享
+	document.getElementById('share').addEventListener('tap',function(){
+		shareWebview();
+	});
+	
+	//达人提示
+	
+	mui("#J_content").on('tap', '.app-list-icon>div', function(){
+		var cl = this.className;
+		if(this.classList.contains('app-icon-sheng')){
+			alert('身份认证');
+		}else if (this.classList.contains('app-icon-hu')){
+			alert('护照认证');
+		}else{
+			alert('达人认证');
+		}
+	});
+});
+
+
+/**
+	 *分享窗口
+	 */
+function shareWebview() {
+	var info = document.querySelector('.J_serviceInfo').dataset.servicename;
+	ws = plus.webview.currentWebview();
+	if (sharew) { // 避免快速多次点击创建多个窗口
+		return;
+	}
+	var top = plus.display.resolutionHeight - 186;
+	var href = "../public/share.html";
+	var phref = UPLOADDIR + "/share/wapMaster?uid="+uid;
+	console.log(phref);
+	sharew = plus.webview.create(href, "share.html", {
+		width: '100%',
+		height: '186',
+		top: top,
+		scrollIndicator: 'none',
+		scalable: false,
+		popGesture: 'none'
+	}, {
+		pwid:ws.id,
+		phref:phref,
+		nickname:nickname,
+		info:info
+		
+	});
+	sharew.addEventListener("loaded", function() {
+		sharew.show('slide-in-bottom', 300);
+	}, false);
+	// 显示遮罩层  
+	ws.setStyle({
+		mask: "rgba(0,0,0,0.5)"
+	});
+	// 点击关闭遮罩层
+	ws.addEventListener("maskClick", closeMask, false);
+}
+
+window.addEventListener('clospw',function(){
+	closeMask();
+});
+
+function closeMask() {
+ws.setStyle({
+	mask: "none"
+});
+//避免出现特殊情况，确保分享页面在初始化时关闭 
+if (!sharew) {
+	sharew = plus.webview.getWebviewById("../share/share.html");
+	}
+	if (sharew) {
+		sharew.close();
+		sharew = null;
+	}
+}
+</script>

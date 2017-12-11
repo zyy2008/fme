@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>发布添加兴趣分类</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			.mui-table-view-cell:after{
+				left: 0;
+			}
+			.mui-input-group{
+				font-size: 15px;
+			}
+			.mui-checkbox input[type=checkbox]:before{
+				content: none;
+			}
+			.mui-checkbox input[type=checkbox]:checked:before{
+				content: '\e472';
+				font-size: 30px;
+				font-weight: 600;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<button class="mui-btn  mui-pull-right" id="J_select">选择</button>
+			<h1 class="mui-title">兴趣分类</h1>
+		</header>
+		<div class="mui-content">
+			<form class="mui-input-group">
+				<div class="mui-input-row mui-checkbox">
+					<label>娱乐</label>
+					<input name="cate" type="checkbox" value="5" data-cname="娱乐">
+				</div>
+				<div class="mui-input-row mui-checkbox">
+					<label>美食</label>
+					<input name="cate" type="checkbox" value="6" data-cname="美食">
+				</div>
+				<div class="mui-input-row mui-checkbox">
+					<label>美景</label>
+					<input name="cate" type="checkbox" value="7" data-cname="美景">
+				</div>
+				<div class="mui-input-row mui-checkbox">
+					<label>住宿</label>
+					<input name="cate" type="checkbox" value="8" data-cname="住宿">
+				</div>
+				<div class="mui-input-row mui-checkbox">
+					<label>生活</label>
+					<input name="cate" type="checkbox" value="9" data-cname="生活">
+				</div>
+				<div class="mui-input-row mui-checkbox">
+					<label>交通</label>
+					<input name="cate" type="checkbox" value="10" data-cname="交通">
+				</div>
+			</form>
+		</div>
+	</body>
+</html>
+<script src="../../js/mui.min.js"></script>
+<script src="../../js/common.js"></script>
+<script type="text/javascript" charset="utf-8">
+mui.init();
+var cids 	= new Array();
+var cnames 	= new Array();
+mui.plusReady(function() {
+	var self = plus.webview.currentWebview();
+	var from = plus.webview.currentWebview().from;
+	var J_select = document.getElementById('J_select');
+	var Dom_cate = document.getElementsByName('cate');
+	
+	//设置默认选中
+	
+	//兴趣分类搜索跳转
+    J_select.addEventListener('tap', function(){
+    	//最少选择一个
+    	if(chkCheckbox(Dom_cate) == false){
+    		alert('最少选择一个兴趣');
+    		return false;
+    	}
+		cids = getCheckboxVal(Dom_cate);
+		//取得分类名
+		for(var i=0;i<Dom_cate.length;i++){
+		    if(Dom_cate[i].checked==true){
+		    	var cnameHtml = '<div class="mui-badge mui-badge-primary">'+ Dom_cate[i].dataset.cname+'</div> '
+				cnames = cnames + cnameHtml;
+		    }
+		}
+		var pw 		= plus.webview.getWebviewById(from);
+		var param	= {flag:'cate', cids:cids, cnames:cnames};
+		mui.fire(pw,'backFunc', param);
+		mui.back();
+	});
+	mui('.mui-input-group').on('change', 'input', function(){
+		//最多选择2个兴趣
+		var count = document.querySelectorAll('input[type="checkbox"]:checked').length;
+		cids = getCheckboxVal(Dom_cate);
+		if(in_array(this.dataset.cid, cids) == true){
+			return true;
+		}
+		if(count>2){
+			alert('最多选择2个兴趣');
+			this.checked = false;
+			return false;
+		};
+	});
+});
+</script>

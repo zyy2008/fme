@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>分享</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			footer{
+				background-color: #ffffff;
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+			}
+			.app-header{
+				color: #555555;
+				text-align: center;
+				font-size: 14px;
+				border-bottom: 1px solid #bbbbbb;
+				line-height: 40px;
+			}
+			.mui-grid-view.mui-grid-9{
+				border: 0;
+				background-color: inherit;
+				padding-bottom: 20px;
+				padding-top: 10px;
+			}
+			.mui-grid-view.mui-grid-9 .mui-table-view-cell{
+				border: 0;
+			}
+			.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{
+				color: #555555;
+				font-size: 14px;
+			}
+		</style>
+	</head>
+	<body>
+		<footer>
+			<div class="app-header">
+				请选择分享的应用
+			</div>
+			<ul class="mui-table-view mui-grid-view mui-grid-9">
+				<li  class="mui-table-view-cell mui-media mui-col-xs-3" onclick="shareShow(0);">
+					<img class="mui-media-object" src="../../img/icon/pengyouquan.png">
+					<div class="mui-media-body">朋友圈</div>
+				</li>
+				<li class="mui-table-view-cell mui-media mui-col-xs-3" onclick="shareShow(1);">
+					<img class="mui-media-object" src="../../img/icon/weixin.png">
+					<div class="mui-media-body">微信好友</div>
+				</li>
+				<li  class="mui-table-view-cell mui-media mui-col-xs-3" onclick="shareShow(2);">
+					<img class="mui-media-object" src="../../img/icon/sinaweibo.png">
+					<div class="mui-media-body">微博</div>
+				</li>
+				<li  class="mui-table-view-cell mui-media mui-col-xs-3" onclick="shareShow(3);">
+					<img class="mui-media-object" src="../../img/icon/qq.png">
+					<div class="mui-media-body">QQ好友</div>
+				</li>
+			</ul>
+		</footer>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js" ></script>
+<script type="text/javascript" src="../../js/common.js" ></script>
+<script type="text/javascript" src="../../js/UserInfo.js" ></script>
+<script>
+mui.init();
+
+ //分享操作
+var shares = {},pw,phref,nickname,info;
+mui.plusReady(function() {
+	var pwid = plus.webview.currentWebview().pwid;
+	phref = plus.webview.currentWebview().phref;
+	nickname = plus.webview.currentWebview().nickname;
+	info = plus.webview.currentWebview().info;
+	pw = plus.webview.getWebviewById(pwid);
+	
+	plus.share.getServices(function(s) {
+		if (s && s.length > 0) {
+			for (var i = 0; i < s.length; i++) {
+				var t = s[i];
+				shares[t.id] = t;
+			}
+		}
+	}, function() {
+		console.log("获取分享服务列表失败");
+	});
+});
+
+
+// 打开分享
+
+function shareShow(index) {
+	var ids = [{
+			id: "weixin",
+			ex: "WXSceneTimeline"
+		}, {
+			id: "weixin",
+			ex: "WXSceneSession"
+		}, {
+			id: "sinaweibo"
+		}, {
+			id: "qq"
+		}];
+		var s_id = ids[index].id;
+		var share = shares[s_id];
+		if (share) {
+			if (share.authenticated) {
+				shareMessage(share, ids[index].ex);
+			} else {
+				share.authorize(function() {
+					shareMessage(share, ids[index].ex);
+				}, function(e) {
+					console.log("认证授权失败：" + e.code + " - " + e.message);
+				});
+			}
+		} else {
+			mui.toast("无法获取分享服务，请检查manifest.json中分享插件参数配置，并重新打包")
+		}
+};
+//分享内容
+function shareMessage(share, ex) {
+var msg = {
+	extra: {
+		scene: ex
+	}
+};
+msg.href = phref;
+msg.title = nickname;
+msg.content = info;
+if (~share.id.indexOf('weibo')) {
+	msg.content += "；地址："+phref;
+}
+msg.thumbs = ["_www/img/logo1.png"];
+share.send(msg, function() {
+	mui.fire(pw,'clospw');
+	alert("分享到\"" + share.description + "\"成功！ ");
+}, function(e) {
+	alert("分享到\"" + share.description + "\"失败！ ");
+	});
+}
+</script>

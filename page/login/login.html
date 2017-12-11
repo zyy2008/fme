@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>登陆</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/public.css" rel="stylesheet" />
+		<style>
+			body,
+			.mui-content{
+				position: absolute;
+				width: 100%;
+				height: 100%;
+			}
+			.mui-content{
+				background: url(../../img/login.png) no-repeat;
+				background-size: 100% 100%;
+			}
+			.app-header{
+				padding-top: 40px;
+				padding-bottom: 60px;
+			}
+			.app-logo{
+				width: 100px;
+				height: 100px;
+				background-color:rgba(255,255,255,.3);
+				border-radius: 100%;
+				display: inline-block;
+				vertical-align: top;
+				margin: auto auto;
+			}
+			.app-logo img{
+				width: 100%;
+				height: 100%;
+				display: inline-block;
+				overflow: hidden;
+				vertical-align: top;
+			}
+			.app-content{
+				padding: 0px 20px;
+			}
+			.mui-input-group{
+				background-color: inherit;
+			}
+			.mui-input-group .mui-input-row{
+				background-color: rgba(0,0,0,.4);
+				border-radius: 5px;
+				height: auto;
+				margin-bottom: 5px;
+			}
+			.mui-input-group .mui-input-row:after{
+				content: none;
+			}
+			.app-icon-zhanghao{
+				width: 20px ;
+				height: 24px;
+			}
+			.app-icon-mima{
+				width: 18px ;
+				height: 25px;
+			}
+			.mui-input-row label{
+				width: 60px;
+				height: 40px;
+				float: none;
+				display: -webkit-box;
+				background-color: rgba(0,0,0,.3);
+				padding: 0;
+				-webkit-box-align: center;
+				-webkit-box-pack: center;
+				border-top-left-radius: 5px;
+			}
+			.mui-input-row label~input{
+				float: none;
+				display: block;
+				color: #FFFFFF;
+				height: 40px;
+				padding: 10px 20px;
+				font-size: 15px;
+			}
+			.mui-input-row .mui-input-clear~.mui-icon-clear{
+				top: 12px;
+			}
+			.mui-btn{
+				width: 100%;
+				border: 0;
+				background-color: #4cc4d4;
+				color: #FFFFFF;
+				padding: 10px;
+			}
+			.app-row-other{
+				display: inline-block;
+				width: 100%;
+				padding: 10px;
+			}
+			.app-row-other a{
+				display: inline-block;
+				color: #FFFFFF;
+			}
+			.app-row-other .mui-pull-left a{
+				font-size: 14px;
+			}
+			.app-row-other .mui-pull-right a{
+				font-size: 16px;
+			}
+			.app-wen{
+				width: 20px;
+				height: 20px;
+				border-radius: 100%;
+				display: block;
+				color: #FFFFFF;
+				text-align: center;
+				line-height: 20px;
+				background-color: #000000;
+				opacity: .5;
+				display: inline-block;
+			}
+			.oauth-area {
+    text-align:center;
+    width:100%;
+    padding:0;
+    margin:0;
+    padding-top: 10px;
+}
+.oauth-area .oauth-btn {
+    display:inline-block;
+    width:50px;
+    height:50px;
+    background-size:50px 50px;
+    background-position:center center;
+    background-repeat:no-repeat;
+    margin:0 10px;
+    border-radius:25px;
+    vertical-align: top;
+    position: relative;
+}
+.oauth-area .oauth-btn:after{
+	position: absolute;
+	color: #FFFFFF;
+	display: inline-block;
+	width: 50px;
+	left: 0;
+	bottom: -30px;
+	font-size: 15px;
+	opacity: .6;
+}
+.oauth-area .oauth-btn:nth-child(1):after{
+	/*content: '微博';*/
+}
+.oauth-area .oauth-btn:nth-child(2):after{
+	/*content: 'QQ';*/
+}
+.oauth-area .oauth-btn:nth-child(3):after{
+	/*content: '微信';*/
+}
+.app-didanfang{
+	text-align: center;
+	color: #ffffff;
+	opacity: .5;
+	font-size: 14px;
+	padding-top: 10px;
+}
+.app-or{
+	width: 100%;
+	text-align: center;
+	position: relative;
+	color: #FFFFFF;
+	font-size: 20px;
+	font-weight: bold;
+	top: 50px;
+	opacity: .5;
+}
+.app-or:before{
+	content: '';
+	position: absolute;
+	margin: auto;
+	height: 1px;
+	background-color: #FFFFFF;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	width: 40%;
+}
+.app-or:after{
+	content: '';
+	position: absolute;
+	margin: auto;
+	height: 1px;
+	background-color: #FFFFFF;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	width: 40%;
+}
+.app-guang{
+	position: relative;
+	position: relative;
+	color: #FFFFFF;
+	font-size: 15px;
+	top: 65px;
+	display: inline-block;
+	width: 100px;
+	text-align: left;
+}
+.app-guang:after{
+	font-family: Muiicons;
+font-size: inherit;
+line-height: 1;
+position: absolute;
+top: 50%;
+display: inline-block;
+-webkit-transform: translateY(-50%);
+transform: translateY(-50%);
+text-decoration: none;
+color: #FFFFFF;
+-webkit-font-smoothing: antialiased;
+right: 0;
+content: '\e583';
+}
+		</style>
+	</head>
+	<body>
+		<div class="mui-content">
+			<div class="app-header mui-text-center">
+				<div class="app-logo">
+					<img src="../../img/login-logo.png" />
+				</div>
+			</div>
+			<div class="app-content">
+				<form class="mui-input-group">
+					<div class="mui-input-row app-box">
+						<label>
+							<div class="app-icon-zhanghao"></div>
+						</label>
+						<input id='country' type="tel" class="mui-input-clear app-box-flex" placeholder="请输入账号" maxlength="11" >
+					</div>
+					<div class="mui-input-row app-box">
+						<label>
+							<div class="app-icon-mima"></div>
+						</label>
+						<input id='password' type="password" class="mui-input-clear app-box-flex" placeholder="请输入密码">
+					</div>
+				</form>
+				<button class="mui-btn" id='login'>确认</button>
+				<div class="app-row-other">
+					<div class="mui-pull-left">
+						<a id='find-password'>
+							<!--<span class="app-wen">?</span>-->
+							忘记密码
+						</a>
+					</div>
+					<div class="mui-pull-right">
+						<a id='reg'>立即注册</a>
+					</div>
+				</div>
+				<!--<div class="app-didanfang">第三方登录</div>
+				<div class="oauth-area">
+					
+				</div>-->
+				<div class="app-or">
+					or
+				</div>
+				<div class="mui-text-center">
+					<a class="app-guang" id='bank'>
+					随便逛一逛
+					</a>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js" ></script>
+<script type="text/javascript" src="../../js/common.js" ></script>
+<script type="text/javascript" src="../../js/UserInfo.js" ></script>
+<script>
+mui.init();
+
+mui.plusReady(function(){
+	var tid = plus.webview.currentWebview().id;
+	var fpBtn	= document.getElementById('find-password');//忘记密码
+	var regBtn 	= document.getElementById('reg')//立即注册
+	var countryBox = document.getElementById('country');//账号
+	var loginBtn = document.getElementById('login');//确认
+	var passwordBox = document.getElementById('password');//密码
+	var bankBtn = document.getElementById('bank');//返回
+	if(plus.os.version >= 9.0){
+		plus.webview.currentWebview().setStyle({
+				softinputMode: "adjustResize"
+		});
+	};
+	
+	fpBtn.addEventListener('tap',function(){
+		openwindow('find-password.html',{});
+	});
+	regBtn.addEventListener('tap',function(){
+		openwindow('../reg/reg.html',{pwid:tid});
+	});
+	bankBtn.addEventListener('tap',function(){
+		mui.back();
+	});
+	loginBtn.addEventListener('tap',function(){
+		loginInfo = {
+			username:countryBox.value,
+			password:passwordBox.value
+		};
+		
+		Login(loginInfo);
+	});
+
+function Login(info){
+	app.login(loginInfo, function(err) {
+		if (err) {
+			plus.nativeUI.toast(err);
+			return;
+		};
+		var backPages = ['join-list.html', 'index-list.html', 'page/my/not-login.html'];
+		var length = objSize(backPages);
+		for(var i=0; i<length; i++){
+			var pw 	= plus.webview.getWebviewById(backPages[i]);
+			mui.fire(pw, "backFunc", {flag:'login'});
+		}
+		mui.back();
+	});
+};
+//
+//	//第三方登录
+//	var auths = {};
+//	var oauthArea = document.querySelector('.oauth-area');
+//	plus.oauth.getServices(function(services) {
+//		for (var i in services) {
+//			var service = services[i];
+//			auths[service.id] = service;
+//			var btn = document.createElement('div');
+//			btn.setAttribute('class', 'oauth-btn');
+//			btn.authId = service.id;
+//			btn.style.backgroundImage = 'url("../../img/icon/' + service.id + '.png")'
+//			//console.log(service.id);
+//				//btn.innerText = service.description + "登录";
+////			oauthArea.appendChild(btn);
+//		}
+//		mui(oauthArea).on('tap', '.oauth-btn', function() {
+//			var provider = this.authId;
+//			var auth = auths[this.authId];
+//			var waiting = plus.nativeUI.showWaiting();
+//			auth.login(function() {
+//				waiting.close();
+//				//plus.nativeUI.toast("登录认证成功");
+//				//alert(JSON.stringify(auth.authResult));
+//				auth.getUserInfo(function() {
+//					//plus.nativeUI.toast("获取用户信息成功");
+//					//alert(JSON.stringify(auth.userInfo));
+//					//console.log('auth:' + this.authId);
+//					//console.log(JSON.stringify(auth.userInfo));
+//					//console.log(JSON.stringify(auth.authResult));
+////								var name = auth.userInfo.nickname || auth.userInfo.name;
+////								alert(name);
+//				}, function(e) {
+//					plus.nativeUI.toast("获取用户信息失败：" + e.message);
+//					return false;
+//				});
+//				var params = {};
+//				if(provider == 'sinaweibo') { // 新浪微博
+//					var userinfo = auth.userInfo;
+//					var result = auth.authResult;
+//					//console.log(JSON.stringify(result));
+//					var nickname = userinfo.name;	// 昵称
+//					var gender = (userinfo.gender == 'm') ? 1 : 2; // 性别 m-男, f-女
+//					var face = userinfo.avatar_large; // 头像
+//					var open_uid = result.uid;
+//					var access_token = result.token;
+//
+//					// 组合参数
+//					params = {provider:provider,nickname:nickname, gender:gender, face:face, open_uid:open_uid, access_token:access_token};
+//				}else if(provider == 'weixin') { // 微信
+//					var userinfo = auth.userInfo;
+//					var result = auth.authResult;
+//					
+//					var nickname = userinfo.nickname;
+//					var gender = (userinfo.sex == 1) ? 1 : 2;
+//					var face = userinfo.headimgurl;
+//					var open_uid = result.openid;
+//					var access_token = result.access_token;
+//					params = {provider:provider,nickname:nickname, gender:gender, face:face, open_uid:open_uid, access_token:access_token};
+//				}else if(provider == 'qq') { // qq
+//					var userinfo = auth.userInfo;
+//					var result = auth.authResult;
+//					
+//					var nickname = userinfo.nickname;
+//					var gender = (userinfo.sex == '男') ? 1 : 2;
+//					var face = userinfo.figureurl_2; // figureurl_2:100*100, figureurl:50*50
+//					var open_uid = result.openid;
+//					var access_token = result.access_token;
+//					params = {provider:provider,nickname:nickname, gender:gender, face:face, open_uid:open_uid, access_token:access_token};
+////								
+//				}else {
+//					alert('很抱歉,暂不提供此种登录方式.');
+//					return false;
+//				}
+//				// 第三方登录
+//				var server = SITE + 'auth/thirdLogin';
+//				mui.ajax(server,{
+//					data:params,
+//					dataType:'json',//服务器返回json格式数据
+//					type:'post',//HTTP请求类型
+//					timeout:10000,//超时时间设置为10秒；
+//					success:function(response){
+//						console.log(response.msg);
+//						if(response.code == 1) {
+//							alert(response.msg);
+//							app.sessionId(response.sessionId);
+//							mui.fire(pw, "backFunc", {flag:'login'});
+//							mui.back();
+//						}else {
+//							alert(response.msg);
+//						}
+//					},
+//					error:function(xhr,type,errorThrown){
+//						//异常处理；
+//						console.log(type + errorThrown);
+//					}
+//				});
+////							console.log(provider);
+////							console.log('--------------------------');
+////							console.log(JSON.stringify(auth.authResult));
+////							console.log('--------------------------');
+////							console.log(JSON.stringify(auth.userInfo));
+////							console.log('==========================');
+//			}, function(e) {
+//				waiting.close();
+//				plus.nativeUI.toast("登录认证失败：" + e.message);
+//			});
+//		});
+//	}, function(e) {
+//		oauthArea.style.display = 'none';
+//		plus.nativeUI.toast("获取登录认证失败：" + e.message);
+//	});
+	//回调函数
+	window.addEventListener('regLogin',function(e){
+		loginInfo = {
+			username:e.detail.username,
+			password:e.detail.password
+		};
+		Login(loginInfo);
+	});
+});
+</script>

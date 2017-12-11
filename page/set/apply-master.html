@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>申请达人</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			.mui-content{
+				padding-top: 54px !important;
+			}
+			.mui-btn{
+				background-color: #64bed2;
+				color: #FFFFFF !important;
+				padding: 5px;
+				border: 0;
+				width: 70px;
+			}
+			.mui-table-view{
+				font-size: 14px;
+				background-color: #FFFFFF;
+			}
+			.mui-table-view-cell:after{
+				left: 0;
+			}
+			.app-blue{
+				width: 85px;
+				display: inline-block;
+			}
+			.app-blue+.mui-pull-right{
+				margin-right: 30px;
+			}
+			input{
+				width: 180px !important;
+				font-family: "微软雅黑","microsoft yahei";
+				font-size: 15px;
+				margin-bottom: 0 !important;
+				padding: 5px 6px !important;
+				height: 30px !important;
+				border-radius: 0 !important;
+			}
+			textarea{
+				border-radius: 0;
+				font-size: 15px;
+				font-family: "微软雅黑","microsoft yahei";
+			}
+			.mui-btn-block{
+				width: 100%;
+				font-size: 16px;
+				padding: 10px 0;
+				border: 0;
+			}
+			.app-footer{
+				padding: 10px 15px;
+				border-top: 1px solid #cccccc;
+			}
+			.app-footer p{
+				margin-bottom: 0;
+			}
+			.mui-active.app-unactive{
+				background-color: #FFFFFF;
+			}
+			
+			.app-apply-active{
+				background-color: #FFFFFF;
+				padding: 30px 0;
+				margin: 20px 0;
+				border-top: 1px solid #cccccc;
+			}
+			.app-apply-active h5{
+				font-size: 16px;
+				color: #2d81c2;
+			}
+			.app-apply-active p{
+				color: #666666;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">申请达人</h1>
+		</header>
+		<div class="mui-content">
+			<div class="app-content J_applyStatus">
+				<ul class="mui-table-view">
+					<li class="mui-table-view-cell app-unactive">
+						<span class="app-blue">姓名</span>
+						<input type="text" id="name" placeholder="请输入姓名" />
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" id="setGender">
+							<span class="app-blue">性别</span>
+							<span class="mui-pull-right">请选择</span>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" id="setDate" >
+							<span class="app-blue">出生日期</span>
+							<span class="mui-pull-right">请选择</span>
+						</a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" id="setPlace">
+							<span class="app-blue">所在地</span>
+							<span class="mui-pull-right">请选择</span>
+						</a>
+					</li>
+					<li class="mui-table-view-cell app-unactive">
+						<span class="app-blue">个人介绍</span>
+						<textarea id="intruduce"></textarea>
+						<div class="mui-text-center">
+							<button class="mui-btn" id="save">提交</button>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="app-footer J_applyStatus">
+				<p>提交申请达人</p>
+				<p>就意味着您已经接受并同意<a id="J_protocol">《达人申请条款》</a></p>
+				<p>审核时间为3个工作日</p>
+			</div>
+			<!--审核反馈-->
+			<div class="app-apply-active mui-text-center J_applyStatus">
+				<h5>对不起，您的申请未能通过审核</h5>
+				<p style="display: none;">个人资料不完整、头像模糊、您所在的区域尚未开通圈子</p>
+				<div class="mui-text-center" style="display: none;">
+					<button class="mui-btn" id="J_reApply">重新申请</button>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js" ></script>
+<script type="text/javascript" src="../../js/common.js "></script>
+<script type="text/javascript" src="../../js/UserInfo.js"></script>
+<script>
+mui.init({
+	beforeback: function(){
+		var bak_pwid = plus.webview.currentWebview().from;
+		var bak_pw = plus.webview.getWebviewById(bak_pwid);
+		//触发列表界面的自定义事件（refresh）,从而进行数据刷新
+		mui.fire(bak_pw,'backFunc',{flag:'ref'});
+		//返回true，继续页面关闭逻辑
+		return true;
+	}
+});
+mui.plusReady(function(){
+	//当前页面的id 
+	var pwid = plus.webview.currentWebview().pwid;
+	var pw = plus.webview.getWebviewById(pwid);
+	var gender 	= null;
+	var birthday= null;
+	var placeid	= null; 
+	var sessionId = app.sessionId();
+	var J_applyStatus	= document.getElementsByClassName('J_applyStatus');
+	
+	//根据申请状态初始化页面
+	plus.nativeUI.showWaiting();
+	var ajaxUrl = SITE + "mySetting/getUserApplyStatus";
+	mui.getJSON(ajaxUrl, {sessionId:sessionId}, function(response){
+		if(response.code == 1){
+			J_applyStatus[0].style.display = 'none';
+			J_applyStatus[1].style.display = 'none';
+			J_applyStatus[2].style.display = '';
+
+			switch(response.data.status){
+				case '1':
+				J_applyStatus[2].getElementsByTagName('h5')[0].innerText = '您的申请已经提交，正在审核中，请耐心等待';
+				break;
+				case '2':
+				J_applyStatus[2].getElementsByTagName('h5')[0].innerText = '您的申请已通过审核';
+				break;
+				case '3':
+				if(empty(response.data.memo) == false){
+					J_applyStatus[2].getElementsByTagName('p')[0].innerText = response.data.memo;
+				}
+				J_applyStatus[2].getElementsByTagName('p')[0].style.display = '';
+				J_applyStatus[2].getElementsByTagName('div')[0].style.display = '';
+				break;
+			}
+		}else{
+			J_applyStatus[0].style.display = '';
+			J_applyStatus[1].style.display = '';
+			J_applyStatus[2].style.display = 'none';
+		}
+		plus.nativeUI.closeWaiting();
+	});
+	//重新申请
+	mui('.J_applyStatus').on('tap', '#J_reApply', function(){
+		J_applyStatus[0].style.display = '';
+		J_applyStatus[1].style.display = '';
+		J_applyStatus[2].style.display = 'none';
+	});
+	//达人申请条款
+	mui('.J_applyStatus').on('tap', '#J_protocol', function(){
+		openwindow('../public/protocolApplyMaster.html', {});
+	});
+	// 性别
+	var J_setGender = document.getElementById("setGender");
+	var J_setGenderV = document.querySelector("#setGender .mui-pull-right")
+	J_setGender.addEventListener('tap', function(){
+		var btnArray = [{title:"男"},{title:"女"}];
+		plus.nativeUI.actionSheet( {
+			title:"选择性别",
+			cancel:"取消",
+			buttons:btnArray
+		}, function(e){
+			var index = e.index;
+			gender = e.index;
+			var text = "";
+			switch (index){
+				case 1: text += "男"; break;
+				case 2: text += "女"; break;
+				case 3: text += "未知"; break;
+			}
+			J_setGenderV.innerText = text;
+		} );
+	});
+	// 年龄
+	var J_setDate = document.getElementById('setDate');
+	var J_setDateV = document.querySelector('#setDate .mui-pull-right');
+	J_setDate.addEventListener('tap', function(){
+		var maxDate = new Date();
+		maxDate.setFullYear(maxDate.getFullYear(), maxDate.getMonth(), maxDate.getDate());
+		plus.nativeUI.pickDate(function(e) {
+			var d = e.date;
+			var D =  d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+			birthday = D;
+			J_setDateV.innerHTML = D ;
+		},function(e) {
+			console.log("您没有选择日期");
+		}, {
+			title: "请选择日期",
+			maxDate:maxDate
+		});
+	});
+	// 所在地
+	var J_setPlace = document.getElementById('setPlace');
+	var J_setPlaceV = document.querySelector('#setPlace .mui-pull-right');
+	J_setPlace.addEventListener('tap', function(){
+		var twid = plus.webview.currentWebview().id;
+		openwindow('../public/place-circle.html', {from:twid});
+	});
+	document.addEventListener('backFunc',function(e){
+		J_setPlaceV.innerText = e.detail.placename;
+		placeid = e.detail.placeid;
+	});
+	// 保存
+	document.getElementById('save').addEventListener('tap', function(event){
+		var name = document.getElementById('name').value;
+		var intruduce = document.getElementById('intruduce').value;
+		if(empty(name)) {
+			alert('姓名不能为空');
+			return false;
+		}
+		if(empty(gender)) {
+			alert('性别不能为空');
+			return false;
+		}
+		if(empty(birthday)) {
+			alert('出生日期不能为空');
+			return false;
+		}
+		if(empty(placeid)) {
+			alert('所在地不能为空');
+			return false;
+		}
+		if(empty(intruduce)) {
+			alert('个人介绍不能为空');
+			return false;
+		}
+
+		var server = SITE + 'mySetting/applyMaster';
+		mui.ajax(server,{
+			data:{
+				name: name,
+				gender: gender,
+				birthday:birthday,
+				placeid: placeid,
+				intruduce: intruduce,
+				sessionId:sessionId
+			},
+			dataType:'json',//服务器返回json格式数据
+			type:'post',//HTTP请求类型
+			timeout:10000,//超时时间设置为10秒；
+			success:function(response){
+				console.log(response.msg);
+				if(response.code == 1) {
+					alert(response.msg);
+					var param	= {flag:'apply', status:'申请中' };
+					mui.fire(pw,'backFunc', param);
+					mui.back();
+				}else {
+					alert(response.msg);
+				}
+			},
+			error:function(xhr,type,errorThrown){
+				//异常处理；
+				console.log(type + errorThrown);
+			}
+		});
+	});
+	//返回
+	mui('header').on('tap', '.mui-action-back', function(){
+		var pw 	= plus.webview.getWebviewById('page/my/not-login.html');
+		mui.fire(pw, "backFunc", {flag:'ref'});
+	});
+});
+</script>

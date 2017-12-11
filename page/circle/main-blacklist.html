@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>成员黑名单</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			body{
+				position: absolute;
+				width: 100%;
+				height: 100%;
+			}
+			header{
+				position: absolute;
+			}
+			.mui-bar-nav~.mui-content{
+				padding-top: 0;
+			}
+			.mui-content{
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 44px;
+				bottom: 0px;
+				overflow-y: auto;
+				z-index: 0;
+				padding: 10px !important;
+			}
+			.mui-table-view{
+				font-size: 14px;
+				background-color: #fcfbf9;
+				margin: 0 !important;
+				border-radius: 10px;
+			}
+			.mui-table-view:last-child:after,
+			.mui-table-view:before{
+				content: none;
+			}
+			.mui-table-view-cell>.mui-slider-handle{
+				background-color: #fcfbf9;
+			}
+			.app-content-list .mui-table-view-cell{
+				padding: 5px 0;
+			}
+			.app-content-list .mui-table-view-cell a{
+				margin: 0;
+			}
+			.app-content-list .mui-table-view-cell:first-child{
+				background-color: #fcfbf9;
+				line-height: 35px;
+				padding: 0px 30px;
+				border-radius: 10px;
+				color: #777777;
+			}
+			.app-content-list .mui-table-view-cell:first-child a{
+				margin-top: 0;
+				margin-bottom: 0;
+				margin-right: -30px;
+				margin-left: -30px;
+			}
+			.app-content-list .mui-table-view-cell:nth-child(2){
+				background-color: #64bed2;
+				color: #FFFFFF;
+				padding: 0;
+			}
+			.app-content-list .mui-navigate-right:after{
+				font-size: 30px;
+				right: 5px;
+				color: #FFFFFF;
+			}
+			.app-head{
+				width:42px;
+				height: 42px;
+				margin-left: 10px;
+			}
+			.app-box{
+				line-height: 30px;
+			}
+			.app-box span{
+				display: inline-block;
+				width: 50px;
+				text-align: center;
+			}
+			.app-box-flex{
+				text-align: center;
+			}
+			.mui-slider-handle .mui-ellipsis.app-box-flex{
+				text-align: left;
+				padding-left: 10px;
+				line-height: 42px;
+			}
+			.mui-slider-handle span{
+				line-height: 42px;
+			}
+			.mui-btn-grey{
+				background-color: #5ca7ba;
+			}
+			.mui-btn-red{
+				background-color: #58b53e;
+			}
+			.app-group .mui-table-view-cell:nth-child(2){
+				padding: 10px 10px;
+				background-color: inherit;
+			}
+			.mui-table-view-cell:after{
+				left: 0;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">黑名单</h1>
+		</header>
+		<div class="mui-content" id="J_content">
+			
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/common.js "></script>
+		<script type="text/javascript" src="../../js/UserInfo.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init({
+				beforeback: function(){
+					var pwid = plus.webview.currentWebview().pwid
+					var pw = plus.webview.getWebviewById(pwid);
+					//触发列表界面的自定义事件（refresh）,从而进行数据刷新
+					mui.fire(pw,'ref');
+					//返回true，继续页面关闭逻辑
+					return true;
+				}
+			});
+			mui.plusReady(function(){
+				var pwid = plus.webview.currentWebview().pwid;
+				var groupid = plus.webview.currentWebview().groupid; // 圈子id
+				var pw = plus.webview.getWebviewById(pwid);
+				var sessionId = app.sessionId();
+				//console.log('圈子ID:' + groupid);
+				// 获取黑名单列表
+				getMemberList(groupid, 'praise', 'desc', sessionId);
+				
+				// 恢复
+				mui('.mui-content').on('tap', '.J_recover', function(){
+					var uid = this.dataset.uid;
+					memberOperation(uid, groupid, 'recover', sessionId);
+				});
+				// 达人主页 
+				mui('#J_content').on('tap', '.J_masterInfo', function(){
+					var uid		= this.dataset.uid;
+					var nickname= this.dataset.nickname;
+					openwindow("../master/club-index.html", {uid:uid, nickname:nickname});
+				});
+			});
+			/**
+			 * 圈子成员操作
+			 * @param {Object} uid
+			 * @param {Object} circleID
+			 * @param {Object} act
+			 * @param {Object} sessionId
+			 */
+			function memberOperation(uid, circleID, act, sessionId){
+				var server = SITE + 'circle/managerCircleMember';
+				mui.ajax(server,{
+					data:{
+						circleID:circleID,
+						uid:uid,
+						act:act,
+						sessionId:sessionId
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					success:function(response){
+						if(response.code == 1) {
+							alert('操作成功');
+							// 重新获取圈子成员列表
+							getMemberList(circleID, 'praise', 'desc', sessionId);
+							//getMemberList(circleID, sessionId);
+						}else {
+							alert(response.msg);
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log('xhr:' + xhr.response + ', type:' + type);
+					}
+				});
+			}
+			/**
+			 * 获取圈子成员列表
+			 * @param {Object} circleID
+			 * @param {Object} sort
+			 * @param {Object} asc
+			 * @param {Object} sessionId
+			 */
+			function getMemberList(circleID, sort, asc, sessionId){
+				var server = SITE + 'circle/circleBlackMembers';
+				mui.get(server, {circleID:circleID,sort:sort,asc:asc,sessionId:sessionId}, function(response) {
+					//console.log(response);  
+					if(response != ''){
+						//console.log(response); 
+						//document.querySelector('.mui-content').insertAdjacentHTML('beforeend', response);
+						document.getElementById('J_content').innerHTML = response;
+					}
+				}, 'html');
+			}
+		</script>
+	</body>
+
+</html>

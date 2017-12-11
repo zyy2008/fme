@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>话题</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<link rel="stylesheet" href="../../css/activity.css" />
+		<style>
+	body{
+				position: absolute;
+				width: 100%;
+				height: 100%;
+			}
+			header{
+				position: absolute ;
+			}
+			.mui-content{
+				position: absolute;
+				left: 0;
+				right: 0;
+				top: 44px;
+				bottom: 0;
+				overflow-y: auto;
+				z-index: 0;
+				padding: 10px !important;
+			}
+			.app-warper{
+				background-color: #FFFFFF;
+			}
+			.mui-bar-nav .mui-pull-right{
+				padding: 9px 0;
+			}
+			.mui-table-view:before,
+			.mui-table-view:after{
+				content: none;
+			}
+			.mui-bar-nav .mui-pull-right .mui-icon{
+				width: 24px;
+				height: 24px;
+				margin: 0;
+				padding: 0;
+				margin-left: 5px;
+			}
+			.app-line{
+				position: relative;
+				height: 7px;
+			}
+			.app-line:before{
+				content: '';
+				position: absolute;
+				width: 7px;
+				height: 7px;
+				display: inline-block;
+				border-radius: 100%;
+				background-color: #cccccc;
+				left: 10px;
+			}
+			.app-line:after{
+				content: '';
+				position: absolute;
+				margin: auto;
+				height: 1px;
+				right: 10px;
+				left: 10px;
+				top: 0;
+				bottom: 0;
+				background-color: #CCCCCC;
+			}
+			.app-name{
+				text-align: center;
+				padding: 0px 10px;
+			}
+			.app-name h5{
+				font-size: 16px;
+				color: #555555;
+				margin: 0;
+				padding: 10px;
+			}
+			.app-name var{
+				text-align: right;
+				display: block;
+				font-style: initial;
+				color: #ff425d;
+				font-size: 16px;
+			}
+			.app-the{
+				padding:0 10px;
+				padding-top: 5px;
+				padding-bottom: 10px;
+			}
+			.app-the span{
+				font-size: 14px;
+				color: #4cc4d4;
+				width: 80px;
+				display: inline-block;
+			}
+			.app-the p{
+				font-size: 14px;
+				color: #333333;
+				overflow : hidden;
+text-overflow: ellipsis;
+display: -webkit-box;
+-webkit-line-clamp: 3;
+-webkit-box-orient: vertical;
+margin-bottom: 0;
+			}
+			
+			.app-the .mui-text-right{
+				color: #ff425d;
+			}
+			.app-img img{
+				width: 100%;
+				display: block;
+				overflow: hidden;
+				margin-bottom: 10px;
+			}
+			.app-date{
+				text-align: center;
+				padding-top:10px;
+				padding-bottom: 20px;
+			}
+			.app-date .mui-btn{
+				width: 30px;
+				height: 32px;
+				padding: 0;
+				border: 0;
+			}
+			.app-date span{
+				display: block;
+				font-size: 14px;
+				color: #333333;
+			}
+			.app-unline{
+				padding-left: 10px;
+				-webkit-box-align: center;
+			}
+			.app-this{
+				padding-top: 5px;
+				padding-bottom: 20px;
+			}
+			.app-this p{
+				margin-bottom: 0;
+				padding-left: 35px;
+				color: #333333;
+			}
+			.mui-badge{
+				background-color: inherit;
+				border: 1px solid #4cc4d4;
+				text-align: center;
+				width: auto !important;
+			}
+			.app-badge {
+				padding: 10px;
+			}
+			.app-badge .app-box{
+				padding: 5px 0;
+			}
+			.app-list-circle{
+				position: relative;
+				display: inline-block;
+				width: 100%;
+			}
+			.app-list-circle img{
+				width: 100%;
+				height: auto;
+				vertical-align: top;
+			}
+			.app-list-info{
+				position: absolute;
+				margin: auto;
+				top: 0;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				height: 80px;
+				display: inline-block;
+				background-color: rgba(0,0,0,.5);
+				
+			}
+			.app-list-info h5{
+				position: absolute;
+				width: 100%;
+				height: 30px;
+				line-height: 30px;
+				font-size: 18px;
+				opacity: 1;
+				text-align: center;
+				color: #FFFFFF;
+			}
+			.app-list-info button{
+				position: absolute;
+				margin: auto;
+				width: 90px;
+				height: 30px;
+				left: 0;
+				right: 0;
+				bottom: 5px;
+				background-color: rgba(0,0,0,0);
+				border:1px solid #4cc4d4;
+				border-radius: 20px;
+				padding: 0;
+				color: #4cc4d4;
+			}
+			.app-circle{
+				padding: 0;
+				padding-bottom: 10px;
+			}
+			.app-circle span{
+				width: 100px;
+				font-size: 16px;
+				padding: 5px 0;
+				padding-left: 10px;
+			}
+			.app-list-icon{
+	display: block;
+	padding-top: 10px;
+}
+.app-list-icon>div{
+	width: 25px;
+	height: 25px;
+	display: inline-block;
+	vertical-align: top;
+	margin-left: 5px;
+}
+.app-header{
+	position: relative;
+	text-align: center;
+	padding-top: 15px;
+	padding-bottom: 5px;
+}
+.app-header button{
+	width: 35px;
+	height: 35px;
+	padding: 0;
+	border: 0;
+	border-radius: 100%;
+	position: absolute;
+	bottom: 40px;
+}
+.app-header h5{
+	color: #333333;
+	font-size: 16px;
+	margin: 0;
+}
+.app-header span{
+	color: #777777;
+	font-size: 14px;
+}
+.app-header .app-icon-guanzhu{
+	left: 30px;
+}
+.app-header .app-icon-sixing{
+	right: 30px;
+}
+.app-head{
+	display: inline-block;
+	width: 70px;
+	height: 70px;
+}
+.mui-slider{
+	margin: 10px 0;
+}
+.mui-table-view.mui-grid-view{
+	padding-left: 10px;
+	padding-right: 10px;
+	padding-bottom: 0;
+}
+.mui-table-view.mui-grid-view .mui-table-view-cell{
+	padding: 0;
+	margin: 0;
+	vertical-align: top;
+	line-height: initial;
+	min-height: initial;
+	font-size: inherit;
+}
+.mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-object{
+	border: 1px solid #FFFFFF;
+}
+.mui-slider-indicator .mui-icon{
+	border: 0;
+	color: #FFFFFF;
+}
+.mui-slider-indicator{
+	margin: auto;
+	top: 0;
+	bottom: 0;
+	height: 30px;
+}
+.app-more .mui-btn{
+	background-color: inherit;
+	border: 1px solid #4cc4d4;
+	color: #4cc4d4;
+	width: 200px;
+}
+.app-tap-more{
+	font-size: 15px;
+	padding-left: 10px;
+	padding-top: 10px;
+}
+.app-he-topic{
+	color: #4cc4d4;
+	padding: 10px ;
+}
+
+		</style>
+	</head>
+	<body contextmenu="return false;">
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="J_ThemName">他的话题</h1>
+		</header>
+		<div class="mui-content">
+			<div class="app-warper">
+				<div class="app-header" id="J_userinfo">
+					<div class="app-head app-sex-nan app-jda">
+						<img src="../../img/head.png" />
+					</div>
+					<h5>北京香山的红叶</h5>
+					<span>中国 北京</span>
+				</div>
+				<div class="app-line"></div>
+				<div class="app-he-topic">Ta的话题</div>
+				<div class="app-activity">
+					<ul class="mui-table-view" id="J_list">
+						<!--<li class="mui-table-view-cell">
+							<div class="app-list-head app-box">
+								<div class="app-head app-sex-nan app-da">
+									<img  src="../../img/head.png">
+								</div>
+								<div class="app-titleinfo app-box-flex">
+									<div class="mui-ellipsis name">北京香山的红叶北京香山的红叶北京香山的红叶</div>
+									<span class="app-when">刚刚</span>
+								</div>
+							</div>
+							
+							<div class="mui-media-body">
+								<h5 class="mui-ellipsis">
+									互动标题互动标互动标题互动标互动标题互动标互动标题互动标
+								</h5>
+								<p>发就算了算了算了算了算了算了算了算了算了算了算了算了算了算了算了算了算了算了</p>
+								<div class="app-badge">
+									<div class="mui-badge mui-badge-primary">美食</div>
+									<div class="mui-badge mui-badge-primary">美食</div>
+								</div>
+								<div class="app-photo">
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+								</div>
+							</div>
+						</li>
+						<li class="mui-table-view-cell">
+							<div class="app-list-head app-box">
+								<div class="app-head app-sex-nan app-da">
+									<img  src="../../img/head.png">
+								</div>
+								<div class="app-titleinfo app-box-flex">
+									<div class="mui-ellipsis name">北京香山的红叶北京香山的红叶北京香山的红叶</div>
+									<span class="app-when">刚刚</span>
+								</div>
+							</div>
+							
+							<div class="mui-media-body">
+								<h5 class="mui-ellipsis">
+									互动标题互动标互动标题互动标互动标题互动标互动标题互动标
+								</h5>
+								<p>发就算了算了算了算了算了算了算了算了算了算了算了算了算了算了算了算了算了算了</p>
+								<div class="app-badge">
+									<div class="mui-badge mui-badge-primary">美食</div>
+									<div class="mui-badge mui-badge-primary">美食</div>
+								</div>
+								<div class="app-photo">
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+								</div>
+							</div>
+						</li>
+						<li class="mui-table-view-cell">
+							<div class="app-list-head app-box">
+								<div class="app-head app-sex-nan app-da">
+									<img  src="../../img/head.png">
+								</div>
+								<div class="app-titleinfo app-box-flex">
+									<div class="mui-ellipsis name">北京香山的红叶北京香山的红叶北京香山的红叶</div>
+									<span class="app-when">刚刚</span>
+								</div>
+							</div>
+							
+							<div class="mui-media-body">
+								<h5 class="mui-ellipsis">
+									互动标题互动标互动标题互动标互动标题互动标互动标题互动标
+								</h5>
+								<p>发就算了算了算了算了算了算了算了算了算了算了算了算了算了算了算了算了算了算了</p>
+								<div class="app-badge">
+									<div class="mui-badge mui-badge-primary">美食</div>
+									<div class="mui-badge mui-badge-primary">美食</div>
+								</div>
+								<div class="app-photo">
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+									<img src="../../img/xc.png" data-preview-src="" data-preview-group="3" />
+								</div>
+							</div>
+						</li>-->
+				</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js" ></script>
+<script type="text/javascript" src="../../js/common.js" ></script>
+<script type="text/javascript" src="../../js/UserInfo.js" ></script>
+<script>
+var param 	= {};
+var page 	= 0;
+mui.init({
+	swipeBack: false,
+	pullRefresh: {
+		container: '#pullrefresh',
+		down: {
+			callback: pulldownRefresh
+		},
+		up: {
+			contentrefresh: '正在加载...',
+			callback: pullupRefresh
+		}
+	}
+});
+function pulldownRefresh() {
+	getThemeList(param);
+	mui('#pullrefresh').pullRefresh().endPulldownToRefresh();
+};
+function pullupRefresh() {
+	 this.endPullupToRefresh(true);
+};
+mui.plusReady(function(){
+	var uid 		= plus.webview.currentWebview().uid;
+	var nickname 	= plus.webview.currentWebview().nickname;
+	var sessionId 	= app.sessionId();
+
+	if(empty(nickname) == false){
+		J_ThemName.innerText = nickname + '的话题';
+	}
+	if(empty(uid) == true){
+		alert('缺少用户参数。');
+		mui.back();
+	}
+	param['uid'] = uid;
+	//取得个人资料
+	var surl 	= SITE + "master/ajaxUserInfo?uid="+uid;
+	mui.getJSON(surl, param, function(response){
+		if(response.code == 1){
+			document.getElementById('J_userinfo').innerHTML = response.html;
+		}else{
+			alert(response.msg);
+		}
+	});	
+	//清除相同的webview
+	var theme = plus.webview.getWebviewById("../circle/theme.html");
+	if(empty(theme) == false){
+		theme.close();
+	}
+	
+	//他的话题列表 
+	getThemeList(param);
+	
+	// 打开话题
+	mui('#J_list').on('tap','.J_themeinfo', function(){
+		var _parent	= this.parentNode;
+		var themeid	= _parent.dataset.themeid;
+		var groupname	= _parent.dataset.groupname;
+//		console.log(themeid);console.log(groupname);
+		openwindow("../circle/theme.html", {themeid:themeid, groupname:groupname});
+	});
+});
+function getThemeList(param){
+	var ajaxurl = SITE + 'theme/search';
+	mui.get(ajaxurl, param, function(response) {
+		if(empty(response) == false){
+			document.getElementById('J_list').innerHTML = response;
+		}
+	}, 'html');
+}
+</script>
+
+

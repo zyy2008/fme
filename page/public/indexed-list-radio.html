@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>选择国家</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/mui.indexedlist.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			html,
+			body {
+				height: 100%;
+				overflow: hidden;
+				font-size: 16px;
+			}
+			.mui-bar {
+				-webkit-box-shadow: none;
+				box-shadow: none;
+			}
+			.mui-indexed-list-item span{
+				width: 60px;
+				display: inline-block;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">选择国家和地区代码</h1>
+		</header>
+		<div class="mui-content">
+			<div id='list' class="mui-indexed-list">
+				<div class="mui-indexed-list-search mui-input-row mui-search">
+					<input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="搜索国家">
+				</div>
+				<div class="mui-indexed-list-bar">
+					<a>A</a>
+					<a>B</a>
+					<a>C</a>
+					<a>D</a>
+					<a>E</a>
+					<a>F</a>
+					<a>G</a>
+					<a>H</a>
+					<a>I</a>
+					<a>J</a>
+					<a>K</a>
+					<a>L</a>
+					<a>M</a>
+					<a>N</a>
+					<a>O</a>
+					<a>P</a>
+					<a>R</a>
+					<a>S</a>
+					<a>T</a>
+					<a>U</a>
+					<a>V</a>
+					<a>W</a>
+					<a>X</a>
+					<a>Y</a>
+					<a>Z</a>
+				</div>
+				<div class="mui-indexed-list-alert"></div>
+				<div class="mui-indexed-list-inner">
+					<div class="mui-indexed-list-empty-alert">没有数据</div>
+					<ul class="mui-table-view" id="J_content">
+						<li data-group = "A" class = "mui-table-view-divider mui-indexed-list-group">A</li>
+						<li data-value = "+61" data-tags = "aodaliya" data-areaid = "3499" data-name = "澳大利亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+61</span> 澳大利亚
+						</li>
+						<li data-value = "+372" data-tags = "aishaniya" data-areaid = "3454" data-name = "爱沙尼亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+372</span> 爱沙尼亚
+						</li>
+						<li data-value = "+353" data-tags = "aierlan" data-areaid = "3427" data-name = "爱尔兰" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+353</span> 爱尔兰
+						</li>
+						<li data-value = "+251" data-tags = "aisaiebiya" data-areaid = "3415" data-name = "埃塞俄比亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+251</span> 埃塞俄比亚
+						</li>
+						<li data-value = "+20" data-tags = "aiji" data-areaid = "3409" data-name = "埃及" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+20</span> 埃及
+						</li>
+						<li data-value = "+994" data-tags = "asaibaijiang" data-areaid = "3393" data-name = "阿塞拜疆" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+994</span> 阿塞拜疆
+						</li>
+						<li data-value = "+968" data-tags = "aman" data-areaid = "3384" data-name = "阿曼" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+968</span> 阿曼
+						</li>
+						<li data-value = "+297" data-tags = "aluba" data-areaid = "3383" data-name = "阿鲁巴" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+297</span> 阿鲁巴
+						</li>
+						<li data-value = "+971" data-tags = "alabolianheqiuchangguo" data-areaid = "3378" data-name = "阿拉伯联合酋长国" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+971</span> 阿拉伯联合酋长国
+						</li>
+						<li data-value = "+54" data-tags = "agenting" data-areaid = "3343" data-name = "阿根廷" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+54</span> 阿根廷
+						</li>
+						<li data-value = "+93" data-tags = "afuhan" data-areaid = "3338" data-name = "阿富汗" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+93</span> 阿富汗
+						</li>
+						<li data-value = "+213" data-tags = "aerjiliya" data-areaid = "3289" data-name = "阿尔及利亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+213</span> 阿尔及利亚
+						</li>
+						<li data-value = "+376" data-tags = "andaoer" data-areaid = "3470" data-name = "安道尔" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+376</span> 安道尔
+						</li>
+						<li data-value = "+244" data-tags = "angela" data-areaid = "3478" data-name = "安哥拉" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+244</span> 安哥拉
+						</li>
+						<li data-value = "+1264" data-tags = "anguila" data-areaid = "3497" data-name = "安圭拉" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+1264</span> 安圭拉
+						</li>
+						<li data-value = "+43" data-tags = "aodili" data-areaid = "3541" data-name = "奥地利" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+43</span> 奥地利
+						</li>
+						<li data-value = "+1268" data-tags = "antiguadaohebabuda" data-areaid = "3498" data-name = "安提瓜岛和巴布达" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+1268</span> 安提瓜岛和巴布达
+						</li>
+						<li data-value = "+355" data-tags = "aerbaniya" data-areaid = "3276" data-name = "阿尔巴尼亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+355</span> 阿尔巴尼亚
+						</li>
+						<li data-group = "B" class = "mui-table-view-divider mui-indexed-list-group">B</li>
+						<li data-value = "+226" data-tags = "bujinafasuo" data-areaid = "3790" data-name = "布基纳法索" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+226</span> 布基纳法索
+						</li>
+						<li data-value = "+975" data-tags = "budan" data-areaid = "3789" data-name = "不丹" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+975</span> 不丹
+						</li>
+						<li data-value = "+501" data-tags = "bolizi" data-areaid = "3782" data-name = "伯利兹" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+501</span> 伯利兹
+						</li>
+						<li data-value = "+267" data-tags = "bociwana" data-areaid = "3781" data-name = "博茨瓦纳" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+267</span> 博茨瓦纳
+						</li>
+						<li data-value = "+387" data-tags = "bosiniyaheheisaigeweina" data-areaid = "3769" data-name = "波斯尼亚和黑塞哥维那" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+387</span> 波斯尼亚和黑塞哥维那
+						</li>
+						<li data-value = "+591" data-tags = "boliweiya" data-areaid = "3756" data-name = "玻利维亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+591</span> 玻利维亚
+						</li>
+						<li data-value = "+48" data-tags = "bolan" data-areaid = "3692" data-name = "波兰" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+48</span> 波兰
+						</li>
+						<li data-value = "+1787" data-tags = "boduolige" data-areaid = "3691" data-name = "波多黎各" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+1787</span> 波多黎各
+						</li>
+						<li data-value = "+354" data-tags = "bingdao" data-areaid = "3690" data-name = "冰岛" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+354</span> 冰岛
+						</li>
+						<li data-value = "+32" data-tags = "bilishi" data-areaid = "3678" data-name = "比利时" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+32</span> 比利时
+						</li>
+						<li data-value = "+229" data-tags = "beining" data-areaid = "3664" data-name = "贝宁" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+229</span> 贝宁
+						</li>
+						<li data-value = "+257" data-tags = "bulongdi" data-areaid = "3836" data-name = "布隆迪" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+257</span> 布隆迪
+						</li>
+						<li data-value = "+359" data-tags = "baojialiya" data-areaid = "3653" data-name = "保加利亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+359</span> 保加利亚
+						</li>
+						<li data-value = "+1441" data-tags = "baimuda" data-areaid = "3652" data-name = "百慕大" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+1441</span> 百慕大
+						</li>
+						<li data-value = "+375" data-tags = "baieluosi" data-areaid = "3645" data-name = "白俄罗斯" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+375</span> 白俄罗斯
+						</li>
+						<li data-value = "+55" data-tags = "baxi" data-areaid = "3617" data-name = "巴西" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+55</span> 巴西
+						</li>
+						<li data-value = "+507" data-tags = "banama" data-areaid = "3616" data-name = "巴拿马" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+507</span> 巴拿马
+						</li>
+						<li data-value = "+973" data-tags = "balin" data-areaid = "3606" data-name = "巴林" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+973</span> 巴林
+						</li>
+						<li data-value = "+595" data-tags = "balagui" data-areaid = "3584" data-name = "巴拉圭" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+595</span> 巴拉圭
+						</li>
+						<li data-value = "+92" data-tags = "bajisitan" data-areaid = "3574" data-name = "巴基斯坦" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+92</span> 巴基斯坦
+						</li>
+						<li data-value = "+1242" data-tags = "bahama" data-areaid = "3573" data-name = "巴哈马" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+1242</span> 巴哈马
+						</li>
+						<li data-value = "+675" data-tags = "babuyaxinjineiya" data-areaid = "3553" data-name = "巴布亚新几内亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+675</span> 巴布亚新几内亚
+						</li>
+						<li data-value = "+1246" data-tags = "babaduosidao" data-areaid = "3552" data-name = "巴巴多斯岛" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+1246</span> 巴巴多斯岛
+						</li>
+						<li data-group = "C" class = "mui-table-view-divider mui-indexed-list-group">C</li>
+						<li data-value = "+850" data-tags = "chaoxian" data-areaid = "3855" data-name = "朝鲜" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+850</span> 朝鲜
+						</li>
+						<li data-group = "D" class = "mui-table-view-divider mui-indexed-list-group">D</li>
+						<li data-value = "+49" data-tags = "deguo" data-areaid = "3883" data-name = "德国" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+49</span> 德国
+						</li>
+						<li data-value = "+1890" data-tags = "duominijiagongheguo" data-areaid = "3947" data-name = "多米尼加共和国" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+1890</span> 多米尼加共和国
+						</li>
+						<li data-value = "+1890" data-tags = "duominijia" data-areaid = "3946" data-name = "多米尼加" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+1890</span> 多米尼加
+						</li>
+						<li data-value = "+228" data-tags = "duoge" data-areaid = "3940" data-name = "多哥" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+228</span> 多哥
+						</li>
+						<li data-value = "+670" data-tags = "dongdi" data-areaid = "3926" data-name = "东帝汶" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+670</span> 东帝汶
+						</li>
+						<li data-value = "+45" data-tags = "danmai" data-areaid = "3868" data-name = "丹麦" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+45</span> 丹麦
+						</li>
+						<li data-group = "E" class = "mui-table-view-divider mui-indexed-list-group">E</li>
+						<li data-value = "+291" data-tags = "eliteliya" data-areaid = "4056" data-name = "厄立特里亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+291</span> 厄立特里亚
+						</li>
+						<li data-value = "+593" data-tags = "eguaduoer" data-areaid = "4034" data-name = "厄瓜多尔" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+593</span> 厄瓜多尔
+						</li>
+						<li data-value = "+7" data-tags = "eluosi" data-areaid = "3948" data-name = "俄罗斯" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+7</span> 俄罗斯
+						</li>
+						<li data-group = "F" class = "mui-table-view-divider mui-indexed-list-group">F</li>
+						<li data-value = "+594" data-tags = "fashuguiyana" data-areaid = "4089" data-name = "法属圭亚那" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+594</span> 法属圭亚那
+						</li>
+						<li data-value = "+689" data-tags = "fashubolinixiya" data-areaid = "4088" data-name = "法属波利尼西亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+689</span> 法属波利尼西亚
+						</li>
+						<li data-value = "+298" data-tags = "faluoqundao" data-areaid = "4087" data-name = "法罗群岛" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+298</span> 法罗群岛
+						</li>
+						<li data-value = "+33" data-tags = "faguo" data-areaid = "4063" data-name = "法国" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+33</span> 法国
+						</li>
+						<li data-value = "+238" data-tags = "fodejiao" data-areaid = "4119" data-name = "佛得角" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+238</span> 佛得角
+						</li>
+						<li data-value = "+358" data-tags = "fenlan" data-areaid = "4098" data-name = "芬兰" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+358</span> 芬兰
+						</li>
+						<li data-value = "+63" data-tags = "feilvbin" data-areaid = "4092" data-name = "菲律宾" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+63</span> 菲律宾
+						</li>
+						<li data-group = "G" class = "mui-table-view-divider mui-indexed-list-group">G</li>
+						<li data-value = "+1809" data-tags = "gelinnada" data-areaid = "4187" data-name = "格林纳达" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+1809</span> 格林纳达
+						</li>
+						<li data-value = "+506" data-tags = "gesidalijia" data-areaid = "4178" data-name = "哥斯达黎加" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+506</span> 哥斯达黎加
+						</li>
+						<li data-value = "+57" data-tags = "gelunbiya" data-areaid = "4144" data-name = "哥伦比亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+57</span> 哥伦比亚
+						</li>
+						<li data-value = "+243" data-tags = "gangguominzhugongheguo" data-areaid = "4143" data-name = "刚果民主共和国" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+243</span> 刚果民主共和国
+						</li>
+						<li data-value = "+242" data-tags = "gangguo" data-areaid = "4142" data-name = "刚果" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+242</span> 刚果
+						</li>
+						<li data-value = "+220" data-tags = "gangbiya" data-areaid = "4141" data-name = "冈比亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+220</span> 冈比亚
+						</li>
+						<li data-value = "+299" data-tags = "gelinglan" data-areaid = "4188" data-name = "格陵兰" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+299</span> 格陵兰
+						</li>
+						<li data-value = "+53" data-tags = "guba" data-areaid = "4189" data-name = "古巴" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+53</span> 古巴
+						</li>
+						<li data-value = "+590" data-tags = "guadeluopu" data-areaid = "4207" data-name = "瓜德罗普" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+590</span> 瓜德罗普
+						</li>
+						<li data-value = "+592" data-tags = "guiyana" data-areaid = "4209" data-name = "圭亚那" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+592</span> 圭亚那
+						</li>
+						<li data-value = "+671" data-tags = "guandao" data-areaid = "4208" data-name = "关岛" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+671</span> 关岛
+						</li>
+						<li data-group = "H" class = "mui-table-view-divider mui-indexed-list-group">H</li>
+						<li data-value = "+82" data-tags = "hanguo" data-areaid = "4259" data-name = "韩国" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+82</span> 韩国
+						</li>
+						<li data-value = "+504" data-tags = "hongdulasi" data-areaid = "4466" data-name = "洪都拉斯" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+504</span> 洪都拉斯
+						</li>
+						<li data-value = "+599" data-tags = "heshuandiliesi" data-areaid = "4464" data-name = "荷属安地列斯" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+599</span> 荷属安地列斯
+						</li>
+						<li data-value = "+31" data-tags = "helan" data-areaid = "4435" data-name = "荷兰" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+31</span> 荷兰
+						</li>
+						<li data-value = "+509" data-tags = "haidi" data-areaid = "4258" data-name = "海地" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+509</span> 海地
+						</li>
+						<li data-value = "+7" data-tags = "hasakesitan" data-areaid = "4220" data-name = "哈萨克斯坦" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+7</span> 哈萨克斯坦
+						</li>
+						<li data-group = "J" class = "mui-table-view-divider mui-indexed-list-group">J</li>
+						<li data-value = "+263" data-tags = "jinbabuwei" data-areaid = "4618" data-name = "津巴布韦" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+263</span> 津巴布韦
+						</li>
+						<li data-value = "+420" data-tags = "jiekegongheguo" data-areaid = "4604" data-name = "捷克共和国" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+420</span> 捷克共和国
+						</li>
+						<li data-value = "+855" data-tags = "jianpuzhai" data-areaid = "4579" data-name = "柬埔寨" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+855</span> 柬埔寨
+						</li>
+						<li data-value = "+241" data-tags = "jiapeng" data-areaid = "4569" data-name = "加蓬" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+241</span> 加蓬
+						</li>
+						<li data-value = "+233" data-tags = "jiana" data-areaid = "4557" data-name = "加纳" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+233</span> 加纳
+						</li>
+						<li data-value = "+1" data-tags = "jianada" data-areaid = "4522" data-name = "加拿大" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+1</span> 加拿大
+						</li>
+						<li data-value = "+245" data-tags = "jineiyabishao" data-areaid = "4521" data-name = "几内亚比绍" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+599</span> 几内亚比绍
+						</li>
+						<li data-value = "+675" data-tags = "jineiya" data-areaid = "4512" data-name = "几内亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+675</span> 几内亚
+						</li>
+						<li data-value = "+996" data-tags = "jierjisisitan" data-areaid = "4495" data-name = "吉尔吉斯斯坦" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+996</span> 吉尔吉斯斯坦
+						</li>
+						<li data-value = "+253" data-tags = "jibuti" data-areaid = "4490" data-name = "吉布提" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+253</span> 吉布提
+						</li>
+						<li data-group = "K" class = "mui-table-view-divider mui-indexed-list-group">K</li>
+						<li data-value = "+385" data-tags = "keluodiya" data-areaid = "4674" data-name = "克罗地亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+385</span> 克罗地亚
+						</li>
+						<li data-value = "+965" data-tags = "keweite" data-areaid = "4673" data-name = "科威特" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+965</span> 科威特
+						</li>
+						<li data-value = "+225" data-tags = "ketediwa" data-areaid = "4653" data-name = "科特迪瓦" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+225</span> 科特迪瓦
+						</li>
+						<li data-value = "+269" data-tags = "kemoluo" data-areaid = "4652" data-name = "科摩罗" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+269</span> 科摩罗
+						</li>
+						<li data-value = "+1345" data-tags = "kaimanqundao" data-areaid = "4650" data-name = "开曼群岛" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+1345</span> 开曼群岛
+						</li>
+						<li data-value = "+974" data-tags = "kataer" data-areaid = "4640" data-name = "卡塔尔" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+974</span> 卡塔尔
+						</li>
+						<li data-value = "+237" data-tags = "kamailong" data-areaid = "4629" data-name = "喀麦隆" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+237</span> 喀麦隆
+						</li>
+						<li data-value = "+254" data-tags = "kenniya" data-areaid = "4696" data-name = "肯尼亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+254</span> 肯尼亚
+						</li>
+						<li data-value = "+682" data-tags = "kukequndao" data-areaid = "4745" data-name = "库克群岛" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+682</span> 库克群岛
+						</li>
+						<li data-group = "L" class = "mui-table-view-divider mui-indexed-list-group">L</li>
+						<li data-value = "+371" data-tags = "latuoweiya" data-areaid = "4746" data-name = "拉脱维亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+371</span> 拉脱维亚
+						</li>
+						<li data-value = "+40" data-tags = "luomaniya" data-areaid = "4863" data-name = "罗马尼亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+40</span> 罗马尼亚
+						</li>
+						<li data-value = "+250" data-tags = "luwangda" data-areaid = "4846" data-name = "卢旺达" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+250</span> 卢旺达
+						</li>
+						<li data-value = "+352" data-tags = "lusenbao" data-areaid = "4842" data-name = "卢森堡" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+352</span> 卢森堡
+						</li>
+						<li data-value = "+262" data-tags = "liuniwangdao" data-areaid = "4841" data-name = "留尼旺岛" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+262</span> 留尼旺岛
+						</li>
+						<li data-value = "+423" data-tags = "liezhidunshideng" data-areaid = "4840" data-name = "列支敦士登" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+423</span> 列支敦士登
+						</li>
+						<li data-value = "+370" data-tags = "litaowan" data-areaid = "4828" data-name = "立陶宛" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+370</span> 立陶宛
+						</li>
+						<li data-value = "+218" data-tags = "libiya" data-areaid = "4827" data-name = "利比亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+218</span> 利比亚
+						</li>
+						<li data-value = "+231" data-tags = "libiliya" data-areaid = "4809" data-name = "利比里亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+231</span> 利比里亚
+						</li>
+						<li data-value = "+961" data-tags = "libanen" data-areaid = "4802" data-name = "黎巴嫩" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+961</span> 黎巴嫩
+						</li>
+						<li data-value = "+856" data-tags = "laowo" data-areaid = "4784" data-name = "老挝" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+856</span> 老挝
+						</li>
+						<li data-value = "+266" data-tags = "laisuotuo" data-areaid = "4773" data-name = "莱索托" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+266</span> 莱索托
+						</li>
+						<li data-group = "M" class = "mui-table-view-divider mui-indexed-list-group">M</li>
+						<li data-value = "+1" data-tags = "meiguo" data-areaid = "5098" data-name = "美国" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+1</span> 美国
+						</li>
+						<li data-value = "+684" data-tags = "meishusamoya" data-areaid = "5433" data-name = "美属萨摩亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+684</span> 美属萨摩亚
+						</li>
+						<li data-value = "+222" data-tags = "maolitaniya" data-areaid = "5084" data-name = "毛里塔尼亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+222</span> 毛里塔尼亚
+						</li>
+						<li data-value = "+230" data-tags = "maoliqiusi" data-areaid = "5083" data-name = "毛里求斯" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+230</span> 毛里求斯
+						</li>
+						<li data-value = "+596" data-tags = "matinike" data-areaid = "5080" data-name = "马提尼克" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+596</span> 马提尼克
+						</li>
+						<li data-value = "+389" data-tags = "maqidun" data-areaid = "5078" data-name = "马其顿" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+389</span> 马其顿
+						</li>
+						<li data-value = "+223" data-tags = "mali" data-areaid = "5068" data-name = "马里" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+223</span> 马里
+						</li>
+						<li data-value = "+60" data-tags = "malaixiya" data-areaid = "4939" data-name = "马来西亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+60</span> 马来西亚
+						</li>
+						<li data-value = "+265" data-tags = "malawei" data-areaid = "4935" data-name = "马拉维" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+265</span> 马拉维
+						</li>
+						<li data-value = "+976" data-tags = "menggu" data-areaid = "5448" data-name = "蒙古" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+976</span> 蒙古
+						</li>
+						<li data-value = "+1664" data-tags = "mengtesailate" data-areaid = "5471" data-name = "蒙特塞拉特" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+1664</span> 蒙特塞拉特
+						</li>
+						<li data-value = "+880" data-tags = "mengjiala" data-areaid = "5472" data-name = "孟加拉" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+880</span> 孟加拉
+						</li>
+						<li data-value = "+52" data-tags = "moxige" data-areaid = "5535" data-name = "墨西哥" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+52</span> 墨西哥
+						</li>
+						<li data-value = "+258" data-tags = "mosangbike" data-areaid = "5534" data-name = "莫桑比克" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+258</span> 莫桑比克
+						</li>
+						<li data-value = "+377" data-tags = "monage" data-areaid = "5533" data-name = "摩纳哥" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+377</span> 摩纳哥
+						</li>
+						<li data-value = "+212" data-tags = "moluoge" data-areaid = "5523" data-name = "摩洛哥" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+212</span> 摩洛哥
+						</li>
+						<li data-value = "+373" data-tags = "moerduowa" data-areaid = "5522" data-name = "摩尔多瓦" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+373</span> 摩尔多瓦
+						</li>
+						<li data-value = "+95" data-tags = "miandian" data-areaid = "5507" data-name = "缅甸" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+95</span> 缅甸
+						</li>
+						<li data-value = "+51" data-tags = "milu" data-areaid = "5477" data-name = "秘鲁" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+51</span> 秘鲁
+						</li>
+						<li data-value = "+356" data-tags = "maerta" data-areaid = "4934" data-name = "马耳他" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+356</span> 马耳他
+						</li>
+						<li data-value = "+960" data-tags = "maerdaifu" data-areaid = "4912" data-name = "马尔代夫" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+960</span> 马尔代夫
+						</li>
+						<li data-value = "+261" data-tags = "madajiasijia" data-areaid = "4905" data-name = "马达加斯加" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+261</span> 马达加斯加
+						</li>
+						<li data-group = "N" class = "mui-table-view-divider mui-indexed-list-group">N</li>
+						<li data-value = "+47" data-tags = "nuowei" data-areaid = "5713" data-name = "挪威" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+47</span> 挪威
+						</li>
+						<li data-value = "+234" data-tags = "niriliya" data-areaid = "5706" data-name = "尼日利亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+234</span> 尼日利亚
+						</li>
+						<li data-value = "+227" data-tags = "nirier" data-areaid = "5697" data-name = "尼日尔" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+227</span> 尼日尔
+						</li>
+						<li data-value = "+505" data-tags = "nijialagua" data-areaid = "5679" data-name = "尼加拉瓜" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+505</span> 尼加拉瓜
+						</li>
+						<li data-value = "+977" data-tags = "niboer" data-areaid = "5664" data-name = "尼泊尔" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+977</span> 尼泊尔
+						</li>
+						<li data-value = "+27" data-tags = "nanfei" data-areaid = "5610" data-name = "南非" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+27</span> 南非
+						</li>
+						<li data-value = "+264" data-tags = "namibiya" data-areaid = "5596" data-name = "纳米比亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+264</span> 纳米比亚
+						</li>
+						<li data-group = "P" class = "mui-table-view-divider mui-indexed-list-group">P</li>
+						<li data-value = "+351" data-tags = "putaoya" data-areaid = "5736" data-name = "葡萄牙" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+351</span> 葡萄牙
+						</li>
+						<li data-value = "+680" data-tags = "palaoqundao" data-areaid = "5734" data-name = "帕劳群岛" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+680</span> 帕劳群岛
+						</li>
+						<li data-group = "R" class = "mui-table-view-divider mui-indexed-list-group">R</li>
+						<li data-value = "+81" data-tags = "riben" data-areaid = "5767" data-name = "日本" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+81</span> 日本
+						</li>
+						<li data-value = "+46" data-tags = "ruidian" data-areaid = "5815" data-name = "瑞典" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+46</span> 瑞典
+						</li>
+						<li data-value = "+41" data-tags = "ruishi" data-areaid = "5837" data-name = "瑞士" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+41</span> 瑞士
+						</li>
+						<li data-group = "S" class = "mui-table-view-divider mui-indexed-list-group">S</li>
+						<li data-value = "+378" data-tags = "shengmalinuo" data-areaid = "5952" data-name = "圣马力诺" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+378</span> 圣马力诺
+						</li>
+						<li data-value = "+1758" data-tags = "shengluxiya" data-areaid = "5951" data-name = "圣卢西亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+1758</span> 圣卢西亚
+						</li>
+						<li data-value = "+966" data-tags = "shatealabo" data-areaid = "5924" data-name = "沙特阿拉伯" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+966</span> 沙特阿拉伯
+						</li>
+						<li data-value = "+248" data-tags = "saisheer" data-areaid = "5923" data-name = "塞舌尔" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+248</span> 塞舌尔
+						</li>
+						<li data-value = "+357" data-tags = "saipulusi" data-areaid = "5916" data-name = "塞浦路斯" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+357</span> 塞浦路斯
+						</li>
+						<li data-value = "+221" data-tags = "saineijiaer" data-areaid = "5904" data-name = "塞内加尔" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+221</span> 塞内加尔
+						</li>
+						<li data-value = "+232" data-tags = "sailaliang" data-areaid = "5899" data-name = "塞拉利昂" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+232</span> 塞拉利昂
+						</li>
+						<li data-value = "+382" data-tags = "saierweiya,heishan" data-areaid = "5890" data-name = "塞尔维亚,黑山" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+382</span> 塞尔维亚,黑山
+						</li>
+						<li data-value = "+684" data-tags = "samoya" data-areaid = "5889" data-name = "萨摩亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+684</span> 萨摩亚
+						</li>
+						<li data-value = "+1869" data-tags = "shengjiciheniweisi" data-areaid = "5950" data-name = "圣基茨和尼维斯" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+1869</span> 圣基茨和尼维斯
+						</li>
+						<li data-value = "+503" data-tags = "saerwaduo" data-areaid = "5865" data-name = "萨尔瓦多" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+503</span> 萨尔瓦多
+						</li>
+						<li data-value = "+252" data-tags = "suomali" data-areaid = "6037" data-name = "索马里" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+252</span> 索马里
+						</li>
+						<li data-value = "+677" data-tags = "suoluomenqundao" data-areaid = "6026" data-name = "所罗门群岛" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+677</span> 所罗门群岛
+						</li>
+						<li data-value = "+597" data-tags = "sulinan" data-areaid = "6015" data-name = "苏里南" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+597</span> 苏里南
+						</li>
+						<li data-value = "+249" data-tags = "sudan" data-areaid = "6005" data-name = "苏丹" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+249</span> 苏丹
+						</li>
+						<li data-value = "+268" data-tags = "siweishilan" data-areaid = "6004" data-name = "斯威士兰" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+268</span> 斯威士兰
+						</li>
+						<li data-value = "+386" data-tags = "siluowenniya" data-areaid = "5990" data-name = "斯洛文尼亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+386</span> 斯洛文尼亚
+						</li>
+						<li data-value = "+421" data-tags = "siluofake" data-areaid = "5981" data-name = "斯洛伐克" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+421</span> 斯洛伐克
+						</li>
+						<li data-value = "+94" data-tags = "sililanka" data-areaid = "5955" data-name = "斯里兰卡" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+94</span> 斯里兰卡
+						</li>
+						<li data-value = "+1784" data-tags = "shengwensentehegelinnadingsi" data-areaid = "5954" data-name = "圣文森特和格林纳丁斯" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+1784</span> 圣文森特和格林纳丁斯
+						</li>
+						<li data-group = "T" class = "mui-table-view-divider mui-indexed-list-group">T</li>
+						<li data-value = "+66" data-tags = "taiguo" data-areaid = "6054" data-name = "泰国" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+66</span> 泰国
+						</li>
+						<li data-value = "+992" data-tags = "tajikesitan" data-areaid = "6038" data-name = "塔吉克斯坦" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+992</span> 塔吉克斯坦
+						</li>
+						<li data-value = "+255" data-tags = "tansangniya" data-areaid = "6129" data-name = "坦桑尼亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+255</span> 坦桑尼亚
+						</li>
+						<li data-value = "+676" data-tags = "tangjia" data-areaid = "6157" data-name = "汤加" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+676</span> 汤加
+						</li>
+						<li data-value = "+1649" data-tags = "tekesihekaiketesiqundao" data-areaid = "6163" data-name = "特克斯和凯克特斯群岛" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+1649</span> 特克斯和凯克特斯群岛
+						</li>
+						<li data-value = "+993" data-tags = "tukumansitan" data-areaid = "6271" data-name = "土库曼斯坦" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+993</span> 土库曼斯坦
+						</li>
+						<li data-value = "+90" data-tags = "tuerqi" data-areaid = "6192" data-name = "土耳其" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+90</span> 土耳其
+						</li>
+						<li data-value = "+216" data-tags = "tunisi" data-areaid = "6166" data-name = "突尼斯" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+216</span> 突尼斯
+						</li>
+						<li data-value = "+1809" data-tags = "telinidaheduobage" data-areaid = "6165" data-name = "特立尼达和多巴哥" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+1809</span> 特立尼达和多巴哥
+						</li>
+						<li data-group = "W" class = "mui-table-view-divider mui-indexed-list-group">W</li>
+						<li data-value = "+998" data-tags = "wuzibiekesitan" data-areaid = "6444" data-name = "乌兹别克斯坦" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+998</span> 乌兹别克斯坦
+						</li>
+						<li data-value = "+598" data-tags = "wulagui" data-areaid = "6424" data-name = "乌拉圭" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+598</span> 乌拉圭
+						</li>
+						<li data-value = "+380" data-tags = "wukelan" data-areaid = "6398" data-name = "乌克兰" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+380</span> 乌克兰
+						</li>
+						<li data-value = "+256" data-tags = "wuganda" data-areaid = "6341" data-name = "乌干达" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+256</span> 乌干达
+						</li>
+						<li data-value = "+673" data-tags = "wenlai" data-areaid = "6340" data-name = "文莱" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+673</span> 文莱
+						</li>
+						<li data-value = "+58" data-tags = "weineiruila" data-areaid = "6315" data-name = "委内瑞拉" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+58</span> 委内瑞拉
+						</li>
+						<li data-value = "+1340" data-tags = "weierjingqundaoyingshu" data-areaid = "6314" data-name = "维尔京群岛，英属" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+1340</span> 维尔京群岛，英属
+						</li>
+						<li data-value = "+502" data-tags = "weidimala" data-areaid = "6288" data-name = "危地马拉" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+502</span> 危地马拉
+						</li>
+						<li data-value = "+678" data-tags = "wanuatu" data-areaid = "6281" data-name = "瓦努阿图" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+678</span> 瓦努阿图
+						</li>
+						<li data-group = "X" class = "mui-table-view-divider mui-indexed-list-group">X</li>
+						<li data-value = "+963" data-tags = "xuliya" data-areaid = "6569" data-name = "叙利亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+963</span> 叙利亚
+						</li>
+						<li data-value = "+36" data-tags = "xiongyali" data-areaid = "6548" data-name = "匈牙利" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+36</span> 匈牙利
+						</li>
+						<li data-value = "+64" data-tags = "xinxilan" data-areaid = "6523" data-name = "新西兰" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+64</span> 新西兰
+						</li>
+						<li data-value = "+687" data-tags = "xinkaliduoniya" data-areaid = "6522" data-name = "新喀里多尼亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+687</span> 新喀里多尼亚
+						</li>
+						<li data-value = "+65" data-tags = "xinjiapo" data-areaid = "6521" data-name = "新加坡" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+65</span> 新加坡
+						</li>
+						<li data-value = "+30" data-tags = "xila" data-areaid = "6510" data-name = "希腊" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+30</span> 希腊
+						</li>
+						<li data-value = "+34" data-tags = "xibanya" data-areaid = "6459" data-name = "西班牙" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+34</span> 西班牙
+						</li>
+						<li data-group = "Y" class = "mui-table-view-divider mui-indexed-list-group">Y</li>
+						<li data-value = "+44" data-tags = "yingguo" data-areaid = "6773" data-name = "英国" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+44</span> 英国
+						</li>
+						<li data-value = "+374" data-tags = "yameiniya" data-areaid = "6601" data-name = "亚美尼亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+374</span> 亚美尼亚
+						</li>
+						<li data-value = "+1876" data-tags = "yamaijia" data-areaid = "6586" data-name = "牙买加" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+1876</span> 牙买加
+						</li>
+						<li data-value = "+967" data-tags = "yemen" data-areaid = "6613" data-name = "也门" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+967</span> 也门
+						</li>
+						<li data-value = "+964" data-tags = "yilake" data-areaid = "6635" data-name = "伊拉克" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+964</span> 伊拉克
+						</li>
+						<li data-value = "+98" data-tags = "yilang" data-areaid = "6636" data-name = "伊朗" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+98</span> 伊朗
+						</li>
+						<li data-value = "+84" data-tags = "yuenan" data-areaid = "6856" data-name = "越南" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+84</span> 越南
+						</li>
+						<li data-value = "+962" data-tags = "yuedan" data-areaid = "6842" data-name = "约旦" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+962</span> 约旦
+						</li>
+						<li data-value = "+62" data-tags = "yindunixiya" data-areaid = "6744" data-name = "印度尼西亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+62</span> 印度尼西亚
+						</li>
+						<li data-value = "+91" data-tags = "yindu" data-areaid = "6713" data-name = "印度" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+91</span> 印度
+						</li>
+						<li data-value = "+39" data-tags = "yidali" data-areaid = "6646" data-name = "意大利" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+39</span> 意大利
+						</li>
+						<li data-value = "+972" data-tags = "yiselie" data-areaid = "6637" data-name = "以色列" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+972</span> 以色列
+						</li>
+						<li data-group = "Z" class = "mui-table-view-divider mui-indexed-list-group">Z</li>
+						<li data-value = "+86" data-tags = "zhongguo" data-areaid = "1" data-name = "中国" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+86</span> 中国
+						</li>
+						<li data-value = "+236" data-tags = "zhongfeigongheguo" data-areaid = "6887" data-name = "中非共和国" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+236</span> 中非共和国
+						</li>
+						<li data-value = "+56" data-tags = "zhili" data-areaid = "6873" data-name = "智利" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+56</span> 智利
+						</li>
+						<li data-value = "+350" data-tags = "zhibuluotuo" data-areaid = "6872" data-name = "直布罗陀" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+350</span> 直布罗陀
+						</li>
+						<li data-value = "+235" data-tags = "zhade" data-areaid = "6871" data-name = "乍得" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+235</span> 乍得
+						</li>
+						<li data-value = "+44" data-tags = "zexidao" data-areaid = "6870" data-name = "泽西岛" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+44</span> 泽西岛
+						</li>
+						<li data-value = "+260" data-tags = "zanbiya" data-areaid = "6860" data-name = "赞比亚" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+260</span> 赞比亚
+						</li>
+						<li data-group = "f" class = "mui-table-view-divider mui-indexed-list-group">f</li>
+						<li data-value = "+679" data-tags = "ji" data-areaid = "4097" data-name = "斐济" class = "mui-table-view-cell mui-indexed-list-item">
+						    <span>+679</span> 斐济
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/common.js"></script>
+		<script src="../../js/mui.indexedlist.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.ready(function() {
+				var header = document.querySelector('header.mui-bar');
+				var list = document.getElementById('list');
+				//calc hieght
+				list.style.height = (document.body.offsetHeight - header.offsetHeight) + 'px';
+				//create
+				window.indexedList = new mui.IndexedList(list);
+			});
+			mui.plusReady(function(){
+				var pwid = plus.webview.currentWebview().pwid;
+				var pw = plus.webview.getWebviewById(pwid);
+				
+				//getList();
+				
+				mui('.mui-indexed-list-inner').on('tap', '.mui-indexed-list-item', function(){
+					var getVlue = {
+					  value:this.dataset.value,
+					  name:this.dataset.name,
+					  areaid:this.dataset.areaid
+					};
+					mui.fire(pw,'getInfo',getVlue);
+					mui.back();
+				});
+			});
+			// 获取列表
+			function getList(){
+				var server = SITE + 'common/getCountryAndArea';
+				mui.get(server, {}, function(response) {
+					if(response != ''){
+						document.getElementById('J_content').innerHTML = response;
+					}
+				}, 'html');
+			}
+		</script>
+	</body>
+
+</html>

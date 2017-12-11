@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>订单支付</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			.mui-content {
+    padding-top: 54px !important;
+    padding-left: 10px;
+    padding-right: 10px;
+}
+p {
+    color:#000;
+    margin-bottom:0;
+    padding:0 20px
+}
+.app-policy {
+    padding:10px 0
+}
+.mui-table-view-cell:after {
+    left:0
+}
+.mui-table-view {
+    font-size:14px
+}
+.mui-navigate-right:after {
+    font-size:30px;
+    right:5px;
+    color:#a5a5a5
+}
+.mui-table-view-cell>a:not(.mui-btn) {
+    margin-right:-30px;
+}
+.mui-pull-right {
+    color:#000
+}
+.mui-table-view-cell {
+    padding-right:30px
+}
+.app-headinfo p {
+    padding:0;
+    white-space:initial;
+}
+.app-payname {
+    font-size:16px;
+    line-height:42px
+}
+.mui-table-view:after,
+.app-view:before{
+	content: none;
+}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">订单支付</h1>
+		</header>
+		<div class="mui-content J_content" id="J_content">
+			
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../js/common.js"></script>
+<script type="text/javascript" src="../../js/UserInfo.js" ></script>
+<script type="text/javascript" charset="utf-8">
+var param	= {};
+var sessionId, self, thisid, orderid,serviceid;
+mui.init();
+mui.plusReady(function(){
+	//初始数据
+	sessionId 	= app.sessionId();
+	self 	= plus.webview.currentWebview();
+	thisid 	= self.id;
+	orderid	= self.orderid;
+	serviceid	= self.serviceid;
+	//servicename	= self.servicename;
+	// 获取页面信息
+	var server	= SITE + "order/payMethod";
+	console.log('orderID' + orderid);
+	mui.get(server, {orderID:orderid,sessionId:sessionId}, function(response) {
+		//console.log(response);
+		if(response != ''){
+			//console.log(response);
+			document.getElementById('J_content').innerHTML = response;
+		}
+		//plus.nativeUI.closeWaiting();
+	}, 'html');
+	
+	// =============================================================
+	// 								支付
+	// =============================================================
+    // 获取支付通道
+    plus.payment.getChannels(function(channels){
+        channelList = channels;
+    },function(e){
+        console.log("获取支付通道失败："+e.message);
+    });
+    // 点击确认支付
+    var id = null;
+    var J_confirm = document.getElementById('J_confirm');
+    mui('.J_content').on('tap', '.J_paymethod', function(){
+        // 选择支付方式
+        var paymethod 	= this.dataset.val; // alipay, wxpay
+        if(empty(paymethod)){
+            alert('请选择支付方式');
+            return;
+        }else{
+            // 当前选中支付方式匹配支持的支付通道
+            if(channelList.length > 0) {
+                for(var i = 0; i < channelList.length; i++){
+                    if(paymethod == channelList[i].id) {
+                        channel = channelList[i];
+                    }
+                }
+            }
+            // 检测是否安装支付服务
+            checkServices(channel);
+            // 支付
+			pay(channel);
+        }
+    });
+	
+});
+/**
+ * 检测是否安装支付服务
+ * @param pc channel 支付通道
+ */
+function checkServices(pc){
+	if(! pc.serviceReady){
+		var txt=null;
+		switch(pc.id){
+			case "alipay":
+			txt="检测到系统未安装“支付宝快捷支付服务”，无法完成支付操作，是否立即安装？";
+			break;
+			default:
+			txt="系统未安装“"+pc.description+"”服务，无法完成支付，是否立即安装？";
+			break;
+		}
+		plus.nativeUI.confirm(txt,function(e){
+			if(e.index==0){
+				pc.installService();
+			}
+		},pc.description);
+	}
+}
+
+var w=null;
+// 支付宝
+var ALIPAYSERVER = SITE + 'pay/aliPay';
+// 微信支付
+var WXPAYSERVERV3  = SITE + 'pay/wxPayV3';
+/**
+ * 支付
+ * @param c channel 支付通道
+ */
+function pay(c){
+	if(w){return;}//检查是否请求订单中
+	console.log("----- 请求支付 -----");
+    var PAYSERVER='';
+	if(c.id=='alipay') { // 支付宝支付
+        PAYSERVER = ALIPAYSERVER;
+    }else if(c.id == 'wxpay'){ // 微信支付
+        PAYSERVER = WXPAYSERVERV3;
+	}else{
+		plus.nativeUI.alert("不支持此支付通道！",null,"捐赠");
+		return;
+	}
+	var url= PAYSERVER + '?appid='+plus.runtime.appid+'&id=' + orderid;
+	console.log(url);
+	w=plus.nativeUI.showWaiting();
+	// 请求支付订单
+	var xhr=new XMLHttpRequest();
+	xhr.onreadystatechange=function(){
+		switch(xhr.readyState){
+			case 4:
+			w.close();w=null;
+			if(xhr.status==200){
+				console.log("----- 请求订单成功 -----");
+				console.log( xhr.responseText );
+				plus.payment.request(channel, xhr.responseText,function(result){
+					chkPay = true;
+					console.log("----- 支付成功 -----");
+					//console.log('222');
+					plus.nativeUI.alert("支付成功",function(){
+						
+						//关闭当前webview
+//						thisPlus.webview.hide(self);
+//						thisPlus.webview.close(self);
+						
+						//跳转到列表页面(我的订单)
+						openwindow("../my/order-details.html", {orderid:orderid,sessionId:sessionId});
+					},"提示");
+				},function(e){
+					console.log("----- 支付失败 -----");
+					console.log("["+e.code+"]："+e.message);
+					plus.nativeUI.alert("支付失败", null, "信息提示");
+					//plus.nativeUI.alert("更多错误信息请参考支付(Payment)规范文档：http://www.html5plus.org/#specification#/specification/Payment.html",null,"支付失败："+e.code);
+				});
+			}else{
+				console.log("----- 请求订单失败 -----");
+				console.log( xhr.responseText );
+				console.log( xhr.status );
+				plus.nativeUI.alert("获取订单信息失败！",null,"提示");
+			}
+			break;
+			default:
+			break;
+		}
+	}
+	xhr.open('POST',url);
+	console.log("请求支付订单："+url);
+	xhr.send();
+}
+</script>

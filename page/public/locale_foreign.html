@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>选择国家</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			.mui-table-view{
+				background-color: #FFFFFF;
+				margin-top: 0 !important;
+				font-size: 14px;
+			}
+			.mui-table-view-cell:after{
+				left: 0 ;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<button class="mui-btn  mui-pull-right J_save" style="display: none;" id="save">保存</button>
+			<h1 class="mui-title">选择国家</h1>
+		</header>
+		<div class="mui-content">
+			<div style="padding:10px;">
+				<a style="padding:50px 50px;" class="J_country" data-val="domestic">国内</a>
+				<a style="padding:50px 50px;color:red;" class="J_country" data-val="foreign">国外</a>
+			</div>
+			<ul class="mui-table-view" id="J_list">
+				<!--<li class="mui-table-view-cell mui-indexed-list-item mui-checkbox" data-placeid="2">韩国</li>-->
+			</ul>
+		</div>
+		<script type="text/javascript" src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/common.js "></script>
+		<script type="text/javascript" src="../../js/UserInfo.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				// 上级页面: 中国
+				var d_pwid 	= plus.webview.currentWebview().pwid;
+				// 顶级页面
+				var return_pwid 	= plus.webview.currentWebview().return_pwid;
+				var return_pw 		= plus.webview.getWebviewById(return_pwid);
+				
+				mui('.mui-content').on('tap', '.J_country', function(){
+					var val = this.dataset.val;
+					console.log(val);
+					if(val == 'domestic') { // 国内
+						var themeid 	= this.dataset.themeid;
+						var twid = plus.webview.currentWebview().id;
+						
+						openwindow('../public/locale_domestic.html', {pwid:twid});
+					}
+				});
+				getArea(0,1);
+
+				// 选择地点
+				mui('#J_list').on('tap', '.J_province', function(){
+					var twid = plus.webview.currentWebview().id;
+					var areaid = this.dataset.areaid; // 国家id
+					var name = this.dataset.name; // 国家名称
+					var count = this.dataset.count; // 子节点数量(即国家下面的省级行政单位的数量)
+					console.log('count:' + count);
+					if(count > 0) {
+						document.getElementById('save').style.display = 'none';
+						openwindow('../public/locale_foreign_province.html', {pwid:twid,d_pwid:d_pwid, return_pwid:return_pwid, areaid:areaid, name:name});
+					}else {
+						// 显示保存按钮
+						document.getElementById('save').style.display = 'block';
+					}
+				});
+				mui('.mui-content').on('tap', '.J_save', function(){
+					console.log('save');
+				})
+			});
+			
+			
+			/**
+			 * 获取国家省市列表
+			 * @param {Object} integer
+			 * @param {Object} grade
+			 */
+			function getArea(isInternal, grade){
+				var server = SITE + 'common/getArea';
+				mui.get(server, {isInternal:isInternal,grade:grade}, function(response) {
+					if(response.code == 1){
+						var html = '';
+						for(var item in response.data) {
+							if(response.data[item].childCount > 0){
+								html += '<li class="mui-table-view-cell mui-indexed-list-item mui-radio J_province" data-areaid="'+response.data[item].id+'" data-name="'+response.data[item].name+'" data-count="'+response.data[item].childCount+'"><a class="mui-navigate-right">'+response.data[item].name+'</a></li>';
+							}else {
+								html += '<li class="mui-table-view-cell mui-indexed-list-item mui-radio J_province" data-areaid="'+response.data[item].id+'" data-name="'+response.data[item].name+'" data-count="'+response.data[item].childCount+'"><a>'+response.data[item].name+'</a></li>';
+							}
+						}
+						//console.log(html);
+						document.getElementById('J_list').innerHTML = html;
+					}
+				},'json');
+			}
+		</script>
+	</body>
+
+</html>

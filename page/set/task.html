@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>我的任务</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			body{
+				background-color: #e5e5e5;
+			}
+			.mui-content{
+				margin-bottom: 20px;
+			}
+			.app-title .mui-pull-right{
+				margin-right: 15px;
+			}
+			.app-title span:not(.mui-pull-right){
+				padding-left: 10px;
+			}
+			.app-not{
+				color: #ff425d !important;
+			}
+			.app-yes{
+				color: #64bed2 !important;
+			}
+			.app-dot{
+				width: 15px;
+				height: 15px;
+				margin-left: 7.5px;
+				margin-right: 7.5px;
+				display: inline-block;
+				background-color: #feb05d;
+				border-radius: 100%;
+				vertical-align: top;
+			}
+			.mui-table-view{
+				font-size: 15px;
+				background-color: #FFFFFF;
+			}
+			.mui-table-view-cell:after{
+				left: 0;
+			}
+			.mui-icon-checkmarkempty{
+				font-size: 30px;
+				color: #4dd963;
+			}
+			.app-title{
+				background-color: #FFFFFF;
+				margin-top: 10px;
+				font-size: #333333;
+			}
+			.app-title:first-child{
+				margin-top: 0;
+			}
+			.app-title span{
+				background-color: inherit;
+				color: inherit;
+				padding: inherit;
+				border-radius: inherit;
+				font-size: inherit;
+				color: #333333;
+				font-size: 17px;
+			}
+			.app-color{
+				color: #8bb1d4;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">我的任务</h1>
+		</header>
+		<div class="mui-content" id="J_content">
+			<!--任务内容-->
+			<!--<div class="app-title">
+			    新手任务
+			    <span>100元红包</span>
+			    <span class="mui-pull-right app-not">未完成</span>
+			</div>
+			<div class="app-content">
+			    <ul class="mui-table-view">
+			        <li class="mui-table-view-cell">
+			            <span class="mui-icon mui-icon-checkmarkempty"></span>
+			            注册20元红包
+			        </li>
+			        <li class="mui-table-view-cell">
+			            <span class="mui-icon mui-icon-checkmarkempty"></span>
+			            注册20元红包
+			        </li>
+			        <li class="mui-table-view-cell">
+			            <span class="mui-icon mui-icon-checkmarkempty"></span>
+			            注册20元红包
+			        </li>
+			        <li class="mui-table-view-cell">
+			            <span class="app-dot"></span>
+			            注册20元红包
+			        </li>
+			    </ul>
+			</div>
+			<div class="app-title">
+			    新手任务
+			    <span>1元红包</span>
+			    <span class="mui-pull-right app-yes">完成</span>
+			</div>
+			<div class="app-content">
+			    <ul class="mui-table-view app-color">
+			        <li class="mui-table-view-cell">
+			            <span class="mui-icon mui-icon-checkmarkempty"></span>
+			            注册20元红包
+			        </li>
+			        <li class="mui-table-view-cell">
+			            <span class="mui-icon mui-icon-checkmarkempty"></span>
+			            注册20元红包
+			        </li>
+			        <li class="mui-table-view-cell">
+			            <span class="mui-icon mui-icon-checkmarkempty"></span>
+			            注册20元红包
+			        </li>
+			        <li class="mui-table-view-cell">
+			            <span class="app-dot"></span>
+			            注册20元红包
+			        </li>
+			    </ul>
+			</div>
+			<div class="app-title">
+			    新手任务
+			    <span>6元红包</span>
+			    <span class="mui-pull-right app-yes">完成</span>
+			</div>
+			<div class="app-content">
+			    <ul class="mui-table-view app-color">
+			        <li class="mui-table-view-cell">
+			            <span class="mui-icon mui-icon-checkmarkempty"></span>
+			            每日三个话题3元红包
+			        </li>
+			    </ul>
+			</div>-->
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js" ></script>
+<script type="text/javascript" src="../../js/common.js "></script>
+<script type="text/javascript" src="../../js/UserInfo.js"></script>
+<script type="text/javascript" src="../../js/update.js"></script>
+<script>
+	mui.init();
+	mui.plusReady(function(){
+		var sessionId = app.sessionId();
+		// 获取任务内容
+		var server = SITE + 'my/task';
+		var param 	= {sessionId:sessionId};
+		mui.post(server, param, function(response) {
+			if(response != ''){
+				document.getElementById('J_content').innerHTML=response;
+			}
+		},'html');
+	});
+</script>

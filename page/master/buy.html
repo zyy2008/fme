@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>服务购买页面</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+		body{
+			background-color: #FFFFFF;
+		}
+			.mui-content {
+    padding-top: 54px !important;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    background-color: #FFFFFF;
+}
+p {
+    color:#444444;
+    margin-bottom:0;
+    padding:0 20px;
+}
+p.mui-text-center {
+    line-height:30px;
+    background-color:#FFF
+}
+.app-title{
+	color: #2d5a7d;
+	font-size: 16px;
+}
+.app-policy {
+    padding:10px 0;
+}
+.mui-tabl.app-titlee-view-cell:after {
+    left:0
+}
+.mui-table-view {
+    font-size:14px
+}
+.mui-table-view:before,
+.mui-table-view:after{
+	content: none;
+}
+.mui-navigate-right:after {
+    font-size:30px;
+    right:5px;
+}
+.app-date {
+    color:#000
+}
+.app-date span:first-child {
+    padding-right:5px
+}
+.app-date span:last-child {
+    padding-left:5px
+}
+.mui-table-view-cell>a:not(.mui-btn) {
+    margin-right:-30px;
+}
+.mui-pull-right {
+    color:#000
+}
+.mui-table-view-cell {
+    padding-right:30px
+}
+
+.mui-numbox {
+   width: 90px;
+   border: 0;
+   padding: 0 30px;
+}
+.mui-numbox [class*=mui-numbox-btn][disabled]{
+	background-color: #9cd2e0;
+}
+.mui-numbox [class*=mui-numbox-btn] {
+    background-color:#65bfd2;
+    color:#FFF;
+    width:30px;
+}
+.mui-numbox .mui-numbox-input {
+    font-size:14px;
+    border: 0 !important;
+     padding: 0 !important;
+}
+.mui-input-row textarea {
+    border:0;
+    font-size:14px;
+    font-family:"微软雅黑", "microsoft yahei";
+    margin-bottom:0
+}
+.mui-btn-block {
+    background-color:#4cc4d4;
+    color:#FFF;
+    margin-bottom:0;
+    padding:10px 0;
+    font-size:16px;
+    border: 0;
+}
+.app-footer {
+    padding:10px 0
+}
+.app-footer p {
+    padding-bottom:10px
+}
+.app-footer h5 {
+    font-size:16px;
+    color:#000;
+    position:relative;
+    line-height:40px;
+    text-align:center;
+    margin:0
+}
+.app-footer h5:before {
+    content:"";
+    position:absolute;
+    margin:auto;
+    width:40%;
+    height:1px;
+    background-color:#ccc;
+    left:0;
+    top:0;
+    bottom:0
+}
+.app-footer h5:after {
+    content:"";
+    position:absolute;
+    margin:auto;
+    width:40%;
+    height:1px;
+    background-color:#ccc;
+    right:0;
+    top:0;
+    bottom:0
+}
+.J_serviceday{
+	background-color: #eeeeee;
+	padding: 8px !important;
+	border-radius: 5px;
+	margin: 0px -15px !important;
+	margin-right: -30px !important;
+}
+.mui-table-view-cell:after{
+	left: 0;
+}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">填写购买信息</h1>
+		</header>
+		<div class="mui-content">
+			<div class="app-warper">
+				<div class="app-title">服务政策</div>
+				<div class="app-content app-policy">
+					<p>可提前<span id="J_edittime">0</span>天更改服务时间，更改幅度不超过<span id="J_edittimedays">0</span>天。</p>
+					<p>可提前<span id="J_editcustomer">0</span>天更改游客数量，更改幅度不超过<span id="J_editcustomernum">0</span>人。</p>
+				</div>
+				<div class="app-title">服务时间</div> 
+				<div class="app-content">
+					<ul class="mui-table-view">
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right mui-text-center J_serviceday">
+								<div class="app-date">
+									<span>请选择服务时间</span>
+								</div>
+								<!--<div class="app-date">
+									<span>2015年9月29日</span>
+									<span>2015年9月29日</span>
+								</div>-->
+							</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a class="">
+								服务价格
+								<span class="mui-pull-right">￥<span id="service_price">0.00</span>/天</span>
+							</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a class="" style="line-height: 35px;">
+								报名人数
+								<div class="mui-pull-right" id="J_servicenum" >
+									
+								</div>
+							</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a class="">
+								服务总价
+								<span class="mui-pull-right">￥<span id="service_total_price">0.00</span>*<span id="days">1</span></span>
+
+							</a>
+						</li>
+						<li class="mui-table-view-cell" id="J_giftmoney">
+							<a class="mui-navigate-right">
+								使用红包
+								<span class="mui-pull-right" id="J_giftmoneyBox">使用</span>
+							</a>
+						</li>
+						<li class="mui-table-view-cell">
+							<a class="">
+								实付价格
+								<span class="mui-pull-right">￥<span id="actually_price">0.00</span></span>
+
+							</a>
+						</li>
+					</ul>
+					<div class="mui-input-row">
+						<textarea  class="mui-input-clear" id="J_memo" placeholder="订单备注"></textarea>
+					</div>
+					<button class="mui-btn mui-btn-block J_buy">立刻购买</button>
+					<p class="mui-text-center">购买特色线路表示同意<a href="#" id="J_protocol">《免责条款》</a></p>
+				</div>
+				<!--<div class="app-footer">
+					<h5>提示</h5>
+					<p>1、全天陪同是面对面的全天陪伴服务</p>
+					<p>2、顾问陪同是不见面的帮您预订或咨询吃住行玩细节的服务</p>
+					<p>3、下班陪同是下班见面一起玩的服务</p>
+				</div>-->
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js"></script>
+<script type="text/javascript" src="../../js/common.js"></script>
+<script type="text/javascript" src="../../js/UserInfo.js" ></script>
+<script type="text/javascript" charset="utf-8">
+var sessionId, self, thisid, serviceid;
+
+// 定义变量
+var service_price = 0.00; // 服务价格
+var servicenums = 1; // 报名人数
+var service_total_price = 0.00; // 服务总价
+var service_days = new Array(); // 服务天数
+var days = service_days.length > 0 ? service_days.length : 1; // 服务时间天数, 最小为1
+var actually_price = 0.00; // 实付价格
+var giftmoney = 0.00; // 红包
+
+
+// 定义选择器
+var J_service_price = document.getElementById('service_price'); // 服务价格
+var J_servicenum = document.getElementById('J_servicenum'); // 报名人数
+var J_service_total_price = document.getElementById('service_total_price'); // 服务总价, 服务价格
+var J_days = document.getElementById('days'); // 服务总价, 单位(服务时间天数)
+var J_actually_price = document.getElementById('actually_price'); // 实付价格
+
+mui.init();
+mui.plusReady(function(){
+	self 	= plus.webview.currentWebview();
+	thisid 	= self.id;
+	serviceid 	= self.serviceid;
+	servicenum	= self.servicenum;
+	sessionId 	= app.sessionId();
+	if(empty(sessionId) == true){
+		alert('请先登录');
+		mui.close();
+	};
+	if(empty(serviceid) == true){
+		alert('选择服务参数');
+		mui.close();
+	};
+	// 获取服务信息
+	plus.nativeUI.showWaiting();
+	var ajaxUrl	= SITE + "service/order";
+	var postdata= {serviceid:serviceid,sessionId:sessionId};
+	mui.getJSON(ajaxUrl, postdata, function(response){
+		if(response.code == 1){
+			service_price = response.data.price; // 服务价格
+			J_service_price.innerText = service_price; // 服务价格 写入页面
+			initNumbox(servicenum); // 初始化报名人数以及其控件
+			change_service_total_price(service_price, days); // 更改服务总价以及服务总价的单价
+			change_actually_price(service_total_price, days, 0);
+//			J_edittime J_edittimedays  J_editcustomer J_editcustomernum 
+			document.getElementById('J_edittime').innerText = response.data.edittime;
+			document.getElementById('J_edittimedays').innerText = response.data.edittimedays;
+			document.getElementById('J_editcustomer').innerText = response.data.editcustomer;
+			document.getElementById('J_editcustomernum').innerText = response.data.editcustomernum;
+		}
+		plus.nativeUI.closeWaiting();
+	});
+	//选择服务时间
+	mui(".mui-content").on("tap", ".J_serviceday", function(){
+		var data 	= {serviceid:serviceid, from:thisid};
+		openwindow("../public/calendar-select.html", data);
+	});
+	//使用红包
+	mui(".mui-content").on("tap", "#J_giftmoney", function(){
+		if(service_days.length > 0){
+			var value = service_total_price * service_days.length; // 服务总价 = 服务价格 * 单位(天)
+			var maxmoney = value.toFixed(2);
+			var data 	= {serviceid:serviceid, maxmoney:maxmoney, from:thisid};
+			openwindow("../master/bonus.html", data);
+		}else{
+			alert('请先选择服务时间');
+		};
+	});
+	//免责条款
+	mui(".mui-content").on("tap", "#J_protocol", function(){
+		openwindow('../public/protocolDisclaimer.html');
+	});
+	
+	//立刻购买
+	mui(".mui-content").on("tap", ".J_buy", function(){
+		if(service_days.length <= 0){
+			alert("请选择服务时间");
+			return true;
+		}
+		var totalmoney = service_total_price * service_days.length; // 订单价格
+		var memo = document.getElementById('J_memo').value; // 订单备注
+//		console.log('订单价格:' + totalmoney + ', 报名人数:' + servicenums + ', 红包:' + giftmoney + ', 服务时间:' + service_days.toString());
+		//return false;
+		var server = SITE + 'order/makeOrder';
+		mui.ajax(server,{
+			data:{
+				serviceID:serviceid,
+				giftmoney:giftmoney,
+				totalmoney:totalmoney,
+				customernum:servicenums,
+				servicetime:service_days,
+				memo:memo,
+				sessionId:sessionId
+			},
+			dataType:'json',//服务器返回json格式数据
+			type:'post',//HTTP请求类型
+			timeout:10000,//超时时间设置为10秒；
+			success:function(response){
+				if(response.code == 1) {
+//					alert(response.msg + '订单ID:' + response.data.orderid);
+					var orderid= response.data.orderid;
+					//console.log(response.data.ordernum);
+					openwindow("../master/buy-confirm.html", {orderid:orderid});
+				}else {
+					alert(response.msg);
+				}
+			},
+			error:function(xhr,type,errorThrown){
+				//异常处理；
+				console.log(xhr.response + type + errorThrown);
+			}
+		});
+		//var last = JSON.stringify(param);
+		//console.log(last);
+		//openwindow("../master/buy-confirm.html", param);
+	});
+
+	//回调函数
+	document.addEventListener('backFunc',function(e){
+		if(e.detail.flag == 'calendar'){
+			service_days = e.detail.arr_day;
+			if(service_days.length > 0) {
+				//num_date = strdays.length;
+				//select_time = true;
+				document.getElementsByClassName('J_serviceday')[0].innerHTML = service_days;
+				change_service_total_price(service_price, service_days.length); // 更改服务总价以及服务总价的单价
+				change_actually_price(service_total_price, service_days.length, 0);
+			}
+		}
+		if(e.detail.flag == 'giftmoney'){
+			giftmoney = e.detail.giftmoney;
+			if(empty(giftmoney) == false) {
+				document.getElementById('J_giftmoneyBox').innerHTML = '￥'+giftmoney;
+				change_service_total_price(service_price, service_days.length); // 更改服务总价以及服务总价的单价
+				change_actually_price(service_total_price, service_days.length, giftmoney);
+			}
+		}
+	});
+	//编辑报名人数
+	mui('#J_servicenum').on('change','input',function(){
+		servicenums = this.value;
+	});
+});
+function initNumbox(servicenum){
+	var strVar = "";
+    strVar += "<div class=\"mui-numbox\" data-numbox-min='1' data-numbox-max= '"+servicenum+"' >";
+    strVar += "<button class=\"mui-btn mui-numbox-btn-minus\" type=\"button\">-<\/button>";
+    strVar += "<input class=\"mui-numbox-input\" type=\"number\" value='1' id=\"box\" disabled=\"disabled\" />";
+    strVar += "<button class=\"mui-btn mui-numbox-btn-plus\" type=\"button\">+<\/button>";
+    strVar += "<\/div>";
+	J_servicenum.innerHTML = strVar;
+	mui('.mui-numbox').numbox();
+}
+/**
+ * 更改服务总价
+ * @param {Object} service_price 服务价格
+ * @param {Object} days 服务时间
+ */
+function change_service_total_price(service_price, days){
+	service_total_price = service_price; // 服务总价(初始化): 服务价格
+	J_service_total_price.innerText  = service_total_price; // 服务总价写入页面
+	J_days.innerText = days; // 服务总价单位(初始化) : 服务天数 
+}
+/**
+ * 更改实付价格
+ * @param {Object} service_total_price
+ * @param {Object} days
+ * @param {Object} giftmoney
+ */
+function change_actually_price(service_total_price, days, giftmoney){
+	if(giftmoney > 0) { // 使用红包
+		actually_price =  (service_total_price * days) - giftmoney; // 实付价格(初始化): 服务总价以及服务天数的乘积
+		J_actually_price.innerText = actually_price.toFixed(2); // 实付价格 写入页面
+	}else { // 不使用红包
+		actually_price =  service_total_price * days; // 实付价格(初始化): 服务总价以及服务天数的乘积
+		J_actually_price.innerText = actually_price.toFixed(2); // 实付价格 写入页面
+	}
+}
+</script>

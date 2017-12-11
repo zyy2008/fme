@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>选择国内省</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			.mui-table-view{
+				background-color: #FFFFFF;
+				margin-top: 0 !important;
+				font-size: 14px;
+			}
+			.mui-table-view-cell:after{
+				left: 0 ;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">选择国内省</h1>
+		</header>
+		<div class="mui-content">
+			<div style="padding:10px;">
+				<a style="padding:50px 50px; color:red;" class="J_country" data-val="domestic">国内</a>
+				<a style="padding:50px 50px;" class="J_country" data-val="foreign">国外</a>
+			</div>
+			
+			<ul class="mui-table-view" id="J_list">
+				<!--<li class="mui-table-view-cell mui-indexed-list-item mui-radio" data-placeid="5">北美</li>-->
+			</ul>
+		</div>
+		<script type="text/javascript" src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/common.js "></script>
+		<script type="text/javascript" src="../../js/UserInfo.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				var return_pwid 	= plus.webview.currentWebview().pwid;
+				var return_pw 		= plus.webview.getWebviewById(return_pwid);
+				
+				mui('.mui-content').on('tap', '.J_country', function(){
+					var val = this.dataset.val;
+					console.log(val);
+					if(val == 'foreign') { // 国内
+						var themeid 	= this.dataset.themeid;
+						var twid = plus.webview.currentWebview().id;
+						
+						openwindow('../public/locale_foreign.html', {pwid:twid, return_pwid:return_pwid});
+					}
+				});
+				// 获取国家省市列表
+				getArea(1,2);
+				
+				mui('#J_list').on('tap', '.J_province', function(){
+					var twid = plus.webview.currentWebview().id;
+					var areaid = this.dataset.areaid;
+					var name = '中国,' + this.dataset.name;
+					
+					openwindow('../public/locale_city.html', {pwid:twid,return_pwid:return_pwid, areaid:areaid, name:name});
+					
+				});
+			});
+			/**
+			 * 获取国家省市列表
+			 * @param {Object} integer
+			 * @param {Object} grade
+			 */
+			function getArea(isInternal, grade){
+				var server = SITE + 'common/getArea';
+				mui.get(server, {isInternal:isInternal,grade:grade}, function(response) {
+					if(response.code == 1){
+						var html = '';
+						for(var item in response.data) {
+							html += '<li class="mui-table-view-cell mui-indexed-list-item mui-radio J_province" data-areaid="'+response.data[item].id+'" data-name="'+response.data[item].name+'"><a  class="mui-navigate-right">'+response.data[item].name+'</a></li>';
+						}
+						document.getElementById('J_list').innerHTML = html;
+					}
+				},'json');
+			}
+		</script>
+	</body>
+
+</html>

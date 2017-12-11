@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>意见反馈</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../../css/mui.min.css">
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			.app-input{
+				padding:20px;
+			}
+			.app-input textarea{
+				height: 140px;
+				margin-bottom: 0;
+				font-size: 14px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<button class="mui-btn  mui-pull-right" id="save">提交</button>
+			<h1 class="mui-title">意见反馈</h1>
+		</header>
+		<div class="mui-content">
+			<div class="app-input">
+				<textarea id="content"></textarea>
+				<p>我们会非常感谢并认真对待您的宝贵建议</p>
+			</div>
+		</div>
+	</body>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/mui.view.js "></script>
+	<script src="../../js/common.js "></script>
+	<script src="../../js/UserInfo.js"></script>
+	<script>
+		mui.init();
+		mui.plusReady(function(){
+			var sessionId = app.sessionId();
+			// 保存
+			document.getElementById('save').addEventListener('tap', function(event){
+				var content = document.getElementById('content').value;
+				var server = SITE + 'mySetting/feedback';
+				if(empty(content)) {
+					alert('意见不能为空.');
+					return false;
+				}
+				
+				mui.ajax(server,{
+					data:{
+						content:content,
+						sessionId:sessionId
+					},
+					dataType:'json',//服务器返回json格式数据
+					type:'post',//HTTP请求类型
+					timeout:10000,//超时时间设置为10秒；
+					success:function(response){
+						if(response.code == 1) {
+							alert(response.msg);
+							mui.back();
+						}
+					},
+					error:function(xhr,type,errorThrown){
+						//异常处理；
+						console.log(type + ' - ' + errorThrown);
+					}
+				});
+			});
+		});
+	</script>
+
+</html>

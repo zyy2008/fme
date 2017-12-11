@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>已登录-普通用户</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<link rel="stylesheet" href="../../css/master-list.css" />
+		<style>
+			.mui-scroll{
+				padding: 10px;
+			}
+			.mui-table-view-cell:after{
+				left: 0;
+			}
+			.mui-badge-primary{
+				background-color: initial;
+				border:1px solid #64bed2;
+				color: #64bed2;
+			}
+			.app-img{
+				width: 100%;
+				vertical-align: top;
+				display: inline-block;
+				padding: 5px 10px;
+			}
+			.app-img img{
+				width: 25%;
+				overflow: hidden;
+				float: left;
+				border: 1px solid #FFFFFF;
+			}
+			.app-badge span{
+				color: #64bed2;
+				font-size: 15px;
+			}
+			.app-change{
+				padding: 10px;
+			}
+			.app-change span{
+				color: #777777;
+			}
+			.app-change>button{
+				background-color: #64bed2;
+				color: #FFFFFF;
+				border: 0;
+				width: 80%;
+				left: 10%;
+			}
+			.app-change>button[disabled=disabled]{
+				background-color: #cccccc;
+			}
+			.app-amount{
+				padding: 10px 15px;
+			}
+			var{
+				font-style: inherit;
+				padding-left: 5px;
+			}
+			em{
+				font-style: inherit;
+			}
+			i{
+				font-style: inherit;
+				color: #000000;
+			}
+			.app-amount+.mui-table-view span{
+				font-size: 15px;
+				display: inline-block;
+				color: #64bed2;
+			}
+			.app-amount+.mui-table-view var{
+				color: #000000;
+				padding-left: 20px;
+			}
+			.app-amount+.mui-table-view img{
+				width: 15px;
+				vertical-align: bottom;
+			}
+			.app-amount+.mui-table-view span:first-child{
+				padding-right: 20px;
+			}
+			
+			.app-change .mui-table-view:before,
+			.app-change .mui-table-view:after,
+			.app-change .mui-table-view-cell:after{
+				content: none;
+			}
+			.app-change .mui-table-view-cell{
+				padding: 5px 0;
+				font-size: 14px;
+			}
+			.app-change .mui-table-view+button{
+				background-color: #cccccc;
+				margin-top: 10px;
+			}
+			.app-change .mui-table-view-cell.mui-active{
+				background-color: inherit;
+			}
+			.app-change .mui-table-view-cell button{
+				background-color: inherit;
+				border: 1px solid #64bed2;
+				color: #64bed2;
+				border-radius: 5px;
+				-webkit-border-radius: 5px;
+				padding: 3px 10px;
+				width: 76px;
+			}
+			.mui-table-view-cell>.mui-btn{
+				right: 0;
+			}
+			.app-icon-rili{
+				color: #64bed2;
+				padding-right:20px ;
+			}
+			.app-btn-info .mui-btn{
+				background-color: initial;
+			}
+			.app-stop{
+				color: #000000;
+			}
+			.mui-table {
+				background-color: #ede7d7;
+				border-radius: 10px;
+				padding: 0px 20px;
+				color: #000000;
+				font-size: 14px;
+				line-height: 30px;
+			}
+			.mui-table .mui-table-view-cell{
+				padding: 0;
+				text-align: center;
+			}
+			.mui-table .mui-table-view-cell:after{
+				content: none;
+			}
+			.app-order span{
+				background-color: #64bed2;
+				color: #FFFFFF;
+				padding: 2px 5px;
+				border-radius: 10px;
+				font-size: 14px;
+			}
+			.app-mood{
+				padding: 0px 10px;
+				font-size: 15px;
+				margin-top: 10px;
+			}
+			.app-mood span:not(.app-box-flex){
+				color: #777777;
+			}
+			.app-mood .app-box-flex{
+				display: block;
+				overflow : hidden;
+				text-overflow: ellipsis;
+				display: -webkit-box;
+				-webkit-line-clamp: 2;
+				-webkit-box-orient: vertical;
+			}
+			.mui-table-view-cell{
+				margin-bottom: 0;
+			}
+			.app-list-icon {
+				text-align: center;
+				background-color: #FFFFFF;
+				display: inline-block;
+				vertical-align: top;
+				padding: 0;
+			}
+			.app-list-icon>div {
+				width: 30px;
+				height: 30px;
+				border-radius: 100%;
+				display: inline-block;
+				vertical-align: top;
+			}
+			.app-table-icon .mui-pull-left{
+				line-height: 30px;
+			}
+			.app-hongbao{
+				padding: 0;
+			}
+			.app-hongbao .mui-table-view-cell{
+				padding: 5px 0;
+			}
+			.app-hongbao span{
+				padding: 0px 10px;
+			}
+			.mui-navigate-right:after{
+				font-size: 25px;
+				color: #bbbbbb;
+			}
+			.mui-table-view.mui-grid-view .mui-table-view-cell>a:not(.mui-btn){
+				margin: 0;
+			}
+			.mui-table-view.mui-grid-view{
+				padding: 0 ;
+			}
+			.mui-table-view.mui-grid-view .mui-table-view-cell{
+				padding: 0;
+				margin: 0;
+			}
+			.mui-slider-indicator{
+				margin: auto;
+				bottom: 0;
+				top: 0;
+				height: 30px;
+			}
+			.mui-slider-indicator .mui-icon {
+				border: 0;
+				color: #FFFFFF;
+			}
+		</style>
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-icon mui-icon-email mui-pull-left" id="J_notice"></a>
+			<a class="mui-icon mui-icon-gear mui-pull-right" id="setting"></a>
+			<h1 class="mui-title">我的</h1>
+		</header>
+		<div class="mui-content mui-scroll-wrapper" id="pullrefresh">
+			<div class="mui-scroll">
+				<div id="J_content">
+				
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../../js/mui.min.js" ></script>
+<script type="text/javascript" src="../../js/common.js" ></script>
+<script type="text/javascript" src="../../js/UserInfo.js" ></script>
+<script>
+mui.init({
+	pullRefresh: {
+		container: '#pullrefresh',
+		up: {
+			contentrefresh: '正在加载...',
+			contentdown:'',
+			callback: pullupRefresh
+		}
+	}
+});        
+var sessionId,
+	self,
+	thisid,
+	picCount;
+
+mui.plusReady(function(){
+	self 	= plus.webview.currentWebview();
+	thisid 	= self.id;
+	sessionId = app.sessionId();
+	//console.log(sessionId);
+	//通知
+	document.getElementById('J_notice').addEventListener('tap', function(event) {
+		//判断是否登录
+		if(empty(sessionId) == true){
+			alert('请先登录');
+			return true;
+		}
+		openwindow("notice.html",{});
+	});
+	// 上传图片
+	mui('#J_content').on('tap', '.J_uploadPic', function() {
+		picCount = document.getElementById('picCount').value;
+		if(picCount >=8 ) {
+			alert('相册最多上传8张图片.');
+			return false;
+		}
+		fileUpload(sessionId);
+	});
+	
+	// 设置
+	document.getElementById('setting').addEventListener('tap', function(event) {
+		mui.openWindow({
+			url: '../set/setting.html',
+			id:'../set/setting.html',
+			extras:{pwid:thisid},
+			show:{
+				duration:500
+			},
+			waiting:{
+				autoShow:false
+			}
+		});
+	});
+	
+	//退出登录自定义事件
+	window.addEventListener('outLogin', function(event) {
+		var self = plus.webview.currentWebview();
+		var surl = "not-login.html";
+		var nsurl = "page/my/"+surl;
+		var sub = plus.webview.create(surl, nsurl, {top:'0px', bottom: '53px' });
+		var top = plus.webview.getLaunchWebview();	//顶级webview
+		top.append(sub);
+		mui.fire(top, 'switchLogin', {loginUrl:nsurl});
+		self.close();
+	}); 
+});
+ 
+ 
+// 我的订单 J_myOrder
+mui('#J_content').on('tap', '.J_myOrder', function(){
+	openwindow('../my/order.html', {pwid:thisid});
+});
+// 申请达人
+mui('#J_content').on('tap', '.J_apply_master', function(){
+	openwindow('../set/apply-master.html', {pwid:thisid});
+});
+// 申请认证 
+mui('#J_content').on('tap', '.J_apply_certified', function(){
+	openwindow('../set/apply-certified.html', {pwid:thisid});
+});
+// 添加服务
+mui('#J_content').on('tap', '.J_addService', function(){
+	openwindow('../my/service-change.html', {pwid:thisid});
+}); 
+// 我的日程
+mui("#J_content").on('tap', '.J_myCalendar', function(){
+	openwindow('../public/calendar-set.html', {pwid:thisid});
+});
+// 提现 J_withdrawals 
+mui('#J_content').on('tap', '.J_withdrawals', function(){
+	openwindow('../set/cash-record.html', {pwid:thisid});
+}); 
+// 粉丝 J_fans
+mui('#J_content').on('tap', '.J_fans', function(){
+	openwindow('../my/fans.html', {pwid:thisid});
+});
+// 关注 J_focus
+mui('#J_content').on('tap', '.J_focus', function(){
+	openwindow('../my/focus.html', {pwid:thisid});
+});
+// 收藏 J_favor
+mui('#J_content').on('tap', '.J_favor', function(){
+	openwindow('../my/collection-main.html', {pwid:thisid});
+});
+// 私信 J_private
+mui('#J_content').on('tap', '.J_private', function(){
+	openwindow('../my/chat-list.html', {pwid:thisid});
+});
+// 红包记录 J_redpacket 
+mui('#J_content').on('tap', '.J_redpacket', function(){
+	openwindow('../my/redpacket.html', {pwid:thisid});
+});
+
+// 上传图片
+//mui('#J_content').on('tap', '.J_uploadPic', function(){
+//	fileUpload(sessionId);
+//});
+
+//监听回调
+window.addEventListener('backFunc', function(event) {
+	var status 	= event.detail.status;
+	var flag 	= event.detail.flag;
+//	console.log(status);
+	switch(flag) {
+		case 'auth':
+			document.getElementById('applyToVip').innerText = status;
+			break;
+		case 'apply':
+			document.getElementById('applyToVip').style.display = 'none';
+			document.getElementById('verifying').style.display = 'block';
+			break;
+	}
+}); 
+
+//返回刷新
+window.addEventListener('ref', function(event) {
+	document.getElementById('J_content').innerHTML = "";
+	mui('#pullrefresh').pullRefresh().enablePullupToRefresh();
+	mui('#pullrefresh').pullRefresh().pullupLoading();
+	mui('#pullrefresh').pullRefresh().scrollTo(0,0,0);
+}); 
+
+function pullupRefresh() {
+	var server = SITE + 'my/info';
+	mui.get(server, {sessionId:sessionId}, function(response) {
+//		console.log(response); 
+		if(response != ''){
+			document.getElementById('J_content').insertAdjacentHTML('beforeEnd', response);
+			mui('#slider').slider();
+			//console.log(response);
+			mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+			mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+		}
+	}, 'html');
+	// 获取用户相册照片
+	//getAlbums();
+//	var server = SITE + 'my/albumInfo';
+//	mui.get(server, {sessionId:sessionId}, function(response) {
+//		if(response != ''){
+//			console.log(response);
+//			//document.getElementById('J_album_left').insertAdjacentHTML('beforeEnd', response);
+//			document.getElementById('J_album_left').innerHTML = response;
+//			mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+//			mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+//		}
+//	}, 'html');
+};
+
+if (mui.os.plus) {
+	mui.plusReady(function() {
+		setTimeout(function() {
+			mui('#pullrefresh').pullRefresh().pullupLoading();
+		}, 0);
+	});
+} else {
+	mui.ready(function() {
+		mui('#pullrefresh').pullRefresh().pullupLoading();
+	});
+};
+/**
+ * 获取用户相册照片
+ */
+function getAlbums() {
+	var server = SITE + 'my/albumInfo';
+	mui.get(server, {sessionId:sessionId}, function(response) {
+		if(response != ''){
+			console.log(response);
+			// document.getElementById('J_album_left').insertAdjacentHTML('beforeEnd', response);
+			// document.getElementById('indicator').insertAdjacentHTML('beforeBegin', response);
+			document.getElementById('J_album').innerHTML = response;
+			mui('#slider').slider();
+			mui('#pullrefresh').pullRefresh().endPullupToRefresh(true);
+			mui('#pullrefresh').pullRefresh().disablePullupToRefresh();
+		}
+	}, 'html');
+}
+
+
+var server= SITE + 'mySetting/upload';
+function fileUpload(sessionId){
+	var bts=[{title:"拍照"},{title:"从相册中选择"}];
+	plus.nativeUI.actionSheet({cancel:"取消",buttons:bts},
+		 function(e){
+				if(e.index==1){
+					// 拍照添加文件
+					plus.camera.getCamera().captureImage(function(p){
+						upload(p, sessionId);
+					});	
+				}else if(e.index==2){
+					// 从相册添加文件
+					plus.gallery.pick(function(p){
+						upload(p, sessionId);
+    				});
+				}
+		 }
+	)
+}
+// 上传文件	
+function upload(path, sessionId){
+	var wt=plus.nativeUI.showWaiting();
+	
+	var task=plus.uploader.createUpload(server + '?sessionId=' + sessionId,
+		{method:"POST",blocksize:204800,priority:100},
+		function(t,status){ //上传完成
+			if(status==200){
+				getAlbums();
+				//var picdir = JSON.parse(t.responseText);
+				//picpath = picdir.paththumbname;
+				//document.getElementById('pics').innerHTML = "<img src='" + UPLOADDIR + '/' + picpath + "'>" + document.getElementById('pics').innerHTML;
+				//document.getElementById('pics').innerHTML = picHtml;
+				// plus.nativeUI.alert("上传成功："+t.state);
+				//param['themePicdir'] = picdir.paththumbname;
+				wt.close();
+			}else{
+				plus.nativeUI.alert("上传失败："+status);
+				wt.close();
+			};
+		}
+	);
+	var n=path.substr(path.lastIndexOf('/')+1);
+	task.addFile(path,{name:n});
+	task.start();
+}
+</script>

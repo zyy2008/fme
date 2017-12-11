@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>选择地方</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link href="../../css/mui.indexedlist.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			html,
+			body {
+				height: 100%;
+				overflow: hidden;
+				font-size: 16px;
+			}
+			.mui-bar {
+				-webkit-box-shadow: none;
+				box-shadow: none;
+			}
+			.mui-indexed-list-item span{
+				width: 60px;
+				display: inline-block;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">选择国家和地区代码</h1>
+		</header>
+		<div class="mui-content">
+			<div id='list' class="mui-indexed-list">
+				<div class="mui-indexed-list-search mui-input-row mui-search" style="display: none;">
+					<input type="search" class="mui-input-clear mui-indexed-list-search-input" placeholder="搜索国家">
+				</div>
+				<div class="mui-indexed-list-bar">
+					<a>A</a>
+					<a>B</a>
+					<a>C</a>
+					<a>D</a>
+					<a>E</a>
+					<a>F</a>
+					<a>G</a>
+					<a>H</a>
+					<a>I</a>
+					<a>J</a>
+					<a>K</a>
+					<a>L</a>
+					<a>M</a>
+					<a>N</a>
+					<a>O</a>
+					<a>P</a>
+					<a>Q</a>
+					<a>R</a>
+					<a>S</a>
+					<a>T</a>
+					<a>U</a>
+					<a>V</a>
+					<a>W</a>
+					<a>X</a>
+					<a>Y</a>
+					<a>Z</a>
+				</div>
+				<div class="mui-indexed-list-alert"></div>
+				<div class="mui-indexed-list-inner">
+					<div class="mui-indexed-list-empty-alert">没有数据</div>
+					<ul class="mui-table-view">
+						<li data-group="A" class="mui-table-view-divider mui-indexed-list-group">A</li>
+						
+						<li data-group="B" class="mui-table-view-divider mui-indexed-list-group">B</li>
+						
+						<li data-group="C" class="mui-table-view-divider mui-indexed-list-group">C</li>
+						
+						<li data-group="D" class="mui-table-view-divider mui-indexed-list-group">D</li>
+						
+						<li data-group="E" class="mui-table-view-divider mui-indexed-list-group">E</li>
+						
+						<li data-group="F" class="mui-table-view-divider mui-indexed-list-group">F</li>
+						
+						<li data-group="G" class="mui-table-view-divider mui-indexed-list-group">G</li>
+						
+						<li data-group="H" class="mui-table-view-divider mui-indexed-list-group">H</li>
+						
+						<li data-group="I" class="mui-table-view-divider mui-indexed-list-group">I</li>
+						
+						<li data-group="J" class="mui-table-view-divider mui-indexed-list-group">J</li>
+						
+						<li data-group="K" class="mui-table-view-divider mui-indexed-list-group">K</li>
+						
+						<li data-group="L" class="mui-table-view-divider mui-indexed-list-group">L</li>
+						
+						<li data-group="M" class="mui-table-view-divider mui-indexed-list-group">M</li>
+						
+						<li data-group="N" class="mui-table-view-divider mui-indexed-list-group">N</li>
+						
+						<li data-group="O" class="mui-table-view-divider mui-indexed-list-group">O</li>
+						
+						<li data-group="P" class="mui-table-view-divider mui-indexed-list-group">P</li>
+						
+						<li data-group="Q" class="mui-table-view-divider mui-indexed-list-group">Q</li>
+						
+						<li data-group="R" class="mui-table-view-divider mui-indexed-list-group">R</li>
+						
+						<li data-group="S" class="mui-table-view-divider mui-indexed-list-group">S</li>
+						
+						<li data-group="T" class="mui-table-view-divider mui-indexed-list-group">T</li>
+						
+						<li data-group="U" class="mui-table-view-divider mui-indexed-list-group">U</li>
+						
+						<li data-group="V" class="mui-table-view-divider mui-indexed-list-group">V</li>
+						
+						<li data-group="W" class="mui-table-view-divider mui-indexed-list-group">W</li>
+						
+						<li data-group="X" class="mui-table-view-divider mui-indexed-list-group">X</li>
+						
+						<li data-group="Y" class="mui-table-view-divider mui-indexed-list-group">Y</li>
+						
+						<li data-group="Z" class="mui-table-view-divider mui-indexed-list-group">Z</li>
+						
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/mui.indexedlist.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			var SITE = "http://test.jikechufa.com/";
+			var group = document.querySelectorAll('.mui-indexed-list-group');
+			mui.ready(function() {
+				var header = document.querySelector('header.mui-bar');
+				var list = document.getElementById('list');
+				//calc hieght
+				list.style.height = (document.body.offsetHeight - header.offsetHeight) + 'px';
+				//create
+				window.indexedList = new mui.IndexedList(list);
+			});
+			mui.plusReady(function(){
+				
+				var AreaUrl = SITE + "/wap/common/getArea";
+				var AreaInfo = {
+					isInternal:1
+				};
+				mui.getJSON(AreaUrl,AreaInfo,function(data){
+					
+					for(var i = 0; i<group.length; i++){
+						
+						switch(i){
+							case 0:
+								if(data.data.A){
+									for(var i=0;i<data.data.A.length;i++){
+										var insertHtml = '<li data-value="'+data.data.A[i].name+'" data-id="'+data.data.A[i].id+'" data-tags="'+data.data.A[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.A[i].name+'</li>';
+										group[0].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 1:
+								if(data.data.B){
+									for(var i=0;i<data.data.B.length;i++){
+										var insertHtml = '<li data-value="'+data.data.B[i].name+'" data-id="'+data.data.B[i].id+'" data-tags="'+data.data.B[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.B[i].name+'</li>';
+										group[1].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 2:
+								if(data.data.C){
+									for(var i=0;i<data.data.C.length;i++){
+										var insertHtml = '<li data-value="'+data.data.C[i].name+'" data-id="'+data.data.C[i].id+'" data-tags="'+data.data.C[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.C[i].name+'</li>';
+										group[2].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 3:
+								if(data.data.D){
+									for(var i=0;i<data.data.C.length;i++){
+										var insertHtml = '<li data-value="'+data.data.D[i].name+'" data-id="'+data.data.D[i].id+'" data-tags="'+data.data.D[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.D[i].name+'</li>';
+										group[3].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 4:
+								if(data.data.E){
+									for(var i=0;i<data.data.E.length;i++){
+										var insertHtml = '<li data-value="'+data.data.E[i].name+'" data-id="'+data.data.E[i].id+'" data-tags="'+data.data.E[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.E[i].name+'</li>';
+										group[4].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 5:
+								if(data.data.F){
+									for(var i=0;i<data.data.F.length;i++){
+										var insertHtml = '<li data-value="'+data.data.F[i].name+'" data-id="'+data.data.F[i].id+'" data-tags="'+data.data.F[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.F[i].name+'</li>';
+										group[5].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 6:
+								if(data.data.G){
+									for(var i=0;i<data.data.G.length;i++){
+										var insertHtml = '<li data-value="'+data.data.G[i].name+'" data-id="'+data.data.G[i].id+'" data-tags="'+data.data.G[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.G[i].name+'</li>';
+										group[6].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 7:
+								if(data.data.H){
+									for(var i=0;i<data.data.H.length;i++){
+										var insertHtml = '<li data-value="'+data.data.H[i].name+'" data-id="'+data.data.H[i].id+'" data-tags="'+data.data.H[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.H[i].name+'</li>';
+										group[7].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 8:
+								if(data.data.I){
+									for(var i=0;i<data.data.I.length;i++){
+										var insertHtml = '<li data-value="'+data.data.I[i].name+'" data-id="'+data.data.I[i].id+'" data-tags="'+data.data.I[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.I[i].name+'</li>';
+										group[8].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 9:
+								if(data.data.J){
+									for(var i=0;i<data.data.J.length;i++){
+										var insertHtml = '<li data-value="'+data.data.J[i].name+'" data-id="'+data.data.J[i].id+'" data-tags="'+data.data.J[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.J[i].name+'</li>';
+										group[9].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 10:
+								if(data.data.K){
+									for(var i=0;i<data.data.K.length;i++){
+										var insertHtml = '<li data-value="'+data.data.K[i].name+'" data-id="'+data.data.K[i].id+'" data-tags="'+data.data.K[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.K[i].name+'</li>';
+										group[10].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 11:
+								if(data.data.L){
+									for(var i=0;i<data.data.L.length;i++){
+										var insertHtml = '<li data-value="'+data.data.L[i].name+'" data-id="'+data.data.L[i].id+'" data-tags="'+data.data.L[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.L[i].name+'</li>';
+										group[11].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+									
+								};
+							case 12:
+								if(data.data.M){
+									for(var i=0;i<data.data.M.length;i++){
+										var insertHtml = '<li data-value="'+data.data.M[i].name+'" data-id="'+data.data.M[i].id+'" data-tags="'+data.data.M[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.M[i].name+'</li>';
+										group[12].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 13:
+								if(data.data.N){
+									for(var i=0;i<data.data.N.length;i++){
+										var insertHtml = '<li data-value="'+data.data.N[i].name+'" data-id="'+data.data.N[i].id+'" data-tags="'+data.data.N[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.N[i].name+'</li>';
+										group[13].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 14:
+								if(data.data.O){
+									for(var i=0;i<data.data.O.length;i++){
+										var insertHtml = '<li data-value="'+data.data.O[i].name+'" data-id="'+data.data.O[i].id+'" data-tags="'+data.data.O[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.O[i].name+'</li>';
+										group[13].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 15:
+								if(data.data.P){
+									for(var i=0;i<data.data.P.length;i++){
+										var insertHtml = '<li data-value="'+data.data.P[i].name+'" data-id="'+data.data.P[i].id+'" data-tags="'+data.data.P[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.P[i].name+'</li>';
+										group[15].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 16:
+								if(data.data.Q){
+									for(var i=0;i<data.data.Q.length;i++){
+										var insertHtml = '<li data-value="'+data.data.Q[i].name+'" data-id="'+data.data.Q[i].id+'" data-tags="'+data.data.Q[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.Q[i].name+'</li>';
+										group[16].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 17:
+								if(data.data.R){
+									for(var i=0;i<data.data.R.length;i++){
+										var insertHtml = '<li data-value="'+data.data.R[i].name+'" data-id="'+data.data.R[i].id+'" data-tags="'+data.data.R[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.R[i].name+'</li>';
+										group[17].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 18:
+								if(data.data.S){
+									for(var i=0;i<data.data.S.length;i++){
+										var insertHtml = '<li data-value="'+data.data.S[i].name+'" data-id="'+data.data.S[i].id+'" data-tags="'+data.data.S[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.S[i].name+'</li>';
+										group[18].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 19:
+								if(data.data.T){
+									for(var i=0;i<data.data.T.length;i++){
+										var insertHtml = '<li data-value="'+data.data.T[i].name+'" data-id="'+data.data.T[i].id+'" data-tags="'+data.data.T[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.T[i].name+'</li>';
+										group[19].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 20:
+								if(data.data.U){
+									for(var i=0;i<data.data.U.length;i++){
+										var insertHtml = '<li data-value="'+data.data.U[i].name+'" data-id="'+data.data.U[i].id+'" data-tags="'+data.data.U[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.U[i].name+'</li>';
+										group[20].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 21:
+								if(data.data.V){
+									for(var i=0;i<data.data.V.length;i++){
+										var insertHtml = '<li data-value="'+data.data.V[i].name+'" data-id="'+data.data.V[i].id+'" data-tags="'+data.data.V[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.V[i].name+'</li>';
+										group[21].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 22:
+								if(data.data.W){
+									for(var i=0;i<data.data.W.length;i++){
+										var insertHtml = '<li data-value="'+data.data.W[i].name+'" data-id="'+data.data.W[i].id+'" data-tags="'+data.data.W[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.W[i].name+'</li>';
+										group[22].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 23:
+								if(data.data.X){
+									for(var i=0;i<data.data.X.length;i++){
+										var insertHtml = '<li data-value="'+data.data.X[i].name+'" data-id="'+data.data.X[i].id+'" data-tags="'+data.data.X[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.X[i].name+'</li>';
+										group[23].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 24:
+								if(data.data.Y){
+									for(var i=0;i<data.data.Y.length;i++){
+										var insertHtml = '<li data-value="'+data.data.Y[i].name+'" data-id="'+data.data.Y[i].id+'" data-tags="'+data.data.Y[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.Y[i].name+'</li>';
+										group[25].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+							case 25:
+								if(data.data.Z){
+									for(var i=0;i<data.data.Z.length;i++){
+										var insertHtml = '<li data-value="'+data.data.Z[i].name+'" data-id="'+data.data.Z[i].id+'" data-tags="'+data.data.Z[i].initial+'" class="mui-table-view-cell mui-indexed-list-item">'+data.data.Z[i].name+'</li>';
+										group[25].insertAdjacentHTML("afterEnd",insertHtml) ;
+									};
+								};
+						}
+						
+					};
+					
+				});
+				
+				
+				var pwid = plus.webview.currentWebview().pwid;
+				var pw = plus.webview.getWebviewById(pwid);
+				mui('.mui-indexed-list-inner').on('tap', '.mui-indexed-list-item', function(){
+					var getVlue = {
+					  value:this.dataset.value,
+					  name:this.dataset.name,
+					  id:this.dataset.id
+					};
+					mui.fire(pw,'getInfo',getVlue);
+					mui.back();
+				});
+				
+				
+			});
+		</script>
+	</body>
+
+</html>

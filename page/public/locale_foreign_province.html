@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<title>选择省</title>
+		<link href="../../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/public.css" />
+		<style>
+			.mui-table-view{
+				background-color: #FFFFFF;
+				margin-top: 0 !important;
+				font-size: 14px;
+			}
+			.mui-table-view-cell:after{
+				left: 0 ;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">选择省</h1>
+		</header>
+		<div class="mui-content">
+			<div style="padding:10px;">
+				<a style="padding:50px 50px;" class="J_country" data-val="domestic">国内</a>
+				<a style="padding:50px 50px;color:red;" class="J_country" data-val="foreign">国外</a>
+			</div>
+			<ul class="mui-table-view" id="J_list">
+				<!--<li class="mui-table-view-cell mui-indexed-list-item mui-checkbox" data-placeid="2">韩国</li>-->
+			</ul>
+		</div>
+		<script type="text/javascript" src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/common.js "></script>
+		<script type="text/javascript" src="../../js/UserInfo.js"></script>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();
+			mui.plusReady(function() {
+				// 上级页面
+				var fpwid 	= plus.webview.currentWebview().pwid;
+				var fpw 		= plus.webview.getWebviewById(fpwid);
+				// 上上级页面: 中国页
+				var d_pwid 	= plus.webview.currentWebview().d_pwid;
+				var d_pw 		= plus.webview.getWebviewById(d_pwid);
+				// 顶级页面
+				var return_pwid 	= plus.webview.currentWebview().return_pwid;
+				var return_pw 	= plus.webview.getWebviewById(return_pwid);
+				// 传递参数: areaid, name
+				var areaid  = plus.webview.currentWebview().areaid;;
+				var upper_name  = plus.webview.currentWebview().name;
+				
+				mui('.mui-content').on('tap', '.J_country', function(){
+					var val = this.dataset.val;
+					console.log(val);
+					if(val == 'domestic') { // 国内
+						var themeid 	= this.dataset.themeid;
+						var twid = plus.webview.currentWebview().id;
+						
+						openwindow('../public/locale_domestic.html', {pwid:twid});
+					}
+				});
+				console.log(areaid);
+				getArea(0,2, areaid);
+				mui('#J_list').on('tap', '.J_province', function(){
+					var twid = plus.webview.currentWebview().id;
+					var areaid = this.dataset.areaid;
+					var name = upper_name + ',' + this.dataset.name;
+					console.log(name);
+					openwindow('../public/locale_foreign_city.html', {pwid:twid,d_pwid:d_pwid,return_pwid:return_pwid, fpwid:fpwid, areaid:areaid, name:name});
+					
+				});
+			});
+			
+			
+			/**
+			 * 获取国家省市列表
+			 * @param {Object} integer
+			 * @param {Object} grade
+			 */
+			function getArea(isInternal, grade, areaid){
+				var server = SITE + 'common/getArea';
+				mui.get(server, {isInternal:isInternal, grade:grade, areaID:areaid}, function(response) {
+					if(response.code == 1){
+						var html = '';
+						for(var item in response.data) {
+							html += '<li class="mui-table-view-cell mui-indexed-list-item mui-radio J_province" data-areaid="'+response.data[item].id+'" data-name="'+response.data[item].name+'"><a  class="mui-navigate-right">'+response.data[item].name+'</a></li>';
+						}
+						document.getElementById('J_list').innerHTML = html;
+					}
+				},'json');
+			}
+		</script>
+	</body>
+
+</html>
